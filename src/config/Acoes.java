@@ -43,22 +43,27 @@ public class Acoes {
                 | |_ | | | | | | '_ \\ / _ \\ \\ /\\ / /
                 |  _|| | |_| | | | | | (_) \\ V  V / 
                 |_|  |_|\\__, | |_| |_|\\___/ \\_/\\_/  
-                        |___/                                     SIST-DOWN v0.1
+                        |___/                                     SIST-DOWN v1.0
               ==================================================================               
                 """;
         System.out.print(message);
         printaTrechos();
-        System.out.println("* Digite os Ids dos trechos que quer baixar separados por virgula.");
-        System.out.println("* Para limpar a pasta, coloque a palavra limpa nos parametros. Ex:");
-        System.out.println("    limpa, 1210, 1211, 1212");
+        System.out.println("* Para 'baixar' trechos, digite os ids separados por virgula. Ex:");
+        System.out.println("  100, 101, 102");
+        System.out.println("* Para 'limpar' e também baixar os trechos, coloque o param limpa");
+        System.out.println("  100, 101, 102, limpa");
+        // System.out.println("* Para 'baixar' trechos de outro ciclo, acrescente o ciclo1");
+        // System.out.println("  100, 101, 102, ciclo2");
         System.out.println("==================================================================");
     }
+
 
 
 
     private static void getConfigs() throws Exception {
         trechosNoServidor = Files.readString(Paths.get(pathSistDownConfigs.toString())).replaceAll(", $", "");
     }
+
 
     
 
@@ -88,6 +93,7 @@ public class Acoes {
 
 
 
+
     public static void criaPromptPedindoTrechos() {
         try (Scanner scanner = new Scanner(System.in);) {
             String row = scanner.nextLine();
@@ -99,19 +105,22 @@ public class Acoes {
                     listaComIdsEscolhidos.add(rows[i].replaceAll("\\s+", ""));
             }
         }
-
+        System.out.println();
     }
+
+
+
 
     public static void verificaSeLimpaPasta() throws Exception {
         for (int i=0; i<listaComIdsEscolhidos.size(); i++) {
             String param = listaComIdsEscolhidos.get(i);
             if (param.toLowerCase().contains("clea") ||param.toLowerCase().contains("limp")) {
-                System.out.println("..Limpando pasta");
                 trechosNoServidor = "";
                 listaComIdsEscolhidos.remove(i);
                 deleteFolder(pathDownloadSistDown.toFile());
                 FileWriter f = new FileWriter(pathSistDownConfigs.toFile(), false);
                 f.close();
+                System.out.println("...Pasta Limpa");
                 break;
             }
         }
@@ -123,7 +132,7 @@ public class Acoes {
 
     public static void downloadFolders() throws Exception {
         if (listaComIdsEscolhidos.size() > 0 ) {
-            System.out.println("\n....(0/" + listaComIdsEscolhidos.size() + ")Iniciando download dos trechos");
+            System.out.println("...Iniciando download dos trechos");
         }
         for (int i = 0; i < listaComIdsEscolhidos.size(); i++) { 
             boolean encontrou = false;
@@ -133,27 +142,33 @@ public class Acoes {
                     Path targetPath = Paths.get(pathDownloadSistDown.toString(), t.getLote(),
                             t.getHD(), t.getTargetHD().toString());
                     copyFolder(t.getCaminhoRede(), targetPath, StandardCopyOption.REPLACE_EXISTING);
-                    System.out.println("....(" + i + "/" + listaComIdsEscolhidos.size() + 
+                    System.out.println("....(" + (i+1) + "/" + listaComIdsEscolhidos.size() + 
                                        ") Baixado trecho de id: " + listaComIdsEscolhidos.get(i));
                     Files.write(pathSistDownConfigs, (listaComIdsEscolhidos.get(i) + ", ").getBytes(), StandardOpenOption.APPEND);
                     encontrou = true;
                     break;
                 }
             }
-            if (!encontrou) {
+            if (!encontrou)
                 System.out.println("....Não foi encontrado o trecho de id: " + listaComIdsEscolhidos.get(i));
-            }
         }
     }
 
+
+
+
     public static void printaFim() throws Exception {
         getConfigs();
-        System.out.println("\n");
+        System.out.println("\n\n");
         System.out.println("==================================================================");
-        System.out.println("* Finalizado os downloads..");
+        System.out.println("* Finalizado os downloads");
         printaTrechos();
         System.out.println("==================================================================");
+        Thread.sleep(2000000000);
     }
+
+
+
 
     private static void copyFolder(Path source, Path target, CopyOption... options) throws IOException {
         Files.walkFileTree(source, new SimpleFileVisitor<Path>() {
@@ -174,15 +189,17 @@ public class Acoes {
         });
     }
 
+
+
+
     private static void deleteFolder(File folder) {
         File[] files = folder.listFiles();
         if (files != null) { // some JVMs return null for empty dirs
             for (File f : files) {
-                if (f.isDirectory()) {
+                if (f.isDirectory())
                     deleteFolder(f);
-                } else {
+                else
                     f.delete();
-                }
             }
         }
         folder.delete();

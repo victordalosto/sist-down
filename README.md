@@ -1,18 +1,6 @@
-## Getting Started
+<h1 align="center"> sist-down </h1>
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+<b>sist-down</b> - short for Sistlev Downloader.<br/><br/>
+This was a program created in one day to solve some of the internal network problems at <strong>DNIT</strong> (National Department of Infrastructure  and Transport), where the engineering team could not visualize and evaluate the images and videos stored on the servers due to the large flow of requests. <br/><br/>
+To solve this problem, this download manager was developed, where the videos and images would be scheduled to download and store on each engineer's local machine, following the schedule and workflow established for each worker, as well as the local storage capacity of each machine.
 
-## Folder Structure
-
-The workspace contains two folders by default, where:
-
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
