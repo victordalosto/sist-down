@@ -19,6 +19,7 @@ public class Acoes {
     private static String contexto;
 
 
+
     public static void inicializacao() throws Exception {
         Update.v2();
         Caminhos.criarPastas();
@@ -36,7 +37,7 @@ public class Acoes {
             }
         }
     }
-    
+
 
 
 
@@ -49,7 +50,7 @@ public class Acoes {
                      *    | |_ | | | | | | '_ \\ / _ \\ \\ /\\ / /
                      *    |  _|| | |_| | | | | | (_) \\ V  V /
                      *    |_|  |_|\\__, | |_| |_|\\___/ \\_/\\_/
-                     *            |___/                                              SIST-DOWN v1.9.3
+                     *            |___/                                              SIST-DOWN v1.9.5
                     """;
             System.out.print(message);
         } else {
@@ -79,17 +80,14 @@ public class Acoes {
     public static void criaPromptPedindoInputs() {
         listaComIdsEscolhidos = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
-        String row = scanner.nextLine();
-        row = row.replaceAll("\\s+", "").replaceAll("[;]", ",").replaceAll("[/]", ",").replaceAll("[.]", ",");
+        String row = scanner.nextLine().replaceAll("\\s+", ",").replaceAll("[;]", ",")
+                                       .replaceAll("[/]", ",").replaceAll("[.]", ",");
         if (!row.contains(",")) {
-            if (Util.isValid(row))
                 addListEscolhidos(row);
         } else {
             String[] rows = row.split(",");
             for (int i = 0; i < rows.length; i++) {
-                String trecho = rows[i];
-                if (Util.isValid(trecho))
-                    addListEscolhidos(trecho);
+                addListEscolhidos(rows[i]);
             }
         }
         System.out.println();
@@ -97,12 +95,14 @@ public class Acoes {
 
 
     private static void addListEscolhidos(String trecho) {
-        if (Tags.isTag(trecho)) {
-                listaComIdsEscolhidos.add(trecho.toUpperCase());
-        } else {
-            trecho = trecho.replaceAll("[^\\d.]", "");
-            if (Util.isValid(trecho))
-                listaComIdsEscolhidos.add(trecho);
+        if (Util.isValid(trecho)) {
+            if (Tags.isTag(trecho)) {
+                    listaComIdsEscolhidos.add(trecho.toUpperCase());
+            } else {
+                trecho = trecho.replaceAll("[^\\d.]", "");
+                if (Util.isValid(trecho))
+                    listaComIdsEscolhidos.add(trecho);
+            }
         }
     }
 
@@ -153,14 +153,18 @@ public class Acoes {
 
 
     public static void downloadFolders() throws Exception {
-        if (listaComIdsEscolhidos.size() > 0 && contexto.equalsIgnoreCase("local")) {
+        if (listaComIdsEscolhidos.size() > 0) {
             System.out.println(" * ...Iniciando o download dos trechos");
             for (int i = 0; i < listaComIdsEscolhidos.size(); i++) { 
                 String id = listaComIdsEscolhidos.get(i);
-                String caminho = Trechos.getCaminho(id);
-                if (caminho != null) {
-                    Path caminhoRede = Paths.get(Caminhos.REDE_VIDEOS_FOLDER.toString(), caminho);
-                    Path caminhoSistdown = Paths.get(Caminhos.SISTDOWN_DOWNLOADS.toString(), caminho);
+                String caminhoTrecho = Trechos.getCaminho(id);
+                if (caminhoTrecho != null) {
+                    Path caminhoRede = Paths.get(Caminhos.REDE_VIDEOS_FOLDER.toString(), caminhoTrecho);
+                    Path caminhoSistdown = Paths.get(Caminhos.SISTDOWN_DOWNLOADS.toString(), caminhoTrecho);
+                    if (contexto.equalsIgnoreCase("local"))
+                        caminhoSistdown = Paths.get(Caminhos.SISTDOWN_DOWNLOADS.toString(), caminhoTrecho);
+                    else 
+                        caminhoSistdown = Paths.get(Caminhos.SISTDOWN_DOWNLOADS_TEMPORARY.toString(), caminhoTrecho);
                     Util.copyFolder(caminhoRede, caminhoSistdown, StandardCopyOption.REPLACE_EXISTING);
                     String nomeTrecho = id + "-" + caminhoSistdown.toString().replaceAll(".+_", "").substring(0, 5);
                     System.out.println(" *Baixado " + nomeTrecho);
@@ -169,9 +173,7 @@ public class Acoes {
                     System.out.println(" * ...Não foi encontrado o trecho de id: " + listaComIdsEscolhidos.get(i) + ".");
                 }
             }
-        } else {
-            System.out.println(" * Mude o contexto para local para começar a baixar trechos");
-        }
+        } 
     }
 
 

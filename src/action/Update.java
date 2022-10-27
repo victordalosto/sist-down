@@ -11,10 +11,14 @@ public class Update {
 
 
     public static void v2() {
-        Util.deleteFolder(CODIGO_JAVA);
+        if (CODIGO_JAVA.isDirectory()) {
+            Util.deleteFolder(CODIGO_JAVA);
+        }
         Caminhos.criarPastas();
-        if (CONFIG.isFile())
+        if (CONFIG.isFile()) {
             CONFIG.renameTo(Caminhos.SISTDOWN_CONFIG_INFODOWNLOADS);
+            System.out.println(" * Sistdown atualizado para v2.0");
+        }
     }
 
 
