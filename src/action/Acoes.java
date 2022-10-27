@@ -30,12 +30,12 @@ public class Acoes {
     public static void inicializacao() throws Exception {
         System.out.println(" ================================================================================");
         String message = """
-                      __  _
-                    /  _|| |_   _   _ __   _____      __
-                    | |_ | | | | | | '_ \\ / _ \\ \\ /\\ / /
-                    |  _|| | |_| | | | | | (_) \\ V  V /
-                    |_|  |_|\\__, | |_| |_|\\___/ \\_/\\_/
-                            |___/                                                SIST-DOWN v1.9.2
+                 *      __  _
+                 *    /  _|| |_   _   _ __   _____      __
+                 *    | |_ | | | | | | '_ \\ / _ \\ \\ /\\ / /
+                 *    |  _|| | |_| | | | | | (_) \\ V  V /
+                 *    |_|  |_|\\__, | |_| |_|\\___/ \\_/\\_/
+                 *            |___/                                              SIST-DOWN v1.9.3
                 """;
         System.out.print(message);
         Update.v2();
@@ -47,9 +47,12 @@ public class Acoes {
 
 
     public static void printaInicio() throws Exception {
+        if (contexto != null) {
+            System.out.println(" * SISTDOWN Reiniciado");
+        }
         contexto = Files.readAllLines(Caminhos.SISTDOWN_CONFIG_CONTEXTO.toPath()).get(0);
         System.out.println(" ================================================================================");
-        System.out.println(" MODO: " + contexto);
+        System.out.println(" * MODO: " + contexto);
         printaTrechos();
         System.out.println(" ================================================================================");
         if (contexto.equals("local")) {
@@ -58,6 +61,7 @@ public class Acoes {
         }
         System.out.println(" * Para mudar o contexto do Sistlev, digite 'rede' ou 'local'");
         System.out.println(" ================================================================================");
+        System.out.print(" FLY-now> ");
     }
 
 
@@ -106,14 +110,14 @@ public class Acoes {
         for (int i=0; i<listaComIdsEscolhidos.size(); i++) {
             String param = listaComIdsEscolhidos.get(i);
             if (param.toLowerCase().contains("local") && !contexto.equals("local")) {
-                System.out.println(" Mudando o contexto para local");
+                System.out.println(" * Mudando o contexto para local");
                 contexto = "local";
                 Files.write(Caminhos.SISTDOWN_CONFIG_CONTEXTO.toPath(), (contexto).getBytes(), StandardOpenOption.TRUNCATE_EXISTING);
                 listaComIdsEscolhidos.remove(i);
                 Caminhos.SISTDOWN_SHORTCUT_REDE.delete();
                 Caminhos.SISTDOWN_DOWNLOADS_TEMPORARY.renameTo(Caminhos.SISTDOWN_DOWNLOADS);
             } else if (param.toLowerCase().contains("rede") && !contexto.equals("rede")) {
-                System.out.println(" Mudando o contexto para rede");
+                System.out.println(" * Mudando o contexto para rede");
                 contexto = "rede";
                 Files.write(Caminhos.SISTDOWN_CONFIG_CONTEXTO.toPath(), (contexto).getBytes(), StandardOpenOption.TRUNCATE_EXISTING);
                 listaComIdsEscolhidos.remove(i);
@@ -135,9 +139,10 @@ public class Acoes {
                 trechosNaLocal = "";
                 listaComIdsEscolhidos.remove(i);
                 deleteFolder(Caminhos.SISTDOWN_DOWNLOADS);
+                deleteFolder(Caminhos.SISTDOWN_DOWNLOADS_TEMPORARY);
                 FileWriter f = new FileWriter(Caminhos.SISTDOWN_CONFIG_INFODOWNLOADS, false);
                 f.close();
-                System.out.println(" ...Pasta Limpa");
+                System.out.println(" * ...Pasta Limpa");
         }}
     }
 
@@ -145,7 +150,7 @@ public class Acoes {
 
 
     public static void 
-    buscaTrechosDisponiveis() throws Exception {
+    carregaTrechosDisponiveis() throws Exception {
         try(Scanner scanner = new Scanner(Caminhos.pathCSVComTrechosDisponiveis)) {
             while (scanner.hasNext()) {
                 String[] row = scanner.nextLine().split(";"); // HD, ID, FINALPATH
@@ -159,7 +164,7 @@ public class Acoes {
 
     public static void downloadFolders() throws Exception {
         if (listaComIdsEscolhidos.size() > 0 && contexto.equals("local")) {
-            System.out.println(" ...Iniciando o download dos trechos");
+            System.out.println(" * ...Iniciando o download dos trechos");
             for (int i = 0; i < listaComIdsEscolhidos.size(); i++) { 
                 String id = listaComIdsEscolhidos.get(i);
                 String caminho = Trechos.getCaminho(id);
@@ -167,14 +172,14 @@ public class Acoes {
                     Path caminhoRede = Paths.get(Caminhos.REDE_VIDEOS_FOLDER.toString(), caminho);
                     Path caminhoSistdown = Paths.get(Caminhos.SISTDOWN_DOWNLOADS.toString(), caminho);
                     copyFolder(caminhoRede, caminhoSistdown, StandardCopyOption.REPLACE_EXISTING);
-                    System.out.println("Baixado " + id +  " - " +  caminhoSistdown.toString());
+                    System.out.println(" *Baixado " + id +  " - " +  caminhoSistdown.toString());
                     Files.write(Caminhos.SISTDOWN_CONFIG_INFODOWNLOADS.toPath(), (id + ", ").getBytes(), StandardOpenOption.APPEND);
                 } else {
-                    System.out.println(" ...Não foi encontrado o trecho de id: " + listaComIdsEscolhidos.get(i) + ".");
+                    System.out.println(" * ...Não foi encontrado o trecho de id: " + listaComIdsEscolhidos.get(i) + ".");
                 }
             }
         } else {
-            System.out.println(" Mude o contexto para local para começar a baixar trechos");
+            System.out.println(" * Mude o contexto para local para começar a baixar trechos");
         }
     }
 
@@ -182,7 +187,7 @@ public class Acoes {
 
 
     public static void printaFim() throws Exception {
-        System.out.println("\n\n\n\n\n");
+        System.out.println("\n\n\n\n\n\n\n");
     }
 
 

@@ -4,7 +4,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         Acoes.inicializacao();
-        Acoes.buscaTrechosDisponiveis();
+        Acoes.carregaTrechosDisponiveis();
         while (true) {
             Acoes.printaInicio();
             Acoes.criaPromptPedindoInputs();
@@ -13,6 +13,6 @@ public class Main {
             Acoes.downloadFolders();
             Acoes.printaFim();
         }
-        
+
     }
 }
