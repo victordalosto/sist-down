@@ -11,7 +11,7 @@ public class Update {
 
 
     public static void v2() {
-        Acoes.deleteFolder(CODIGO_JAVA);
+        Util.deleteFolder(CODIGO_JAVA);
         Caminhos.criarPastas();
         if (CONFIG.isFile())
             CONFIG.renameTo(Caminhos.SISTDOWN_CONFIG_INFODOWNLOADS);
