@@ -50,7 +50,7 @@ public class Acoes {
                      *    | |_ | | | | | | '_ \\ / _ \\ \\ /\\ / /
                      *    |  _|| | |_| | | | | | (_) \\ V  V /
                      *    |_|  |_|\\__, | |_| |_|\\___/ \\_/\\_/                     
-                     *            |___/                                              SIST-DOWN v1.9.8
+                     *            |___/                                              SIST-DOWN v1.9.9
                     """;
             System.out.print(message);
         } else {
@@ -174,7 +174,7 @@ public class Acoes {
                 Util.deleteFolder(caminhoSistdown.toFile());
                 Util.copyFolder(caminhoRede, caminhoSistdown, StandardCopyOption.REPLACE_EXISTING);
                 String nomeTrecho = idTrecho + "-" + caminhoSistdown.toString().replaceAll(".+_", "").substring(0, 5);
-                System.out.println(" *Baixando " + nomeTrecho);
+                System.out.println(" * ...>Baixado " + nomeTrecho);
                 Files.write(Caminhos.SISTDOWN_CONFIG_INFODOWNLOADS.toPath(), (nomeTrecho + ",  ").getBytes(), StandardOpenOption.APPEND);
             } else {
                 System.out.println(" * ...Não foi encontrado o trecho de id: " + listaComIdsEscolhidos.get(index) + ".");
