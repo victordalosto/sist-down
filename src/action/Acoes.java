@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
-import model.Tags;
+import model.TagsConfiguracao;
 import model.Trechos;
 import mslinks.ShellLink;
 
@@ -50,7 +50,7 @@ public class Acoes {
                      *    | |_ | | | | | | '_ \\ / _ \\ \\ /\\ / /
                      *    |  _|| | |_| | | | | | (_) \\ V  V /
                      *    |_|  |_|\\__, | |_| |_|\\___/ \\_/\\_/                     
-                     *            |___/                                              SIST-DOWN v1.9.7
+                     *            |___/                                              SIST-DOWN v1.9.8
                     """;
             System.out.print(message);
         } else {
@@ -98,7 +98,7 @@ public class Acoes {
      */
     private static void adicionaNaLista(String trecho) {
         if (Util.isValid(trecho)) {
-            if (Tags.isTag(trecho)) {
+            if (TagsConfiguracao.isTag(trecho)) {
                     listaComIdsEscolhidos.add(trecho.toUpperCase());
             } else {
                 trecho = trecho.replaceAll("[^\\d.]", "");
@@ -174,7 +174,7 @@ public class Acoes {
                 Util.deleteFolder(caminhoSistdown.toFile());
                 Util.copyFolder(caminhoRede, caminhoSistdown, StandardCopyOption.REPLACE_EXISTING);
                 String nomeTrecho = idTrecho + "-" + caminhoSistdown.toString().replaceAll(".+_", "").substring(0, 5);
-                System.out.println(" *Baixado " + nomeTrecho);
+                System.out.println(" *Baixando " + nomeTrecho);
                 Files.write(Caminhos.SISTDOWN_CONFIG_INFODOWNLOADS.toPath(), (nomeTrecho + ",  ").getBytes(), StandardOpenOption.APPEND);
             } else {
                 System.out.println(" * ...Não foi encontrado o trecho de id: " + listaComIdsEscolhidos.get(index) + ".");

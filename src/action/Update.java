@@ -10,6 +10,9 @@ public class Update {
 
 
 
+    /**
+     * Funcao que permite a atualização do Sistdown da versão V1 para a V2.
+     */
     public static void V2() {
         if (CODIGO_JAVA.isDirectory()) {
             Util.deleteFolder(CODIGO_JAVA);

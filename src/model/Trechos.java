@@ -7,21 +7,23 @@ public class Trechos {
 
     public static Map<String, String> hashTrechos = new HashMap<>();
 
+    
 
+    /**
+     * Adiciona os trechos possiveis para serem baixados
+     * @param id - Id do trecho no Sistlev
+     * @param cmainhoRede - Caminho do trecho na rede
+     */
     public static void addTrecho(String id, String cmainhoRede) {
         hashTrechos.put(id, cmainhoRede);
     }
+
 
 
     public static String getCaminho(String id) {
         return hashTrechos.get(id);
     }
 
-
-    public static Integer tamanho() {
-        System.out.println(hashTrechos);
-        return hashTrechos.size();
-    }
 
     
 }

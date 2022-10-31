@@ -8,7 +8,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 import model.Trechos;
 
@@ -27,6 +29,11 @@ public class Util {
     }
 
 
+
+    /**
+     * Verifica se o texto digitado é um input valido.
+     * Pode ser um trecho ou um texto de config.
+     */
     public static boolean isValid(String text) {
         if (text != null && !text.equals("") && !text.equals(" ")) 
             return true;
@@ -35,18 +42,34 @@ public class Util {
     }
 
 
+    /**
+     * Printa os trechos que estão baixados na maquina local.
+     */
     public static void printaTrechosQueEstaoNaMaquinaLocal() throws Exception {
-        String trechosNaLocal = Files.readString(Paths.get(Caminhos.SISTDOWN_CONFIG_INFODOWNLOADS.toString())).replaceAll(", $", "");
+        String trechosNaLocal = Files.readString(Paths.get(Caminhos.SISTDOWN_CONFIG_INFODOWNLOADS.toString())).replaceAll("\\s+", "").replaceAll(",$", "");
         if (trechosNaLocal.equals("")) {
             System.out.println(" * 0 trechos baixados.");
         } else {
             System.out.println(" * Trechos que estão na pasta:");
-            System.out.println(" * " + trechosNaLocal);
+            Set<String> trechos = new HashSet<>();
+            if (!trechosNaLocal.contains(",")) {
+                trechos.add(trechosNaLocal);
+            } else {
+                String [] rows = trechosNaLocal.split(",");
+                for (int i = 0; i < rows.length -1; i++) {
+                    if (Util.isValid(rows[i]))
+                        trechos.add(rows[i]);
+                }
+            }
+            System.out.println(" * " + trechos);
         }
     }
 
 
 
+    /**
+     * Algoritmo para copiar as pastas da rede para a maquina local
+     */
     public static void copyFolder(Path source, Path target, CopyOption... options) throws Exception {
         Files.walkFileTree(source, new SimpleFileVisitor<Path>() {
 
@@ -66,7 +89,9 @@ public class Util {
 
 
 
-
+    /**
+     * Algoritmo para deletar uma pasta
+     */
     public static void deleteFolder(File folder) {
         File[] files = folder.listFiles();
         if (files != null) { // some JVMs return null for empty dirs

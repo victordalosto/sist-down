@@ -26,6 +26,10 @@ public class Caminhos {
                                                                   "caminhos2.csv").toFile();
     
 
+
+    /**
+     * Rotina para criar as pastas necessarias para rodar o Sistdown
+     */
     public static void criarPastas() {
         if (!SISTDOWN_ROOT.exists() && !SISTDOWN_ROOT.isDirectory()) {
             SISTDOWN_ROOT.mkdirs();
@@ -41,6 +45,10 @@ public class Caminhos {
     }
 
 
+
+    /**
+     * Rotina para criar os arquivos necessarios para rodar o Sistdown
+     */
     public static void criarArquivos() throws IOException {
         if (!SISTDOWN_CONFIG_CONTEXTO.exists()) {
             SISTDOWN_CONFIG_CONTEXTO.createNewFile();
