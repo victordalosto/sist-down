@@ -42,7 +42,7 @@ public class Acoes {
      * bem como também printa os trechos que foram baixados.
      */
     public static void printaInicio() throws Exception {
-        if (primeiraVezRodando()) {
+        if (primeiraRun()) {
             System.out.println(" ================================================================================");
             String message = """
                      *      __  _
@@ -61,7 +61,7 @@ public class Acoes {
         System.out.println(" * MODO: " + contexto);
         Util.printaTrechosQueEstaoNaMaquinaLocal();
         System.out.println(" ================================================================================");
-        if (primeiraVezRodando()) {
+        if (primeiraRun()) {
             System.out.println(" * Para 'baixar' trechos, digite os ids separados por virgula.  Ex: 100, 101, 102");
             System.out.println(" * Para 'limpar' e também baixar acrescente o parametro limpa.  Ex: limpa, 85, 86");    
         }
@@ -119,11 +119,11 @@ public class Acoes {
         for (int i=0; i<listaComIdsEscolhidos.size(); i++) {
             String param = listaComIdsEscolhidos.get(i);
             if (param.equalsIgnoreCase("local") && !contexto.equalsIgnoreCase("local")) {
-                boolean trocou = trocaArquivos(Caminhos.SISTDOWN_CURRENT, Caminhos.SISTDOWN_SHORTCUT_REDE, 
+                boolean trocou = toggleContexto(Caminhos.SISTDOWN_CURRENT, Caminhos.SISTDOWN_SHORTCUT_REDE, 
                                                Caminhos.SISTDOWN_DOWNLOADS_LOCAL, Caminhos.SISTDOWN_CURRENT);
                 mudandoContexto("local", i, trocou);
             } else if (param.toLowerCase().equalsIgnoreCase("rede") && !contexto.equalsIgnoreCase("rede")) {
-                boolean trocou = trocaArquivos(Caminhos.SISTDOWN_CURRENT, Caminhos.SISTDOWN_DOWNLOADS_LOCAL, 
+                boolean trocou = toggleContexto(Caminhos.SISTDOWN_CURRENT, Caminhos.SISTDOWN_DOWNLOADS_LOCAL, 
                                                Caminhos.SISTDOWN_SHORTCUT_REDE, Caminhos.SISTDOWN_CURRENT);
                 mudandoContexto("rede", i, trocou);
             } else if (param.equalsIgnoreCase("limpa") || param.equalsIgnoreCase("limpar")) {
@@ -138,7 +138,11 @@ public class Acoes {
     }
 
 
-    private static boolean trocaArquivos(File file1, File target1, File file2, File target2) {
+    /**
+     * Faz o toggle do contexto dos arquivos, trocando a pasta intermedia Current que guarda os Vídeos,
+     * migra entre a pasta apontar para a rede ou para o repositorio local com os Downloads.
+     */
+    private static boolean toggleContexto(File file1, File target1, File file2, File target2) {
         boolean trocouPrimeiroArquivo = file1.renameTo(target1);
         if (trocouPrimeiroArquivo == false)
             return false;
@@ -152,7 +156,7 @@ public class Acoes {
 
 
     /**
-     * Passos executados para mudar de contexto entre a local e a rede.
+     * Rotina executada para mudar de contexto entre a local e a rede.
      */
     private static void mudandoContexto(String novoContexto, int id, boolean trocou) throws Exception {
         if (trocou) {
@@ -203,21 +207,22 @@ public class Acoes {
 
 
     /**
-     * Cria alguns separadores de linhas apenas por fim estético para reinicializar o Sistdown
+     * Cria alguns separadores de linhas e 
+     * informa a reinicialização do Sistdown.
      */
     public static void printaFim(){
-        Util.numeroInicializacoes++;
+        Util.inicializacoes++;
         System.out.println("\n\n\n\n\n\n\n");
     }
 
 
 
     /**
-     * Verifica se é a primeira vez rodando ou 
-     * se é uma reinicialização do Sistdown.
+     * Verifica se é a primeira vez rodando 
+     * ou se é uma reinicialização do Sistdown.
      */
-    public static boolean primeiraVezRodando() {
-        if (Util.numeroInicializacoes == 0)
+    public static boolean primeiraRun() {
+        if (Util.inicializacoes == 0)
             return true;
         return false;
     }

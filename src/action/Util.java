@@ -15,7 +15,7 @@ import model.Trechos;
 
 public class Util {
 
-    public static Integer numeroInicializacoes = 0;
+    public static Integer inicializacoes = 0;
 
 
 
@@ -54,7 +54,7 @@ public class Util {
         if (trechosNaLocal.equals("")) {
             System.out.println(" * 0 trechos baixados.");
         } else {
-            System.out.println(" * Baixados:");
+            System.out.print(" * Baixados: ");
             Set<String> trechos = new HashSet<>();
             if (!trechosNaLocal.contains(",")) {
                 trechos.add(trechosNaLocal);
@@ -65,7 +65,7 @@ public class Util {
                         trechos.add(rows[i]);
                 }
             }
-            System.out.println(" * " + trechos);
+            System.out.println(trechos);
         }
     }
 

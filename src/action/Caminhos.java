@@ -19,10 +19,7 @@ public class Caminhos {
     public static File SISTDOWN_CONFIG_CONTEXTO      = Paths.get(SISTDOWN_ROOT.toString(), "config", "contexto").toFile();
     public static File SISTDOWN_CONFIG_INFODOWNLOADS = Paths.get(SISTDOWN_ROOT.toString(), "config", "info-downloads").toFile();
 
-    public static File pathCSVComTrechosDisponiveis = Paths.get(REDE_VIDEO_FOLDER.toString(),
-                                                                  "Recebidos", 
-                                                                  "sistdown-config",
-                                                                  "caminhos2.csv").toFile();
+    public static File pathCSVComTrechosDisponiveis = Paths.get(REDE_VIDEO_FOLDER.toString(), "Recebidos", "sistdown-config", "caminhos2.csv").toFile();
     
 
 
