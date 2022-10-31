@@ -8,8 +8,23 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Scanner;
+
+import model.Trechos;
 
 public class Util {
+
+    /**
+     * Carrega do banco local, os trechos que estão disponíveis para download.
+     */
+    public static void carregaTrechosDisponiveis() throws Exception {
+        try(Scanner scanner = new Scanner(Caminhos.pathCSVComTrechosDisponiveis)) {
+            while (scanner.hasNext()) {
+                String[] row = scanner.nextLine().split(";");
+                Trechos.addTrecho(row[0], row[1]);
+            }
+        }
+    }
 
 
     public static boolean isValid(String text) {
@@ -20,15 +35,13 @@ public class Util {
     }
 
 
-    public static void printaTrechosNaMaquinaLocal(String contexto) throws Exception {
+    public static void printaTrechosQueEstaoNaMaquinaLocal() throws Exception {
         String trechosNaLocal = Files.readString(Paths.get(Caminhos.SISTDOWN_CONFIG_INFODOWNLOADS.toString())).replaceAll(", $", "");
-        if (contexto.equalsIgnoreCase("local")) {
-            if (trechosNaLocal.equals("")) {
-                System.out.println(" * 0 trechos baixados.");
-            } else {
-                System.out.println(" * Trechos que estão na pasta:");
-                System.out.println(" * " + trechosNaLocal);
-            }
+        if (trechosNaLocal.equals("")) {
+            System.out.println(" * 0 trechos baixados.");
+        } else {
+            System.out.println(" * Trechos que estão na pasta:");
+            System.out.println(" * " + trechosNaLocal);
         }
     }
 

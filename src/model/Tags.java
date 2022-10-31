@@ -2,7 +2,7 @@ package model;
 
 public enum Tags {
 
-    LOCAL, REDE, LIMPA, LIMPAR;
+    LOCAL, REDE, LIMPA, LIMPAR, LIMPE, LIMP;
 
 
     public static boolean isTag(String text) {
