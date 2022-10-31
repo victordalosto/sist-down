@@ -11,17 +11,20 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
-
 import model.Trechos;
 
 public class Util {
+
+    public static Integer numeroInicializacoes = 0;
+
+
 
     /**
      * Carrega do banco local, os trechos que estão disponíveis para download.
      */
     public static void carregaTrechosDisponiveis() throws Exception {
         try(Scanner scanner = new Scanner(Caminhos.pathCSVComTrechosDisponiveis)) {
-            while (scanner.hasNext()) {
+            while (scanner.hasNextLine()) {
                 String[] row = scanner.nextLine().split(";");
                 Trechos.addTrecho(row[0], row[1]);
             }
@@ -42,6 +45,7 @@ public class Util {
     }
 
 
+
     /**
      * Printa os trechos que estão baixados na maquina local.
      */
@@ -50,13 +54,13 @@ public class Util {
         if (trechosNaLocal.equals("")) {
             System.out.println(" * 0 trechos baixados.");
         } else {
-            System.out.println(" * Trechos que estão na pasta:");
+            System.out.println(" * Baixados:");
             Set<String> trechos = new HashSet<>();
             if (!trechosNaLocal.contains(",")) {
                 trechos.add(trechosNaLocal);
             } else {
                 String [] rows = trechosNaLocal.split(",");
-                for (int i = 0; i < rows.length -1; i++) {
+                for (int i = 0; i < rows.length; i++) {
                     if (Util.isValid(rows[i]))
                         trechos.add(rows[i]);
                 }
@@ -75,12 +79,20 @@ public class Util {
 
             @Override
             public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
-                Files.createDirectories(target.resolve(source.relativize(dir)));
-                return FileVisitResult.CONTINUE;
+                String pasta = dir.toString().toLowerCase();
+                if (!pasta.endsWith("geo") && !pasta.endsWith("irap")) {
+                    Files.createDirectories(target.resolve(source.relativize(dir)));
+                    return FileVisitResult.CONTINUE;
+                }
+                return FileVisitResult.SKIP_SUBTREE;
             }
 
             @Override
             public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                String arquivo = file.toString().toLowerCase();
+                if (arquivo.endsWith(".mp4")  || arquivo.endsWith(".avi") || arquivo.endsWith(".flv") || 
+                    arquivo.endsWith(".jpeg") || arquivo.endsWith(".jpg") || arquivo.endsWith(".png") || 
+                    arquivo.endsWith("logstrecho.xml"))
                 Files.copy(file, target.resolve(source.relativize(file)), options);
                 return FileVisitResult.CONTINUE;
             }

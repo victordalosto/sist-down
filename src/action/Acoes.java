@@ -1,4 +1,5 @@
 package action;
+import java.io.File;
 import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -11,7 +12,6 @@ import java.util.List;
 import java.util.Scanner;
 import model.TagsConfiguracao;
 import model.Trechos;
-import mslinks.ShellLink;
 
 public class Acoes {
 
@@ -50,7 +50,7 @@ public class Acoes {
                      *    | |_ | | | | | | '_ \\ / _ \\ \\ /\\ / /
                      *    |  _|| | |_| | | | | | (_) \\ V  V /
                      *    |_|  |_|\\__, | |_| |_|\\___/ \\_/\\_/                     
-                     *            |___/                                              SIST-DOWN v1.9.8
+                     *            |___/                                              SIST-DOWN v2.0.0
                     """;
             System.out.print(message);
         } else {
@@ -119,20 +119,17 @@ public class Acoes {
         for (int i=0; i<listaComIdsEscolhidos.size(); i++) {
             String param = listaComIdsEscolhidos.get(i);
             if (param.equalsIgnoreCase("local") && !contexto.equalsIgnoreCase("local")) {
-                listaComIdsEscolhidos.remove(i);
-                mudandoContexto("local");
-                Caminhos.SISTDOWN_SHORTCUT_REDE.delete();
-                Caminhos.SISTDOWN_DOWNLOADS_TEMPORARY.renameTo(Caminhos.SISTDOWN_DOWNLOADS);
+                boolean trocou = trocaArquivos(Caminhos.SISTDOWN_CURRENT, Caminhos.SISTDOWN_SHORTCUT_REDE, 
+                                               Caminhos.SISTDOWN_DOWNLOADS_LOCAL, Caminhos.SISTDOWN_CURRENT);
+                mudandoContexto("local", i, trocou);
             } else if (param.toLowerCase().equalsIgnoreCase("rede") && !contexto.equalsIgnoreCase("rede")) {
-                listaComIdsEscolhidos.remove(i);
-                mudandoContexto("rede");
-                if (Caminhos.SISTDOWN_DOWNLOADS.isDirectory())
-                    Caminhos.SISTDOWN_DOWNLOADS.renameTo(Caminhos.SISTDOWN_DOWNLOADS_TEMPORARY);
-                ShellLink.createLink(Caminhos.REDE_VIDEOS_FOLDER.toString(), Caminhos.SISTDOWN_SHORTCUT_REDE.toString());
+                boolean trocou = trocaArquivos(Caminhos.SISTDOWN_CURRENT, Caminhos.SISTDOWN_DOWNLOADS_LOCAL, 
+                                               Caminhos.SISTDOWN_SHORTCUT_REDE, Caminhos.SISTDOWN_CURRENT);
+                mudandoContexto("rede", i, trocou);
             } else if (param.equalsIgnoreCase("limpa") || param.equalsIgnoreCase("limpar")) {
                 listaComIdsEscolhidos.remove(i);
-                Util.deleteFolder(Caminhos.SISTDOWN_DOWNLOADS);
-                Util.deleteFolder(Caminhos.SISTDOWN_DOWNLOADS_TEMPORARY);
+                Util.deleteFolder(Caminhos.SISTDOWN_CURRENT);
+                Util.deleteFolder(Caminhos.SISTDOWN_DOWNLOADS_LOCAL);
                 FileWriter f = new FileWriter(Caminhos.SISTDOWN_CONFIG_INFODOWNLOADS, false);
                 f.close();
                 System.out.println(" * ...Pasta Limpa");
@@ -141,14 +138,32 @@ public class Acoes {
     }
 
 
+    private static boolean trocaArquivos(File file1, File target1, File file2, File target2) {
+        boolean trocouPrimeiroArquivo = file1.renameTo(target1);
+        if (trocouPrimeiroArquivo == false)
+            return false;
+        boolean trocouSegundoArquivo = file2.renameTo(target2);
+        if (trocouSegundoArquivo == true)
+            return true;
+        target1.renameTo(file1);
+        return false;
+    }
+
+
 
     /**
      * Passos executados para mudar de contexto entre a local e a rede.
      */
-    private static void mudandoContexto(String novoContexto) throws Exception {
-        System.out.println(" * Mudando o contexto para " + novoContexto);
-        contexto = novoContexto;
-        Files.write(Caminhos.SISTDOWN_CONFIG_CONTEXTO.toPath(), (contexto).getBytes(), StandardOpenOption.TRUNCATE_EXISTING);
+    private static void mudandoContexto(String novoContexto, int id, boolean trocou) throws Exception {
+        if (trocou) {
+            System.out.println(" * Mudando o contexto para " + novoContexto);
+            contexto = novoContexto;
+            Files.write(Caminhos.SISTDOWN_CONFIG_CONTEXTO.toPath(), contexto.getBytes(), 
+                        StandardOpenOption.TRUNCATE_EXISTING);
+        } else { 
+            System.out.println(" * Não foi possível trocar de contexto");
+        }
+        listaComIdsEscolhidos.remove(id);
     }
 
 
@@ -156,7 +171,7 @@ public class Acoes {
     /**
      * Faz o download dos trechos na maquina local
      */
-    public static void downloadFolders() throws Exception {
+    public static void inputsDeDownload() throws Exception {
         if (listaComIdsEscolhidos.size() > 0) {
             System.out.println(" * ...Iniciando o download dos trechos");
         }
@@ -165,19 +180,21 @@ public class Acoes {
             String idTrecho = listaComIdsEscolhidos.get(index);
             String caminhoTrecho = Trechos.getCaminho(idTrecho);
             if (caminhoTrecho != null) {
-                Path caminhoRede = Paths.get(Caminhos.REDE_VIDEOS_FOLDER.toString(), caminhoTrecho);
-                Path caminhoSistdown = Paths.get(Caminhos.SISTDOWN_DOWNLOADS.toString(), caminhoTrecho);
+                Path caminhoRede = Paths.get(Caminhos.REDE_VIDEO_FOLDER.toString(), caminhoTrecho);
+                Path caminhoSistdown = Paths.get(Caminhos.SISTDOWN_CURRENT.toString(), caminhoTrecho);
                 if (contexto.equalsIgnoreCase("local"))
-                    caminhoSistdown = Paths.get(Caminhos.SISTDOWN_DOWNLOADS.toString(), caminhoTrecho);
+                    caminhoSistdown = Paths.get(Caminhos.SISTDOWN_CURRENT.toString(), caminhoTrecho);
                 else 
-                    caminhoSistdown = Paths.get(Caminhos.SISTDOWN_DOWNLOADS_TEMPORARY.toString(), caminhoTrecho);
+                    caminhoSistdown = Paths.get(Caminhos.SISTDOWN_DOWNLOADS_LOCAL.toString(), caminhoTrecho);
                 Util.deleteFolder(caminhoSistdown.toFile());
                 Util.copyFolder(caminhoRede, caminhoSistdown, StandardCopyOption.REPLACE_EXISTING);
                 String nomeTrecho = idTrecho + "-" + caminhoSistdown.toString().replaceAll(".+_", "").substring(0, 5);
-                System.out.println(" *Baixando " + nomeTrecho);
                 Files.write(Caminhos.SISTDOWN_CONFIG_INFODOWNLOADS.toPath(), (nomeTrecho + ",  ").getBytes(), StandardOpenOption.APPEND);
+                System.out.println(" * ...>Baixado " + nomeTrecho);
             } else {
-                System.out.println(" * ...Não foi encontrado o trecho de id: " + listaComIdsEscolhidos.get(index) + ".");
+                if (!TagsConfiguracao.isTag(idTrecho)) {
+                    System.out.println(" * ...Não foi encontrado o trecho de id: " + listaComIdsEscolhidos.get(index) + ".");
+                }
             }
             listaComIdsEscolhidos.remove(index);
         } 
@@ -189,6 +206,7 @@ public class Acoes {
      * Cria alguns separadores de linhas apenas por fim estético para reinicializar o Sistdown
      */
     public static void printaFim(){
+        Util.numeroInicializacoes++;
         System.out.println("\n\n\n\n\n\n\n");
     }
 
@@ -199,7 +217,7 @@ public class Acoes {
      * se é uma reinicialização do Sistdown.
      */
     public static boolean primeiraVezRodando() {
-        if (contexto == null)
+        if (Util.numeroInicializacoes == 0)
             return true;
         return false;
     }
