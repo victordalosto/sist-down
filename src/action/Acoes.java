@@ -128,11 +128,16 @@ public class Acoes {
                 mudandoContexto("rede", i, trocou);
             } else if (param.equalsIgnoreCase("limpa") || param.equalsIgnoreCase("limpar")) {
                 listaComIdsEscolhidos.remove(i);
-                Util.deleteFolder(Caminhos.SISTDOWN_CURRENT);
-                Util.deleteFolder(Caminhos.SISTDOWN_DOWNLOADS_LOCAL);
-                FileWriter f = new FileWriter(Caminhos.SISTDOWN_CONFIG_INFODOWNLOADS, false);
-                f.close();
-                System.out.println(" * ...Pasta Limpa");
+                if(contexto.equalsIgnoreCase("local")){
+                    // Util.deleteFolder(Caminhos.SISTDOWN_DOWNLOADS_LOCAL);
+                    Util.deleteFolder(Caminhos.SISTDOWN_CURRENT);
+                    FileWriter f = new FileWriter(Caminhos.SISTDOWN_CONFIG_INFODOWNLOADS, false);
+                    f.close();
+                    Caminhos.criarPastas();
+                    System.out.println(" * ...Pasta Limpa");
+                } else {
+                    System.out.println(" * ...Mude de contexto para local para limpar o Sistdown");
+                }
             }
         }
     }
