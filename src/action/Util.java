@@ -22,7 +22,7 @@ public class Util {
     /**
      * Carrega do banco local, os trechos que estão disponíveis para download.
      */
-    public static void carregaTrechosDisponiveis() throws Exception {
+    public static void carregaListComTrechosDisponiveis() throws Exception {
         try(Scanner scanner = new Scanner(Caminhos.pathCSVComTrechosDisponiveis)) {
             while (scanner.hasNextLine()) {
                 String[] row = scanner.nextLine().split(";");

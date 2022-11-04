@@ -30,7 +30,7 @@ public class Acoes {
         Update.V2();
         Caminhos.criarPastas();
         Caminhos.criarArquivos();
-        Util.carregaTrechosDisponiveis();
+        Util.carregaListComTrechosDisponiveis();
         listaComIdsEscolhidos = Collections.synchronizedList(new ArrayList<>());
     }
 
@@ -50,7 +50,7 @@ public class Acoes {
                      *    | |_ | | | | | | '_ \\ / _ \\ \\ /\\ / /
                      *    |  _|| | |_| | | | | | (_) \\ V  V /
                      *    |_|  |_|\\__, | |_| |_|\\___/ \\_/\\_/                     
-                     *            |___/                                              SIST-DOWN v2.0.0
+                     *            |___/                                              SIST-DOWN v2.0.1
                     """;
             System.out.print(message);
         } else {
@@ -128,11 +128,17 @@ public class Acoes {
                 mudandoContexto("rede", i, trocou);
             } else if (param.equalsIgnoreCase("limpa") || param.equalsIgnoreCase("limpar")) {
                 listaComIdsEscolhidos.remove(i);
-                Util.deleteFolder(Caminhos.SISTDOWN_CURRENT);
-                Util.deleteFolder(Caminhos.SISTDOWN_DOWNLOADS_LOCAL);
+                File caminhoParaLimpar;
+                if(Caminhos.SISTDOWN_DOWNLOADS_LOCAL.isDirectory())
+                    caminhoParaLimpar = Caminhos.SISTDOWN_DOWNLOADS_LOCAL;
+                else 
+                    caminhoParaLimpar = Caminhos.SISTDOWN_CURRENT;
+                Util.deleteFolder(caminhoParaLimpar);
                 FileWriter f = new FileWriter(Caminhos.SISTDOWN_CONFIG_INFODOWNLOADS, false);
                 f.close();
+                caminhoParaLimpar.mkdir();
                 System.out.println(" * ...Pasta Limpa");
+
             }
         }
     }
