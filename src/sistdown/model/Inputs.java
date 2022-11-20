@@ -30,4 +30,14 @@ public class Inputs {
     public static int size() {
         return listaComInputs.size();
     }
+
+
+    public static String getFirst() {
+        return listaComInputs.get(0);
+    }
+
+
+    public static void removeFirst() {
+        listaComInputs.remove(0);
+    }
 }

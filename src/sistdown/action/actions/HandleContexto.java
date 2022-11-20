@@ -23,12 +23,12 @@ public class HandleContexto implements Acao {
                                                     Caminhos.SISTDOWN_DOWNLOADS_LOCAL, Caminhos.SISTDOWN_CURRENT);
                     mudandoContexto("LOCAL", i, trocou);
                 }
-            } else if (param.toLowerCase().equalsIgnoreCase("rede")) {
-                if (!Util.contexto.equalsIgnoreCase("rede")) {
+            } else if (param.toLowerCase().equalsIgnoreCase("REDE")) {
+                if (!Util.contexto.equalsIgnoreCase("REDE")) {
                     Inputs.listaComInputs.remove(i);
                     boolean trocou = toggleContexto(Caminhos.SISTDOWN_CURRENT, Caminhos.SISTDOWN_DOWNLOADS_LOCAL, 
                                                     Caminhos.SISTDOWN_SHORTCUT_REDE, Caminhos.SISTDOWN_CURRENT);
-                    mudandoContexto("rede", i, trocou);
+                    mudandoContexto("REDE", i, trocou);
                 }
             } 
         }
@@ -37,7 +37,7 @@ public class HandleContexto implements Acao {
 
 
     /**
-     * Faz o toggle do contexto dos arquivos, trocando a pasta intermedia Current que guarda os Vídeos,
+     * Faz o toggle do contexto dos arquivos, trocando a pasta intermediria Current que guarda os Vídeos,
      * migra entre a pasta apontar para a rede ou para o repositorio local com os Downloads.
      */
     private static boolean toggleContexto(File file1, File target1, File file2, File target2) {
