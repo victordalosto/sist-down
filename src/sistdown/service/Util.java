@@ -1,28 +1,40 @@
-package action;
+package service;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.CopyOption;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.HashSet;
 import java.util.Scanner;
-import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import model.Trechos;
 
 public class Util {
 
-    public static Integer inicializacoes = 0;
+    public static String contexto;
+    public static AtomicInteger inicializacoes = new AtomicInteger(0);
+
+    
+    /**
+     * Verifica se é a primeira vez rodando
+     * ou se é uma reinicialização do Sistdown.
+     */
+    public static boolean primeiraRun() {
+        if (inicializacoes.get() == 0)
+            return true;
+        return false;
+    }
 
 
 
     /**
-     * Carrega do banco local, os trechos que estão disponíveis para download.
+     * Carrega do CSV local, os trechos que estão disponíveis para download.
+     * CSV format  :  id;path  :  13373;\\10.100.10.219\Videos\Recebidos\2022\Lote2\3205\28_09_202213373_020RO0000000
      */
-    public static void carregaListComTrechosDisponiveis() throws Exception {
+    public static void carregaDoLocalUmaListComTrechosDisponiveis() throws Exception {
         try(Scanner scanner = new Scanner(Caminhos.pathCSVComTrechosDisponiveis)) {
             while (scanner.hasNextLine()) {
                 String[] row = scanner.nextLine().split(";");
@@ -38,35 +50,10 @@ public class Util {
      * Pode ser um trecho ou um texto de config.
      */
     public static boolean isValid(String text) {
-        if (text != null && !text.equals("") && !text.equals(" ")) 
+        if (text != null && !text.isBlank()) 
             return true;
         return false;
 
-    }
-
-
-
-    /**
-     * Printa os trechos que estão baixados na maquina local.
-     */
-    public static void printaTrechosQueEstaoNaMaquinaLocal() throws Exception {
-        String trechosNaLocal = Files.readString(Paths.get(Caminhos.SISTDOWN_CONFIG_INFODOWNLOADS.toString())).replaceAll("\\s+", "").replaceAll(",$", "");
-        if (trechosNaLocal.equals("")) {
-            System.out.println(" * 0 trechos baixados.");
-        } else {
-            System.out.print(" * Baixados: ");
-            Set<String> trechos = new HashSet<>();
-            if (!trechosNaLocal.contains(",")) {
-                trechos.add(trechosNaLocal);
-            } else {
-                String [] rows = trechosNaLocal.split(",");
-                for (int i = 0; i < rows.length; i++) {
-                    if (Util.isValid(rows[i]))
-                        trechos.add(rows[i]);
-                }
-            }
-            System.out.println(trechos);
-        }
     }
 
 
