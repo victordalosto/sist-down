@@ -5,11 +5,11 @@ import java.nio.file.Paths;
 public class Update {
 
     // Depreciado (since v1.0.1)
-    public static File CONFIG_OLD  = Paths.get(Caminhos.SISTDOWN_ROOT.toString(), "configs").toFile();
-
-    // Depreciado (since v2.0.0)
     public static File CODIGO_JAVA = Paths.get(Caminhos.SISTDOWN_ROOT.toString(), "codigo-java").toFile();
-
+    
+    // Depreciado (since v2.0.0)
+    public static File CONFIG_OLD  = Paths.get(Caminhos.SISTDOWN_ROOT.toString(), "configs").toFile();
+    
 
     /**
      * Funcao que permite a atualização do Sistdown para a versão V1.
