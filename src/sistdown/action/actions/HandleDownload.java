@@ -48,7 +48,8 @@ public class HandleDownload implements Acao {
 
 
 
-class Tarefa implements Callable<Tarefa> {
+
+class Tarefa implements Callable<Void> {
 
     String idTrecho;
     String caminho;
@@ -59,7 +60,7 @@ class Tarefa implements Callable<Tarefa> {
     }
 
     @Override
-    public Tarefa call() {
+    public Void call() {
         try {
             Path origin = Paths.get(Caminhos.REDE_VIDEO_FOLDER.toString(), caminho);
             Path target = getTarget(caminho);
@@ -69,7 +70,7 @@ class Tarefa implements Callable<Tarefa> {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return this;
+        return null;
     }
 
     
@@ -78,6 +79,8 @@ class Tarefa implements Callable<Tarefa> {
             return Paths.get(Caminhos.SISTDOWN_CURRENT.toString(), caminhoTrecho);
         return Paths.get(Caminhos.SISTDOWN_DOWNLOADS_LOCAL.toString(), caminhoTrecho);
     }
+
+
 
     private void informaQueTrechoFoiBaixado(String idTrecho, Path target) throws IOException {
         String nomeTrecho = idTrecho + "-" + target.toString().replaceAll(".+_", "").substring(0, 5);

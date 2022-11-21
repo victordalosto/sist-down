@@ -93,7 +93,7 @@ public class PrintaInicio implements Acao {
                     | |_ | | | | | | '_ \\ / _ \\ \\ /\\ / /
                     |  _|| | |_| | | | | | (_) \\ V  V /
                     |_|  |_|\\__, | |_| |_|\\___/ \\_/\\_/                                SIST-DOWN
-                            |___/                                                    Versão:2.1.1
+                            |___/                                                    Versão:2.1.2
                                                                                      
                 """;
         }

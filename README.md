@@ -5,6 +5,7 @@ This was a program created in one day to solve some of the internal network prob
 To solve this problem, this <strong>Download Manager</strong> was developed, where the videos and images would be scheduled to download and store on each engineer's local machine, following the schedule and workflow established for each worker, as well as the local storage capacity of each machine.
 <br/><br/>
 
+
 ## Revamp 2.0
 
 The Download manager was complete revamped.<br/>

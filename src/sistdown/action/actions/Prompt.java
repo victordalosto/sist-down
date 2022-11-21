@@ -12,6 +12,7 @@ public class Prompt implements Acao {
      * (i)  Trechos para baixar na maquina local,
      * (ii) Configurações que manipulam o Sistdown.
      */
+    @SuppressWarnings({ "resource" })
     public void executa() throws Exception {
         Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine().replaceAll("\\s+", ",").replaceAll("[;]", ",").replaceAll("[/]", ",").replaceAll("[.]", ",");
