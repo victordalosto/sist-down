@@ -30,20 +30,20 @@ public class HandleDownload implements Acao {
         if (Inputs.size() > 0) {
             System.out.println(" * ...Iniciando o download dos trechos");
             listaTarefa = new ArrayList<>();
+            while (Inputs.size() > 0) {
+                String idTrecho = Inputs.getFirst();
+                String caminho = Trechos.getCaminho(idTrecho);
+                Inputs.removeFirst();
+                if (caminho == null) {
+                    System.out.println(" * ...Não foi encontrado o trecho de id: "+idTrecho+".");
+                    continue;
+                } else {
+                    Tarefa tarefa = new Tarefa(idTrecho, caminho);
+                    listaTarefa.add(tarefa);
+                } 
+            }
+            executorService.invokeAll(listaTarefa);
         }
-        while (Inputs.size() > 0) {
-            String idTrecho = Inputs.getFirst();
-            String caminho = Trechos.getCaminho(idTrecho);
-            Inputs.removeFirst();
-            if (caminho == null) {
-                System.out.println(" * ...Não foi encontrado o trecho de id: "+idTrecho+".");
-                continue;
-            } else {
-                Tarefa tarefa = new Tarefa(idTrecho, caminho);
-                listaTarefa.add(tarefa);
-            } 
-        }
-        executorService.invokeAll(listaTarefa);
     }
 
 
