@@ -131,7 +131,8 @@ public class FrasesPedrao {
 
 
     public static String getRandom() {
-        String frase = listaFrasesPedrao.get(new Random().nextInt(listaFrasesPedrao.size()));
+        int numeroSorteado = new Random().nextInt(listaFrasesPedrao.size());
+        String frase = "Sabedoria " + numeroSorteado + " - " + listaFrasesPedrao.get(numeroSorteado);
         String fraseFormatada = frase.replaceAll(".{78}", "$0\n   ");
         return fraseFormatada;
     }

@@ -70,7 +70,9 @@ public class PrintaInicio implements Acao {
     }
 
 
-
+    /*
+     * Constroi uma ASCI ART contendo a logo do Sist-down
+     */
     private static String getLogo() {
         LocalDate hoje = LocalDate.now();
         DayOfWeek dia = hoje.getDayOfWeek();
@@ -97,7 +99,5 @@ public class PrintaInicio implements Acao {
         }
         return message;
     }
-
-
 
 }

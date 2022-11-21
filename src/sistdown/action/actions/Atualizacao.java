@@ -5,7 +5,6 @@ import service.Util;
 
 public class Atualizacao implements Acao {
     
-
     /**
      * Faz a atualizacao do Sistdown, 
      */
@@ -15,7 +14,5 @@ public class Atualizacao implements Acao {
             Update.V2();
         }
     }
-
-
 
 }

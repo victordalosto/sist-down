@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 import model.Inputs;
 import model.Trechos;
 import service.Caminhos;

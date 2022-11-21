@@ -26,8 +26,4 @@ public class Prompt implements Acao {
             System.out.println();
     }
 
-
-
-
-
 }
