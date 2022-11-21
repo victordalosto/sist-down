@@ -10,8 +10,8 @@ import model.Context;
 public class Caminhos {
 
     public static final File SISTDOWN_ROOT    = Paths.get("D:", "sist-down").toFile();
-    public static final File REDE_VIDEO_FOLDER = Paths.get("D:\\", "Videos").toFile();
-    // public static final File REDE_VIDEO_FOLDER = Paths.get("\\\\10.100.10.219", "Videos").toFile();
+    // public static final File REDE_VIDEO_FOLDER = Paths.get("D:\\", "Videos").toFile();
+    public static final File REDE_VIDEO_FOLDER = Paths.get("\\\\10.100.10.219", "Videos").toFile();
 
     public static final File SISTDOWN_CURRENT = Paths.get(SISTDOWN_ROOT.toString(), "Videos").toFile();
     public static final File SISTDOWN_SHORTCUT_REDE   = Paths.get(SISTDOWN_ROOT.toString(), "Videos-rede").toFile();
