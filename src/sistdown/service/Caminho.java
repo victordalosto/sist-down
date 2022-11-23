@@ -1,16 +1,19 @@
-package service;
+package sistdown.service;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import sistdown.model.Context;
 
-import model.Context;
 
-public class Caminhos {
+/**
+ * Classe <b>Caminho</b> contendo os caminhos dos arquivos de configuração,
+ * bem como métodos utilitários para criar os arquivos de configuração.
+ */
+public class Caminho {
 
     public static final File SISTDOWN_ROOT    = Paths.get("D:", "sist-down").toFile();
-    // public static final File REDE_VIDEO_FOLDER = Paths.get("D:\\", "Videos").toFile();
     public static final File REDE_VIDEO_FOLDER = Paths.get("\\\\10.100.10.219", "Videos").toFile();
 
     public static final File SISTDOWN_CURRENT = Paths.get(SISTDOWN_ROOT.toString(), "Videos").toFile();
@@ -26,7 +29,7 @@ public class Caminhos {
 
 
     /**
-     * Rotina para criar as pastas necessarias para rodar o Sistdown
+     * Rotina para criar as pastas necessarias para rodar o Sistdown.
      */
     public static void criarDiretorios() {
         if (!SISTDOWN_ROOT.isDirectory()) {
@@ -45,7 +48,7 @@ public class Caminhos {
 
 
     /**
-     * Rotina para criar os arquivos necessarios para rodar o Sistdown
+     * Rotina para criar os arquivos necessarios para rodar o Sistdown.
      */
     public static void criarArquivos() throws IOException {
         if (!SISTDOWN_CONFIG_CONTEXTO.exists()) {
@@ -56,4 +59,5 @@ public class Caminhos {
             SISTDOWN_CONFIG_INFODOWNLOADS.createNewFile();
         }
     }
+
 }

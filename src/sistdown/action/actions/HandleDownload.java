@@ -1,4 +1,4 @@
-package action.actions;
+package sistdown.action.actions;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -10,11 +10,18 @@ import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import model.Inputs;
-import model.Trechos;
-import service.Caminhos;
-import service.Util;
+import sistdown.model.InputsPrompt;
+import sistdown.model.Trechos;
+import sistdown.service.Caminho;
+import sistdown.service.Util;
 
+
+/**
+ * Funcionalidade - Download <p>
+ * Classe que faz o download dos vídeos da rede para a maquina local. <p>
+ * Caso o usuário faça a alteração de contexto, o sistema é capaz de 
+ * migrar o target da aplicação para trabalhar com a rede e continuar baixando os vídeos.
+ */
 public class HandleDownload implements Acao {
     
     static ExecutorService executorService = Executors.newFixedThreadPool(3);
@@ -22,16 +29,16 @@ public class HandleDownload implements Acao {
  
 
     /**
-     * Faz o download dos trechos na maquina local
+     * Faz o download dos trechos na maquina local.
      */
     public void executa() throws Exception {
-        if (Inputs.size() > 0) {
+        if (InputsPrompt.sizeList() > 0) {
             System.out.println(" * ...Iniciando o download dos trechos");
             listaTarefa = new ArrayList<>();
-            while (Inputs.size() > 0) {
-                String idTrecho = Inputs.getFirst();
+            while (InputsPrompt.sizeList() > 0) {
+                String idTrecho = InputsPrompt.getFirstInList();
                 String caminho = Trechos.getCaminho(idTrecho);
-                Inputs.removeFirst();
+                InputsPrompt.removeFirstInList();
                 if (caminho == null) {
                     System.out.println(" * ...Não foi encontrado o trecho de id: "+idTrecho+".");
                     continue;
@@ -48,7 +55,9 @@ public class HandleDownload implements Acao {
 
 
 
-
+/**
+ * Classe contendo Callable Task, permitindo que a aplicação faça o Download em diferentes Threads.
+ */
 class Tarefa implements Callable<Void> {
 
     String idTrecho;
@@ -62,7 +71,7 @@ class Tarefa implements Callable<Void> {
     @Override
     public Void call() {
         try {
-            Path origin = Paths.get(Caminhos.REDE_VIDEO_FOLDER.toString(), caminho);
+            Path origin = Paths.get(Caminho.REDE_VIDEO_FOLDER.toString(), caminho);
             Path target = getTarget(caminho);
             Util.deleteFolder(target.toFile());
             Util.copyFolder(origin, target, StandardCopyOption.REPLACE_EXISTING);
@@ -76,15 +85,15 @@ class Tarefa implements Callable<Void> {
     
     private Path getTarget(String caminhoTrecho) {
         if (Util.contexto.equalsIgnoreCase("LOCAL"))
-            return Paths.get(Caminhos.SISTDOWN_CURRENT.toString(), caminhoTrecho);
-        return Paths.get(Caminhos.SISTDOWN_DOWNLOADS_LOCAL.toString(), caminhoTrecho);
+            return Paths.get(Caminho.SISTDOWN_CURRENT.toString(), caminhoTrecho);
+        return Paths.get(Caminho.SISTDOWN_DOWNLOADS_LOCAL.toString(), caminhoTrecho);
     }
 
 
 
     private void informaQueTrechoFoiBaixado(String idTrecho, Path target) throws IOException {
         String nomeTrecho = idTrecho + "-" + target.toString().replaceAll(".+_", "").substring(0, 5);
-        Files.write(Caminhos.SISTDOWN_CONFIG_INFODOWNLOADS.toPath(), (nomeTrecho + ",  ").getBytes(), StandardOpenOption.APPEND);
+        Files.write(Caminho.SISTDOWN_CONFIG_INFODOWNLOADS.toPath(), (nomeTrecho + ",  ").getBytes(), StandardOpenOption.APPEND);
         System.out.println(" * ...>Baixado " + nomeTrecho);
     }
 

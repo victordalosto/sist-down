@@ -1,20 +1,22 @@
-package model;
-
+package sistdown.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import sistdown.service.Util;
 
-import service.Util;
 
-public class Inputs {
+/**
+ * Classe que guarda os inputs digitados na Action Prompt.
+ */
+public class InputsPrompt {
     
     public static List<String> listaComInputs = Collections.synchronizedList(new ArrayList<>());
 
 
     /**
-     * Adiciona na lista os inputs digitados
+     * Adiciona na lista os inputs digitados no prompt.
      */
-    public static void adicionaNaListaEscolhida(String trecho) {
+    public static void adicionaNaLista(String trecho) {
         if (Util.isValid(trecho)) {
             if (TagsConfiguracao.isTag(trecho)) {
                     listaComInputs.add(trecho.toUpperCase());
@@ -27,17 +29,30 @@ public class Inputs {
     }
 
 
-    public static int size() {
+
+    /**
+     * @return int contendo a quantidade de inputs validos digitados no prompt.
+     */
+    public static int sizeList() {
         return listaComInputs.size();
     }
 
 
-    public static String getFirst() {
+
+    /**
+     * @return String contendo o primeiro input digitado na List.
+     */
+    public static String getFirstInList() {
         return listaComInputs.get(0);
     }
 
 
-    public static void removeFirst() {
+
+    /**
+     * Remove o primeiro input da List.
+     */
+    public static void removeFirstInList() {
         listaComInputs.remove(0);
     }
+
 }

@@ -1,29 +1,31 @@
-package action.actions;
+package sistdown.action.actions;
 import java.io.File;
 import java.io.FileWriter;
-import model.Inputs;
-import service.Caminhos;
-import service.Util;
+import sistdown.model.InputsPrompt;
+import sistdown.service.Caminho;
+import sistdown.service.Util;
 
+
+/**
+ * Funcionalidade - Limpa <p>
+ * Classe que permite que o usuário limpe os trechos que estão armazenados na maquina local.
+ */
 public class HandleLimpa implements Acao {
 
-    /**
-     * Faz o tratamento caso tenha sido inseridos inputs de Configuração.
-     * Faz a limpeza dos trechos guardados na maquina local,
-     */
+    
     public void executa() throws Exception {
-        for (int i=0; i<Inputs.size(); i++) {
-            String param = Inputs.listaComInputs.get(i);
+        for (int i=0; i<InputsPrompt.sizeList(); i++) {
+            String param = InputsPrompt.listaComInputs.get(i);
             if (param.equalsIgnoreCase("limpar") || param.equalsIgnoreCase("limpa") || param.equalsIgnoreCase("limp")) {
-                Inputs.listaComInputs.remove(i);
+                InputsPrompt.listaComInputs.remove(i);
                 File caminhoParaLimpar;
-                if(Caminhos.SISTDOWN_DOWNLOADS_LOCAL.isDirectory())
-                    caminhoParaLimpar = Caminhos.SISTDOWN_DOWNLOADS_LOCAL;
+                if(Caminho.SISTDOWN_DOWNLOADS_LOCAL.isDirectory())
+                    caminhoParaLimpar = Caminho.SISTDOWN_DOWNLOADS_LOCAL;
                 else 
-                    caminhoParaLimpar = Caminhos.SISTDOWN_CURRENT;
+                    caminhoParaLimpar = Caminho.SISTDOWN_CURRENT;
 
                 Util.deleteFolder(caminhoParaLimpar);
-                FileWriter f = new FileWriter(Caminhos.SISTDOWN_CONFIG_INFODOWNLOADS, false);
+                FileWriter f = new FileWriter(Caminho.SISTDOWN_CONFIG_INFODOWNLOADS, false);
                 f.close();
                 caminhoParaLimpar.mkdir();
                 System.out.println(" * ...Pasta Limpa");

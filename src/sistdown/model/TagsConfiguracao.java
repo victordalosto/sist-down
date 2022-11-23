@@ -1,12 +1,17 @@
-package model;
+package sistdown.model;
 
+
+/**
+ * Enum contendo os inputs para acionar as principais funcionalidades do sistema.
+ */
 public enum TagsConfiguracao {
 
-    LOCAL, REDE, LIMPA, LIMPAR, LIMPE, LIMP;
+    LOCAL, REDE, LIMPA;
 
 
-    
-    /** Verifica se o input enviado é um arquivo de Configuracao */
+    /**
+     * Verifica se o input enviado é uma Tag para uma funcionalidade.
+     */
     public static boolean isTag(String text) {
         for (TagsConfiguracao tag : TagsConfiguracao.values()) {
             if (text.equalsIgnoreCase(tag.toString()))
@@ -14,5 +19,5 @@ public enum TagsConfiguracao {
         }
         return false;
     }
-    
+
 }

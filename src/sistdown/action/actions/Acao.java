@@ -1,10 +1,14 @@
-package action.actions;
+package sistdown.action.actions;
 
+
+/**
+ * Interface <b>Acao</b> usada para chamada de metodos usando o Chain of responsability
+ * em conjunto com o Design Pattern de Strategy.
+ */
 public interface Acao {
 
     /**
-     * Determina o metodo a ser executado na Chain.
-     * Construção usando o design pattern = Strategy + Chain of Events
+     * Define o metodo a ser executado na cadeia de ações.
      * @throws Exception
      */
     void executa() throws Exception ;

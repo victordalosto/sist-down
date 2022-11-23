@@ -1,8 +1,12 @@
-import action.Sistdown;
+package sistdown;
+import sistdown.action.Sistdown;
+import sistdown.model.Version;
 
+
+@Version(value = "2.2.0")
 public class Main {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         Sistdown.inicia();
     }
 
