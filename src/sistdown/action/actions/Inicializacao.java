@@ -1,27 +1,24 @@
-package action.actions;
-
+package sistdown.action.actions;
 import java.nio.file.Files;
+import sistdown.service.Caminho;
+import sistdown.service.Util;
 
-import service.Caminhos;
-import service.Util;
 
+/**
+ * Faz o Bootstrap da aplicação:                <p>
+ * (i) Cria pastas para fazer a inicialização;  <p>
+ * (ii) Carrega uma List com os possiveis trechos para download.
+ */
 public class Inicializacao implements Acao {
-    
 
-    /**
-     * Configurações de inicializacao:
-     * (i)  Cria pastas de inicialização, e
-     * (ii) Carrega os possiveis trechos para download.
-     */
+
     public void executa() throws Exception {
         if (Util.primeiraRun()) {
-            Caminhos.criarDiretorios();
-            Caminhos.criarArquivos();
-            Util.contexto = Files.readAllLines(Caminhos.SISTDOWN_CONFIG_CONTEXTO.toPath()).get(0);
+            Caminho.criarDiretorios();
+            Caminho.criarArquivos();
+            Util.contexto = Files.readAllLines(Caminho.SISTDOWN_CONFIG_CONTEXTO.toPath()).get(0);
             Util.carregaDoLocalUmaListComTrechosDisponiveis();
         }
     }
-
-
 
 }

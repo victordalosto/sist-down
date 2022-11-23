@@ -1,24 +1,23 @@
-package action.actions;
-
+package sistdown.action.actions;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+import sistdown.service.Caminho;
+import sistdown.service.FrasesPedrao;
+import sistdown.service.Util;
 
-import service.Caminhos;
-import service.FrasesPedrao;
-import service.Util;
 
+/**
+ * Faz o print na tela dos textos de inicialização.      <p>
+ * Printa a logo de inicio ou a logo de reinicializacao,
+ * bem como também printa os trechos que foram baixados.
+ */
 public class PrintaInicio implements Acao {
     
-
-    /**
-     * Faz o print na tela dos textos de inicialização.
-     * Printa a logo de inicio ou a logo de reinicializacao,
-     * bem como também printa os trechos que foram baixados.
-     */
+    
     public void executa() throws Exception {
         if (Util.primeiraRun()) {
             printaLinha();
@@ -26,15 +25,17 @@ public class PrintaInicio implements Acao {
         } else {
             System.out.println(" * SISTDOWN Reiniciado. MODO: " + Util.contexto);
         }
-        System.out.println(" * " + FrasesPedrao.getRandom()); 
+        System.out.println(" * " + FrasesPedrao.getRandomFrase()); 
         printaTrechosQueEstaoNaMaquinaLocal();
         if (Util.primeiraRun()) {
             System.out.println(" * Para 'baixar' trechos, digite os ids separados por virgula.  Ex: 100, 101, 102");
             System.out.println(" * Para 'limpar' e também baixar acrescente o parametro limpa.  Ex: limpa, 85, 86");
+            System.out.println(" * Para fazer a alteração do contexto da minha aplicação digite 'LOCAL' ou 'REDE'");
             printaLinha();    
         }
         System.out.print(" FLY-now> ");
     }
+
 
 
 
@@ -49,7 +50,7 @@ public class PrintaInicio implements Acao {
      */
     private static void printaTrechosQueEstaoNaMaquinaLocal() throws Exception {
         printaLinha();
-        String trechosNaLocal = Files.readString(Paths.get(Caminhos.SISTDOWN_CONFIG_INFODOWNLOADS.toString())).replaceAll("\\s+", "").replaceAll(",$", "");
+        String trechosNaLocal = Files.readString(Paths.get(Caminho.SISTDOWN_CONFIG_INFODOWNLOADS.toString())).replaceAll("\\s+", "").replaceAll(",$", "");
         if (trechosNaLocal.equals("")) {
             System.out.println(" * 0 trechos baixados.");
         } else {
@@ -71,7 +72,7 @@ public class PrintaInicio implements Acao {
 
 
     /*
-     * Constroi uma ASCI ART contendo a logo do Sist-down
+     * Constroi uma ASCII ART contendo a logo do Sist-down.
      */
     private static String getLogo() {
         LocalDate hoje = LocalDate.now();
@@ -86,6 +87,7 @@ public class PrintaInicio implements Acao {
                       |_|  \\__,_|\\__,_|___/\\__\\___/  |_| |_| |_|\\__,_|_| |_|\\___/ \\___|_|
                                                                                      
                     """;
+            return message;
         } else {
             message = """
                       __  _
@@ -93,11 +95,11 @@ public class PrintaInicio implements Acao {
                     | |_ | | | | | | '_ \\ / _ \\ \\ /\\ / /
                     |  _|| | |_| | | | | | (_) \\ V  V /
                     |_|  |_|\\__, | |_| |_|\\___/ \\_/\\_/                                SIST-DOWN
-                            |___/                                                    Versão:2.1.2
+                            |___/                                                    Versão:%s
                                                                                      
                 """;
+                return String.format(message, Util.getVersion());
         }
-        return message;
     }
 
 }

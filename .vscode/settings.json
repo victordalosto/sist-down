@@ -1,6 +1,6 @@
 {
     "java.project.sourcePaths": [
-        "src\\sistdown"
+        "src"
     ],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": []

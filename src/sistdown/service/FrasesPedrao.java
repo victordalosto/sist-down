@@ -1,9 +1,13 @@
-package service;
-
+package sistdown.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+
+/**
+ *  Classe <b>FrasesPedrao</b> contendo métodos GAG. <p>
+ *  A unica funcionalidade dessa classe e apresentar na tela algumas das frases do nosso colega de trabalho, Pedrao. 
+ */
 public class FrasesPedrao {
 
     public static List<String> listaFrasesPedrao = new ArrayList<>();
@@ -130,10 +134,14 @@ public class FrasesPedrao {
 
 
 
-    public static String getRandom() {
+    /**
+     * @return Uma palavra aleatória do vocabulário do Pedrao.
+     */
+    public static String getRandomFrase() {
         int numeroSorteado = new Random().nextInt(listaFrasesPedrao.size());
         String frase = "Sabedoria " + numeroSorteado + " - " + listaFrasesPedrao.get(numeroSorteado);
         String fraseFormatada = frase.replaceAll(".{78}", "$0\n   ");
         return fraseFormatada;
     }
+
 }

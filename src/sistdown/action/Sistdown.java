@@ -1,20 +1,28 @@
-package action;
+package sistdown.action;
 import java.util.ArrayList;
 import java.util.List;
-import action.actions.Acao;
-import action.actions.Atualizacao;
-import action.actions.Fim;
-import action.actions.HandleContexto;
-import action.actions.HandleDownload;
-import action.actions.HandleLimpa;
-import action.actions.Inicializacao;
-import action.actions.PrintaInicio;
-import action.actions.Prompt;
+import sistdown.action.actions.Acao;
+import sistdown.action.actions.Atualizacao;
+import sistdown.action.actions.Fim;
+import sistdown.action.actions.HandleContexto;
+import sistdown.action.actions.HandleDownload;
+import sistdown.action.actions.HandleLimpa;
+import sistdown.action.actions.Inicializacao;
+import sistdown.action.actions.PrintaInicio;
+import sistdown.action.actions.Prompt;
 
+
+/**
+ * Função principal que faz a inicialização do <b>Sist-down</b>.<p>
+ * Para iniciar o sistema basta rodar o método estático <code>iniciar()</code>
+ */
 public class Sistdown {
 
+    /** Lista com as ações executadas pelo sistema. */
     private static List<Acao> acoes = new ArrayList<>();
     
+    
+    /** Cria o encademaneto das ações. */
     static {
         acoes.add(new Inicializacao());
         acoes.add(new Atualizacao());
@@ -27,17 +35,21 @@ public class Sistdown {
     }
 
 
+
     /**
-     * Inicia o loop com a chamada dos metodos dos eventos encadeados - chain
+     * Inicia um loop com a chamada dos metodos que fazem o sistema funcionar.     <p>
+     * Funciona utilizando os padrões: (i) Chain of Responsability e (ii) Strategy.
      */
-    public static void inicia() throws Exception {
-        while (true) {
-            for (Acao acao : acoes)
-                acao.executa();
+    public static void inicia() {
+        try {
+            while (true) {
+                for (Acao acao : acoes)
+                    acao.executa();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(" * Problema com o Sistdown. Favor, avisar o vitão");
         }
     }
-
-
-
 
 }

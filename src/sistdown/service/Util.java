@@ -1,4 +1,4 @@
-package service;
+package sistdown.service;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.CopyOption;
@@ -9,18 +9,23 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
+import sistdown.Main;
+import sistdown.model.Trechos;
+import sistdown.model.Version;
 
-import model.Trechos;
 
+/**
+ *  Classe <b>Util</b> contendo métodos estáticos utilitários. <p>
+ *  Funções gerais utilizadas fora dos contextos das classes construídas.  
+ */
 public class Util {
 
     public static String contexto;
     public static AtomicInteger inicializacoes = new AtomicInteger(0);
 
-    
+
     /**
-     * Verifica se é a primeira vez rodando
-     * ou se é uma reinicialização do Sistdown.
+     * Verifica se é a primeira vez rodando ou se é uma reinicialização do Sistdown.
      */
     public static boolean primeiraRun() {
         if (inicializacoes.get() == 0)
@@ -31,11 +36,12 @@ public class Util {
 
 
     /**
-     * Carrega do CSV local, os trechos que estão disponíveis para download.
-     * CSV format  :  id;path  :  13373;\\10.100.10.219\Videos\Recebidos\2022\Lote2\3205\28_09_202213373_020RO0000000
+     * Carrega do CSV local, os trechos que estão disponíveis para download. <p>
+     * CSV formato :  
+     * id;path  :  13373;\Videos\Recebidos\2022\Lote2\3205\28_09_2022\13373_020RO0000000
      */
     public static void carregaDoLocalUmaListComTrechosDisponiveis() throws Exception {
-        try(Scanner scanner = new Scanner(Caminhos.pathCSVComTrechosDisponiveis)) {
+        try(Scanner scanner = new Scanner(Caminho.pathCSVComTrechosDisponiveis)) {
             while (scanner.hasNextLine()) {
                 String[] row = scanner.nextLine().split(";");
                 Trechos.addTrecho(row[0], row[1]);
@@ -46,8 +52,7 @@ public class Util {
 
 
     /**
-     * Verifica se o texto digitado é um input valido.
-     * Pode ser um trecho ou um texto de config.
+     * Verifica se o texto digitado é um input valido. Pode ser um trecho ou uma Tag.
      */
     public static boolean isValid(String text) {
         if (text != null && !text.isBlank()) 
@@ -59,7 +64,7 @@ public class Util {
 
 
     /**
-     * Algoritmo para copiar as pastas da rede para a maquina local
+     * Algoritmo para copiar as pastas da rede para a maquina local.
      */
     public static void copyFolder(Path source, Path target, CopyOption... options) throws Exception {
         Files.walkFileTree(source, new SimpleFileVisitor<Path>() {
@@ -102,6 +107,17 @@ public class Util {
             }
         }
         folder.delete();
+    }
+
+
+    
+    /**
+     * @return Current version of Sistdown
+     */
+    public static String getVersion() {
+        Class<?> main = Main.class;
+        Version version = main.getDeclaredAnnotation(Version.class);
+        return version.value();
     }
     
 }

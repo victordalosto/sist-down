@@ -1,27 +1,26 @@
-package action.actions;
-
+package sistdown.action.actions;
 import java.util.Scanner;
+import sistdown.model.InputsPrompt;
 
-import model.Inputs;
 
+/**
+ * Cria na tela um prompt pedindo inputs de:
+ * (i)  Trechos para baixar na maquina local,
+ * (ii) Tags de funcionalidades que manipulam o Sistdown.
+ */
 public class Prompt implements Acao {
     
 
-    /**
-     * Cria na tela um prompt pedindo inputs de:
-     * (i)  Trechos para baixar na maquina local,
-     * (ii) Configurações que manipulam o Sistdown.
-     */
     @SuppressWarnings({ "resource" })
     public void executa() throws Exception {
         Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine().replaceAll("\\s+", ",").replaceAll("[;]", ",").replaceAll("[/]", ",").replaceAll("[.]", ",");
             if (!input.contains(",")) {
-                Inputs.adicionaNaListaEscolhida(input);
+                InputsPrompt.adicionaNaLista(input);
             } else {
                 String[] rows = input.split(",");
                 for (String trecho : rows) {
-                    Inputs.adicionaNaListaEscolhida(trecho);
+                    InputsPrompt.adicionaNaLista(trecho);
                 }
             }
             System.out.println();
