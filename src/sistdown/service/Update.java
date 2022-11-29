@@ -37,5 +37,15 @@ public class Update {
             System.out.println(" * Sistdown atualizado para v2.0");
         }
     }
+
+
+
+    /**
+     * Funcao que adapta o Sist-down apos os problemas no banco
+     * Data: 29/11/2022
+     */
+    public static void V2_2() {
+        
+    }
     
 }
