@@ -11,7 +11,7 @@ import sistdown.service.Util;
 public class Atualizacao implements Acao {
 
     public void executa() throws Exception {
-        if (Util.primeiraRun()) {
+        if (Util.verificaSeEhAPrimeiraVezRodandoOPrograma()) {
             Update.V1();
             Update.V2();
         }

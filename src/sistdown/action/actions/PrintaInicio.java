@@ -19,7 +19,7 @@ public class PrintaInicio implements Acao {
     
     
     public void executa() throws Exception {
-        if (Util.primeiraRun()) {
+        if (Util.verificaSeEhAPrimeiraVezRodandoOPrograma()) {
             printaLinha();
             System.out.print(getLogo());
         } else {
@@ -27,7 +27,7 @@ public class PrintaInicio implements Acao {
         }
         System.out.println(" * " + FrasesPedrao.getRandomFrase()); 
         printaTrechosQueEstaoNaMaquinaLocal();
-        if (Util.primeiraRun()) {
+        if (Util.verificaSeEhAPrimeiraVezRodandoOPrograma()) {
             System.out.println(" * Para 'baixar' trechos, digite os ids separados por virgula.  Ex: 100, 101, 102");
             System.out.println(" * Para 'limpar' e também baixar acrescente o parametro limpa.  Ex: limpa, 85, 86");
             System.out.println(" * Para fazer a alteração do contexto da minha aplicação digite 'LOCAL' ou 'REDE'");
@@ -95,7 +95,7 @@ public class PrintaInicio implements Acao {
                     | |_ | | | | | | '_ \\ / _ \\ \\ /\\ / /
                     |  _|| | |_| | | | | | (_) \\ V  V /
                     |_|  |_|\\__, | |_| |_|\\___/ \\_/\\_/                                SIST-DOWN
-                            |___/                                                    Versão:%s
+                            |___/                                                   Versão: %s
                                                                                      
                 """;
                 return String.format(message, Util.getVersion());

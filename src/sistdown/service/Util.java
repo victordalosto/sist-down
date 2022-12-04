@@ -27,7 +27,7 @@ public class Util {
     /**
      * Verifica se é a primeira vez rodando ou se é uma reinicialização do Sistdown.
      */
-    public static boolean primeiraRun() {
+    public static boolean verificaSeEhAPrimeiraVezRodandoOPrograma() {
         if (inicializacoes.get() == 0)
             return true;
         return false;

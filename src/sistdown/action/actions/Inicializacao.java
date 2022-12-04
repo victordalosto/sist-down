@@ -13,7 +13,7 @@ public class Inicializacao implements Acao {
 
 
     public void executa() throws Exception {
-        if (Util.primeiraRun()) {
+        if (Util.verificaSeEhAPrimeiraVezRodandoOPrograma()) {
             Caminho.criarDiretorios();
             Caminho.criarArquivos();
             Util.contexto = Files.readAllLines(Caminho.SISTDOWN_CONFIG_CONTEXTO.toPath()).get(0);
