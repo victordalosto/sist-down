@@ -7,6 +7,7 @@ import sistdown.action.actions.Fim;
 import sistdown.action.actions.HandleContexto;
 import sistdown.action.actions.HandleDownload;
 import sistdown.action.actions.HandleLimpa;
+import sistdown.action.actions.Inicializacao;
 import sistdown.action.actions.Autorizacao;
 import sistdown.action.actions.PrintaInicio;
 import sistdown.action.actions.Prompt;
@@ -25,6 +26,7 @@ public class Sistdown {
     /** Cria o encademaneto das ações. */
     static {
         acoes.add(new Atualizacao());
+        acoes.add(new Inicializacao());
         acoes.add(new PrintaInicio());
         acoes.add(new Autorizacao());
         acoes.add(new Prompt());
