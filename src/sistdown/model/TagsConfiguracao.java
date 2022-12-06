@@ -6,7 +6,7 @@ package sistdown.model;
  */
 public enum TagsConfiguracao {
 
-    LOCAL, REDE, LIMPA;
+    LOCAL, REDE, LIMPA, LIMPAR;
 
 
     /**
