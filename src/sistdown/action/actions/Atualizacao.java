@@ -17,5 +17,4 @@ public class Atualizacao implements Acao {
             Update.V2_2();
         }
     }
-
 }

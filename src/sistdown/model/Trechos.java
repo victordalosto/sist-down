@@ -17,7 +17,7 @@ public class Trechos {
      * @param id - Id do trecho no Sistlev.
      * @param caminhoRede - Caminho do trecho na rede.
      */
-    public static void addTrecho(String id, String caminhoRede) {
+    public static void addTrechoNoBanco(String id, String caminhoRede) {
         hashTrechos.put(id, caminhoRede);
     }
 
@@ -30,6 +30,15 @@ public class Trechos {
      */
     public static String getCaminho(String id) {
         return hashTrechos.get(id);
+    }
+
+    
+
+    /** 
+     * Reinicia a lista com trechos disponíveis
+     */
+    public static void reiniciaBancoTrechos() {
+        hashTrechos = new HashMap<>();
     }
     
 }

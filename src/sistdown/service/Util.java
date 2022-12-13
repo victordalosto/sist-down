@@ -22,6 +22,7 @@ public class Util {
 
     public static String contexto;
     public static AtomicInteger inicializacoes = new AtomicInteger(0);
+    public static long lastModified = 0;
 
 
     /**
@@ -40,11 +41,15 @@ public class Util {
      * CSV formato :  
      * id;path  :  13373;\Videos\Recebidos\2022\Lote2\3205\28_09_2022\13373_020RO0000000
      */
-    public static void carregaDoLocalUmaListComTrechosDisponiveis() throws Exception {
-        try(Scanner scanner = new Scanner(Caminho.pathCSVComTrechosDisponiveis)) {
-            while (scanner.hasNextLine()) {
-                String[] row = scanner.nextLine().split(";");
-                Trechos.addTrecho(row[0], row[1]);
+    public static void criaListBancoComTrechosDisponiveis() throws Exception {
+        File pathCSV = new File(Caminho.pathCSVComTrechosDisponiveis.toString());
+        if (pathCSV.lastModified() != lastModified) {
+            Trechos.reiniciaBancoTrechos();
+            try(Scanner scanner = new Scanner(pathCSV)) {
+                while (scanner.hasNextLine()) {
+                    String[] row = scanner.nextLine().split(";");
+                    Trechos.addTrechoNoBanco(row[0], row[1]);
+                }
             }
         }
     }
