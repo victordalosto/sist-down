@@ -14,6 +14,7 @@ public class Atualizacao implements Acao {
         if (Util.verificaSeEhAPrimeiraVezRodandoOPrograma()) {
             Update.V1();
             Update.V2();
+            Update.V2_2();
         }
     }
 
