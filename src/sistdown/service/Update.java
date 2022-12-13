@@ -1,5 +1,6 @@
 package sistdown.service;
 import java.io.File;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 
@@ -41,11 +42,12 @@ public class Update {
 
 
     /**
-     * Funcao que adapta o Sist-down apos os problemas no banco
-     * Data: 29/11/2022
+     * Funcao que deleta o antigo runnable do Sistdown
      */
     public static void V2_2() {
-        
+        File oldRunnable = Paths.get(Caminho.SISTDOWN_ROOT.toString(), "jdk-18.0.2.1", "bin", "sist-down.jar").toFile();
+        if (oldRunnable.isFile())
+            Util.deleteFolder(oldRunnable);
     }
     
 }
