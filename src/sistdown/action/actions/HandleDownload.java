@@ -32,6 +32,7 @@ public class HandleDownload implements Acao {
      * Faz o download dos trechos na maquina local.
      */
     public void executa() throws Exception {
+        Util.criaListBancoComTrechosDisponiveis();
         if (InputsPrompt.sizeList() > 0) {
             System.out.println(" * ...Iniciando o download dos trechos");
             listaTarefa = new ArrayList<>();

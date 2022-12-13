@@ -17,7 +17,6 @@ public class Inicializacao implements Acao {
             Caminho.criarDiretorios();
             Caminho.criarArquivos();
             Util.contexto = Files.readAllLines(Caminho.SISTDOWN_CONFIG_CONTEXTO.toPath()).get(0);
-            Util.carregaDoLocalUmaListComTrechosDisponiveis();
         }
     }
 
