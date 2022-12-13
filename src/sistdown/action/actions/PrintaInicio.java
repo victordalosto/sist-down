@@ -28,9 +28,9 @@ public class PrintaInicio implements Acao {
         System.out.println(" * " + FrasesPedrao.getRandomFrase()); 
         printaTrechosQueEstaoNaMaquinaLocal();
         if (Util.verificaSeEhAPrimeiraVezRodandoOPrograma()) {
-            System.out.println(" * Para 'baixar' trechos, digite os ids separados por virgula.  Ex: 100, 101, 102");
-            System.out.println(" * Para 'limpar' e também baixar acrescente o parametro limpa.  Ex: limpa, 85, 86");
-            System.out.println(" * Para fazer a alteração do contexto da minha aplicação digite 'LOCAL' ou 'REDE'");
+            System.out.println(" * Para baixar trechos, digite os ids separados por virgula.   Ex: 100, 101, 102");
+            System.out.println(" * Para limpar e também baixar, acrescente o parâmetro limpa.  Ex: limpa, 85, 86");
+            System.out.println(" * Para fazer a alteração do contexto do Sistdown digite: 'LOCAL' ou 'REDE'");
             printaLinha();    
         }
         System.out.print(" FLY-now> ");
