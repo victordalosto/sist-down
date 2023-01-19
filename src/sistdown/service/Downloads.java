@@ -14,7 +14,7 @@ public class Downloads {
     /**
      * Algoritmo para copiar as pastas da rede para a maquina local.
      */
-    public static void copyFolder(Path source, Path target, CopyOption... options) throws Exception {
+    public static void walkAndCopy(Path source, Path target, CopyOption... options) throws Exception {
         Files.walkFileTree(source, new SimpleFileVisitor<Path>() {
 
             @Override

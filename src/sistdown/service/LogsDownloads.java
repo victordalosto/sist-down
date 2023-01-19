@@ -1,4 +1,5 @@
 package sistdown.service;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -25,7 +26,16 @@ public class LogsDownloads {
         if (!Util.isValid(row) || !row.contains(";") || row.split(";").length != 3)
             return "[" + row + "]";
         String[] array = row.split(";");
-        return "["+array[0]+" - " + array[1] + "/" + array[2] +"]";
+        while (array[0].length() < 5) {
+            array[0] = " " + array[0];
+        }
+        return "[ "+array[0]+" - " + array[1] + "/" + array[2] +" ]";
+    }
+
+
+    public static void clear() throws IOException {
+        FileWriter f = new FileWriter(Caminho.SISTDOWN_INFO_DOWNLOADS, false);
+        f.close();
     }
 
 
@@ -34,10 +44,10 @@ public class LogsDownloads {
     public static void printaTrechosQueEstaoNaMaquinaLocal() throws Exception {
         List<String> lines = Files.readAllLines(Paths.get(Caminho.SISTDOWN_INFO_DOWNLOADS.toString()));
         if (lines == null || lines.size() == 0) {
-            System.out.println(" ====================================================================================");
+            System.out.println(" ======================================================================================");
             System.out.println(" * 0 trechos baixados.    Digite o numero dos ids para baixar trechos");
         } else {
-            System.out.println(" ================================= TRECHOS BAIXADOS =================================");
+            System.out.println(" ================================== TRECHOS BAIXADOS ==================================");
             for (int i = 0; i < lines.size(); i++) {
                 if (i == 0) System.out.print("  ");
                 else if (i%4 == 0)  System.out.print("\n  ");
@@ -46,7 +56,7 @@ public class LogsDownloads {
             }
             System.out.println();
         }
-        System.out.println(" ====================================================================================");
+        System.out.println(" ======================================================================================");
     }
 
     

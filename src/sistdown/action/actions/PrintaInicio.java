@@ -13,8 +13,7 @@ public class PrintaInicio implements Acao {
     
     public void executa() throws Exception {
         if (Util.verificaSeEhAPrimeiraVezRodandoOPrograma()) {
-            System.out.println("");
-            System.out.println(" SISTDOWN: " + Util.getVersion());
+            System.out.println("\n SISTDOWN: " + Util.getVersion());
         }
         LogsDownloads.printaTrechosQueEstaoNaMaquinaLocal();
         System.out.print(" FLY-now> ");

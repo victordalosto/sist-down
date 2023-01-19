@@ -16,7 +16,7 @@ public class Caminho {
     public static final File TARGET_ROOT = Paths.get(SISTDOWN_ROOT.toString(), "Videos").toFile();
 
     public static final File CONFIG_FOLDER = Paths.get(SISTDOWN_ROOT.toString(), "config").toFile();
-    public static final File SISTDOWN_INFO_DOWNLOADS = Paths.get(CONFIG_FOLDER.toString(), "info-downloads").toFile();
+    public static final File SISTDOWN_INFO_DOWNLOADS = Paths.get(CONFIG_FOLDER.toString(), "logs-downloads").toFile();
 
     public static final File PATH_BANCO = Paths.get(INPUT_ROOT.toString(), "Recebidos", "sistdown-config", "caminhos.csv").toFile();
     

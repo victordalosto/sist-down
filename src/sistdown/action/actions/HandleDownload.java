@@ -41,7 +41,7 @@ public class HandleDownload implements Acao {
                     System.out.println(" * ... Não foi encontrado o trecho de id: "+idTrecho+".");
                     continue;
                 } else if(trechosBaixadosNesseLoop.contains(caminho)) {
-                    System.out.println(" * ... Trecho de id: "+idTrecho+" já foi ou já esta sendo baixado.");
+                    //System.out.println(" * ... Trecho de id: "+idTrecho+" já foi ou já esta sendo baixado.");
                     continue;
                 }else {
                     trechosBaixadosNesseLoop.add(caminho);
@@ -76,7 +76,7 @@ class Tarefa implements Callable<Void> {
             Path input = Paths.get(Caminho.INPUT_ROOT.toString(), caminho);
             Path target = Paths.get(Caminho.TARGET_ROOT.toString(), caminho);
             Downloads.delete(target.toFile());
-            Downloads.copyFolder(input, target, StandardCopyOption.REPLACE_EXISTING);
+            Downloads.walkAndCopy(input, target, StandardCopyOption.REPLACE_EXISTING);
             informaQueTrechoFoiBaixado(idTrecho, target);
         } catch (Exception e) {
             e.printStackTrace();

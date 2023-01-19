@@ -1,9 +1,9 @@
 package sistdown.action.actions;
-import java.io.FileWriter;
 import sistdown.model.InputsPrompt;
 import sistdown.model.TagsConfiguracao;
 import sistdown.service.Caminho;
 import sistdown.service.Downloads;
+import sistdown.service.LogsDownloads;
 
 
 /**
@@ -17,15 +17,11 @@ public class HandleLimpa implements Acao {
         for (int i=0; i<InputsPrompt.sizeList(); i++) {
             String param = InputsPrompt.listaComInputs.get(i);
             if (TagsConfiguracao.isClearTag(param)) {
-                System.out.print("\n * .");
                 InputsPrompt.listaComInputs.remove(i);
-                FileWriter f = new FileWriter(Caminho.SISTDOWN_INFO_DOWNLOADS, false);
-                f.close();
-                System.out.print(".");
+                LogsDownloads.clear();
                 Downloads.delete(Caminho.TARGET_ROOT);
-                System.out.print(".");
-                System.out.print(" Pasta Limpa");
                 Caminho.TARGET_ROOT.mkdir();
+                System.out.print("\n * ... Pasta Limpa");
             }
         }
     }
