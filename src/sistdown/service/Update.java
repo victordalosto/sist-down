@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 public class Update {
 
 
-    public static void now() {
+    public void now() {
         V1();
         V2();
         V2_2();
@@ -23,7 +23,7 @@ public class Update {
      * Funcao que faz a atualização do Sistdown para a versão V1.
      * Depreciado since: v1.0.1
      */
-    private static void V1() {
+    private void V1() {
         File CODIGO_JAVA = Paths.get(Caminho.SISTDOWN_ROOT.toString(), "codigo-java").toFile();
         if (CODIGO_JAVA.isDirectory()) {
             Downloads.delete(CODIGO_JAVA);
@@ -37,7 +37,7 @@ public class Update {
      * Funcao que faz a atualização do Sistdown para a versão V2.
      * Depreciado since: v2.0.0
      */
-    private static void V2() {
+    private void V2() {
         File CONFIG_OLD  = Paths.get(Caminho.SISTDOWN_ROOT.toString(), "configs").toFile();
         if (CONFIG_OLD.isFile()) {
             CONFIG_OLD.renameTo(Caminho.SISTDOWN_INFO_DOWNLOADS);
@@ -50,7 +50,7 @@ public class Update {
     /**
      * Funcao que deleta o antigo runnable do Sistdown
      */
-    private static void V2_2() {
+    private void V2_2() {
         File oldRunnable = Paths.get(Caminho.SISTDOWN_ROOT.toString(), "jdk-18.0.2.1", "bin", "sist-down.jar").toFile();
         if (oldRunnable.isFile())
             Downloads.delete(oldRunnable);
@@ -62,7 +62,7 @@ public class Update {
      * Deleta arquivos depreciados para troca de contexto entre local e rede
      * Depreciado since: v2.2.7
      */
-    private static void V2_3() {
+    private void V2_3() {
         File shortcut_rede   = Paths.get(Caminho.SISTDOWN_ROOT.toString(), "Videos-rede").toFile();
         if (shortcut_rede.isFile())
             Downloads.delete(shortcut_rede);

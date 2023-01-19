@@ -12,6 +12,6 @@ public class Atualizacao implements Acao {
 
     public void executa() throws Exception {
         if (Util.verificaSeEhAPrimeiraVezRodandoOPrograma())
-            Update.now();
+            new Update().now();
     }
 }

@@ -21,11 +21,16 @@ public class Caminho {
     public static final File PATH_BANCO = Paths.get(INPUT_ROOT.toString(), "Recebidos", "sistdown-config", "caminhos.csv").toFile();
     
 
+    public void init() throws IOException {
+        criarDiretorios();
+        criarArquivos();
+    }
+
 
     /**
      * Rotina para criar as pastas necessarias para rodar o Sistdown.
      */
-    public static void criarDiretorios() {
+    private void criarDiretorios() {
         if (!SISTDOWN_ROOT.isDirectory())
             SISTDOWN_ROOT.mkdirs();
         
@@ -42,7 +47,7 @@ public class Caminho {
     /**
      * Rotina para criar os arquivos necessarios para rodar o Sistdown.
      */
-    public static void criarArquivos() throws IOException {
+    private void criarArquivos() throws IOException {
         if (!SISTDOWN_INFO_DOWNLOADS.exists())
             SISTDOWN_INFO_DOWNLOADS.createNewFile();
     }

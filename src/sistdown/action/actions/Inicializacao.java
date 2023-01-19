@@ -13,8 +13,7 @@ public class Inicializacao implements Acao {
 
     public void executa() throws Exception {
         if (Util.verificaSeEhAPrimeiraVezRodandoOPrograma()) {
-            Caminho.criarDiretorios();
-            Caminho.criarArquivos();
+            new Caminho().init();
         }
     }
 
