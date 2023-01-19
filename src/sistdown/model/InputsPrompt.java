@@ -1,6 +1,5 @@
 package sistdown.model;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import sistdown.service.Util;
 
@@ -10,7 +9,7 @@ import sistdown.service.Util;
  */
 public class InputsPrompt {
     
-    public static List<String> listaComInputs = Collections.synchronizedList(new ArrayList<>());
+    public static List<String> listaComInputs = new ArrayList<>();
 
 
     /**

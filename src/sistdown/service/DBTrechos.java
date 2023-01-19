@@ -34,7 +34,7 @@ public class DBTrechos {
      * Carrega os trechos que estão disponíveis para download. <p>
      */
     private static void atualizaTrechosDisponiveisBanco() throws FileNotFoundException {
-        File pathCSV = new File(Caminho.pathCSVComTrechosDisponiveis.toString());
+        File pathCSV = new File(Caminho.PATH_BANCO.toString());
         if (pathCSV.lastModified() != lastModified) {
             hashTrechos = new HashMap<>();
             lastModified = pathCSV.lastModified();

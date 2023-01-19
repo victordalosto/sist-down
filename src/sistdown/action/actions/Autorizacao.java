@@ -22,16 +22,15 @@ public class Autorizacao implements Acao {
                     .build();
 
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("https://github.com/victordalosto/sist-down/blob/master/assets/value.json"))
+                    .uri(URI.create("http://139.144.52.108/"))
                     .GET()
                     .build();
 
-
             HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
 
-            if (!response.body().contains("*zH$QeJwagH#$AB5")) {
-                System.out.println("\n\n ****** ERRO DE AUTORIZACAO");
-                throw new RuntimeException("Usuario não autenticado");
+            if (!response.body().contains("zH$QeJwagH#$AB5!@#*45$asWjV+ab=c%&*ap0lJp~(b8r'Ti-Qas4ç")) {
+               System.out.println("\n\n ****** ERRO DE AUTORIZACAO");
+               throw new RuntimeException("Usuario não autenticado");
             }
         }
     }

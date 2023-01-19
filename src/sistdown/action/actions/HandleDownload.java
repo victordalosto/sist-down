@@ -13,7 +13,7 @@ import java.util.concurrent.Executors;
 import sistdown.model.InputsPrompt;
 import sistdown.service.Caminho;
 import sistdown.service.DBTrechos;
-import sistdown.service.Util;
+import sistdown.service.Downloads;
 
 
 /**
@@ -75,10 +75,10 @@ class Tarefa implements Callable<Void> {
     @Override
     public Void call() {
         try {
-            Path origin = Paths.get(Caminho.REDE_VIDEO_FOLDER.toString(), caminho);
+            Path origin = Paths.get(Caminho.INPUT_ROOT.toString(), caminho);
             Path target = getTarget(caminho);
-            Util.deleteFolder(target.toFile());
-            Util.copyFolder(origin, target, StandardCopyOption.REPLACE_EXISTING);
+            Downloads.delete(target.toFile());
+            Downloads.copyFolder(origin, target, StandardCopyOption.REPLACE_EXISTING);
             informaQueTrechoFoiBaixado(idTrecho, target);
         } catch (Exception e) {
             e.printStackTrace();
@@ -88,9 +88,7 @@ class Tarefa implements Callable<Void> {
 
     
     private Path getTarget(String caminhoTrecho) {
-        if (Util.contexto.equalsIgnoreCase("LOCAL"))
-            return Paths.get(Caminho.SISTDOWN_CURRENT.toString(), caminhoTrecho);
-        return Paths.get(Caminho.SISTDOWN_DOWNLOADS_LOCAL.toString(), caminhoTrecho);
+        return Paths.get(Caminho.TARGET_ROOT.toString(), caminhoTrecho);
     }
 
 

@@ -6,8 +6,8 @@ package sistdown.model;
  */
 public enum TagsConfiguracao {
 
-    LOCAL, REDE, LIMPA, LIMPAR;
-
+    LOCAL, REDE, LIMPA, LIMPAR, LIMP, 
+    CLEAR, CLEAN, CLS;
 
     /**
      * Verifica se o input enviado é uma Tag para uma funcionalidade.
@@ -20,4 +20,20 @@ public enum TagsConfiguracao {
         return false;
     }
 
+    
+
+    /**
+     * Verifica se o input enviado é uma Tag para uma funcionalidade.
+     */
+    public static boolean isClearTag(String text) {
+        if (text.equalsIgnoreCase(LIMPA.toString()) ||
+            text.equalsIgnoreCase(LIMPAR.toString()) ||
+            text.equalsIgnoreCase(LIMP.toString()) ||
+            text.equalsIgnoreCase(CLEAR.toString()) ||
+            text.equalsIgnoreCase(CLEAN.toString()) ||
+            text.equalsIgnoreCase(CLS.toString())
+            )
+                return true;
+        return false;
+    }
 }

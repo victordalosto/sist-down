@@ -3,12 +3,11 @@ import java.util.ArrayList;
 import java.util.List;
 import sistdown.action.actions.Acao;
 import sistdown.action.actions.Atualizacao;
+import sistdown.action.actions.Autorizacao;
 import sistdown.action.actions.Fim;
-import sistdown.action.actions.HandleContexto;
 import sistdown.action.actions.HandleDownload;
 import sistdown.action.actions.HandleLimpa;
 import sistdown.action.actions.Inicializacao;
-import sistdown.action.actions.Autorizacao;
 import sistdown.action.actions.PrintaInicio;
 import sistdown.action.actions.Prompt;
 
@@ -30,7 +29,6 @@ public class Sistdown {
         acoes.add(new PrintaInicio());
         acoes.add(new Autorizacao());
         acoes.add(new Prompt());
-        acoes.add(new HandleContexto());
         acoes.add(new HandleLimpa());
         acoes.add(new HandleDownload());
         acoes.add(new Fim());

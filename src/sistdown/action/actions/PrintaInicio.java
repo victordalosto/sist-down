@@ -21,18 +21,16 @@ public class PrintaInicio implements Acao {
     public void executa() throws Exception {
         if (Util.verificaSeEhAPrimeiraVezRodandoOPrograma()) {
             printaLinha();
-            System.out.print(getLogo());
-        } else {
-            System.out.println(" * SISTDOWN Reiniciado. MODO: " + Util.contexto);
-        }
+            printaLogo();
+        } 
         System.out.println(" * " + FrasesPedrao.getRandomFrase()); 
         printaTrechosQueEstaoNaMaquinaLocal();
-        if (Util.verificaSeEhAPrimeiraVezRodandoOPrograma()) {
-            System.out.println(" * Para baixar trechos, digite os ids separados por virgula.   Ex: 100, 101, 102");
-            System.out.println(" * Para limpar e também baixar, acrescente o parâmetro limpa.  Ex: limpa, 85, 86");
-            System.out.println(" * Para fazer a alteração do contexto do Sistdown digite: 'LOCAL' ou 'REDE'");
-            printaLinha();    
-        }
+        // if (Util.verificaSeEhAPrimeiraVezRodandoOPrograma()) {
+        //     System.out.println(" * Para baixar trechos, digite os ids separados por virgula.   Ex: 100, 101, 102");
+        //     System.out.println(" * Para limpar e também baixar, acrescente o parâmetro limpa.  Ex: limpa, 85, 86");
+        //     System.out.println(" * Para fazer a alteração do contexto do Sistdown digite: 'LOCAL' ou 'REDE'");
+        //     printaLinha();    
+        // }
         System.out.print(" FLY-now> ");
     }
 
@@ -74,9 +72,8 @@ public class PrintaInicio implements Acao {
     /*
      * Constroi uma ASCII ART contendo a logo do Sist-down.
      */
-    private static String getLogo() {
-        LocalDate hoje = LocalDate.now();
-        DayOfWeek dia = hoje.getDayOfWeek();
+    private static void printaLogo() {
+        DayOfWeek dia = LocalDate.now().getDayOfWeek();
         String message;
         if (dia.equals(DayOfWeek.FRIDAY)) {
             message = """
@@ -87,7 +84,6 @@ public class PrintaInicio implements Acao {
                       |_|  \\__,_|\\__,_|___/\\__\\___/  |_| |_| |_|\\__,_|_| |_|\\___/ \\___|_|
                                                                                      
                     """;
-            return message;
         } else {
             message = """
                       __  _
@@ -98,8 +94,9 @@ public class PrintaInicio implements Acao {
                             |___/                                                   Versão: %s
                                                                                      
                 """;
-                return String.format(message, Util.getVersion());
+                message = String.format(message, Util.getVersion());
         }
+        System.out.println(message);
     }
 
 }
