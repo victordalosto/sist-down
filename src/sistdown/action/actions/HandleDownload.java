@@ -11,8 +11,8 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import sistdown.model.InputsPrompt;
-import sistdown.model.Trechos;
 import sistdown.service.Caminho;
+import sistdown.service.DBTrechos;
 import sistdown.service.Util;
 
 
@@ -31,14 +31,13 @@ public class HandleDownload implements Acao {
      * Faz o download dos trechos na maquina local.
      */
     public void executa() throws Exception {
-        Util.criaListBancoComTrechosDisponiveis();
         if (InputsPrompt.sizeList() > 0) {
             System.out.println(" * ...Iniciando o download dos trechos");
             List<Tarefa> listaTarefa = new ArrayList<>();
             List<String> trechosBaixadosNesseLoop = new ArrayList<>();
             while (InputsPrompt.sizeList() > 0) {
                 String idTrecho = InputsPrompt.getFirstInList();
-                String caminho = Trechos.getCaminho(idTrecho);
+                String caminho = DBTrechos.getCaminho(idTrecho);
                 InputsPrompt.removeFirstInList();
                 if (caminho == null) {
                     System.out.println(" * ...Não foi encontrado o trecho de id: "+idTrecho+".");

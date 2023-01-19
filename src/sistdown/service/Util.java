@@ -7,10 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.Scanner;
-import java.util.concurrent.atomic.AtomicInteger;
 import sistdown.Main;
-import sistdown.model.Trechos;
 import sistdown.model.Version;
 
 
@@ -21,37 +18,21 @@ import sistdown.model.Version;
 public class Util {
 
     public static String contexto;
-    public static AtomicInteger inicializacoes = new AtomicInteger(0);
-    public static long lastModified = 0;
+    private static boolean primeiraInicializacao = true;
 
 
-    /**
-     * Verifica se é a primeira vez rodando ou se é uma reinicialização do Sistdown.
-     */
     public static boolean verificaSeEhAPrimeiraVezRodandoOPrograma() {
-        if (inicializacoes.get() == 0)
+        if (primeiraInicializacao)
             return true;
         return false;
     }
 
 
-
     /**
-     * Carrega do CSV local, os trechos que estão disponíveis para download. <p>
-     * CSV formato :  
-     * id;path  :  13373;\Videos\Recebidos\2022\Lote2\3205\28_09_2022\13373_020RO0000000
+     * Reinicia o Loop do programa, informando que não é a primeira vez rodando o programa
      */
-    public static void criaListBancoComTrechosDisponiveis() throws Exception {
-        File pathCSV = new File(Caminho.pathCSVComTrechosDisponiveis.toString());
-        if (pathCSV.lastModified() != lastModified) {
-            Trechos.reiniciaBancoTrechos();
-            try(Scanner scanner = new Scanner(pathCSV)) {
-                while (scanner.hasNextLine()) {
-                    String[] row = scanner.nextLine().split(";");
-                    Trechos.addTrechoNoBanco(row[0], row[1]);
-                }
-            }
-        }
+    public static void iniciaNovamenteOPrograma() {
+        primeiraInicializacao = false;
     }
 
 

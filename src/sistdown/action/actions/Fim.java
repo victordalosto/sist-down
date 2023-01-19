@@ -9,7 +9,7 @@ public class Fim implements Acao {
 
     
     public void executa() throws Exception {
-        Util.inicializacoes.incrementAndGet();
+        Util.iniciaNovamenteOPrograma();
         System.out.println("\n\n\n\n\n\n\n");
     }
     
