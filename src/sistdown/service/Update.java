@@ -40,7 +40,7 @@ public class Update {
     private static void V2() {
         File CONFIG_OLD  = Paths.get(Caminho.SISTDOWN_ROOT.toString(), "configs").toFile();
         if (CONFIG_OLD.isFile()) {
-            CONFIG_OLD.renameTo(Caminho.SISTDOWN_CONFIG_INFODOWNLOADS);
+            CONFIG_OLD.renameTo(Caminho.SISTDOWN_INFO_DOWNLOADS);
             System.out.println(" * Sistdown atualizado para v2.0");
         }
     }

@@ -17,12 +17,15 @@ public class HandleLimpa implements Acao {
         for (int i=0; i<InputsPrompt.sizeList(); i++) {
             String param = InputsPrompt.listaComInputs.get(i);
             if (TagsConfiguracao.isClearTag(param)) {
+                System.out.print("\n * .");
                 InputsPrompt.listaComInputs.remove(i);
-                Downloads.delete(Caminho.TARGET_ROOT);
-                FileWriter f = new FileWriter(Caminho.SISTDOWN_CONFIG_INFODOWNLOADS, false);
+                FileWriter f = new FileWriter(Caminho.SISTDOWN_INFO_DOWNLOADS, false);
                 f.close();
+                System.out.print(".");
+                Downloads.delete(Caminho.TARGET_ROOT);
+                System.out.print(".");
+                System.out.print(" Pasta Limpa");
                 Caminho.TARGET_ROOT.mkdir();
-                System.out.println(" * ...Pasta Limpa");
             }
         }
     }

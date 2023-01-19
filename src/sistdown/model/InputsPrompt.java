@@ -41,17 +41,10 @@ public class InputsPrompt {
     /**
      * @return String contendo o primeiro input digitado na List.
      */
-    public static String getFirstInList() {
-        return listaComInputs.get(0);
-    }
-
-
-
-    /**
-     * Remove o primeiro input da List.
-     */
-    public static void removeFirstInList() {
+    public static String getNextInListAndDeleteIt() {
+        String id = listaComInputs.get(0);
         listaComInputs.remove(0);
+        return id;
     }
 
 }

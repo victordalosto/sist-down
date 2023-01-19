@@ -36,9 +36,8 @@ public class HandleDownload implements Acao {
             List<Tarefa> listaTarefa = new ArrayList<>();
             List<String> trechosBaixadosNesseLoop = new ArrayList<>();
             while (InputsPrompt.sizeList() > 0) {
-                String idTrecho = InputsPrompt.getFirstInList();
-                String caminho = DBTrechos.getCaminho(idTrecho);
-                InputsPrompt.removeFirstInList();
+                String idTrecho = InputsPrompt.getNextInListAndDeleteIt();
+                String caminho = DBTrechos.getPath(idTrecho);
                 if (caminho == null) {
                     System.out.println(" * ...Não foi encontrado o trecho de id: "+idTrecho+".");
                     continue;
@@ -75,10 +74,10 @@ class Tarefa implements Callable<Void> {
     @Override
     public Void call() {
         try {
-            Path origin = Paths.get(Caminho.INPUT_ROOT.toString(), caminho);
-            Path target = getTarget(caminho);
+            Path input = Paths.get(Caminho.INPUT_ROOT.toString(), caminho);
+            Path target = Paths.get(Caminho.TARGET_ROOT.toString(), caminho);
             Downloads.delete(target.toFile());
-            Downloads.copyFolder(origin, target, StandardCopyOption.REPLACE_EXISTING);
+            Downloads.copyFolder(input, target, StandardCopyOption.REPLACE_EXISTING);
             informaQueTrechoFoiBaixado(idTrecho, target);
         } catch (Exception e) {
             e.printStackTrace();
@@ -86,16 +85,11 @@ class Tarefa implements Callable<Void> {
         return null;
     }
 
-    
-    private Path getTarget(String caminhoTrecho) {
-        return Paths.get(Caminho.TARGET_ROOT.toString(), caminhoTrecho);
-    }
-
 
 
     private void informaQueTrechoFoiBaixado(String idTrecho, Path target) throws IOException {
-        String nomeTrecho = idTrecho + "-" + target.toString().replaceAll(".+_", "").substring(0, 5);
-        Files.write(Caminho.SISTDOWN_CONFIG_INFODOWNLOADS.toPath(), (nomeTrecho + ",  ").getBytes(), StandardOpenOption.APPEND);
+        String nomeTrecho = idTrecho + "-" + target.toString().replaceAll("[_]", "").substring(0, 5);
+        Files.write(Caminho.SISTDOWN_INFO_DOWNLOADS.toPath(), (nomeTrecho + ",  ").getBytes(), StandardOpenOption.APPEND);
         System.out.println(" * ...>Baixado " + nomeTrecho);
     }
 

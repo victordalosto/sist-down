@@ -24,7 +24,7 @@ public class DBTrechos {
      * @return String - Caminho contendo o trecho para download na rede.
      * @throws FileNotFoundException
      */
-    public static String getCaminho(String id) throws FileNotFoundException {
+    public static String getPath(String id) throws FileNotFoundException {
         atualizaTrechosDisponiveisBanco();
         return hashTrechos.get(id);
     }
