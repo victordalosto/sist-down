@@ -16,8 +16,20 @@ public class LogsDownloads {
         String uf = hash.substring(3,5);
         String br = hash.substring(0, 3);
         String append = idTrecho+";"+uf+";"+br;
-        Files.write(Caminho.INFO_DOWNLOADS.toPath(), (append+"\n").getBytes(), StandardOpenOption.APPEND);
+        if (logEhUnicoNoArquivo(append))
+            Files.write(Caminho.INFO_DOWNLOADS.toPath(), (append+"\n").getBytes(), StandardOpenOption.APPEND);
         return format(append);
+    }
+
+
+
+    private static boolean logEhUnicoNoArquivo(String append) throws IOException {
+        List<String> lines = Files.readAllLines(Paths.get(Caminho.INFO_DOWNLOADS.toString()));
+        for (String l : lines) {
+            if (append.equals(l))
+                return false;
+        }
+        return true;
     }
 
 
@@ -33,11 +45,11 @@ public class LogsDownloads {
     }
 
 
+
     public static void clear() throws IOException {
         FileWriter f = new FileWriter(Caminho.INFO_DOWNLOADS, false);
         f.close();
     }
-
 
 
 

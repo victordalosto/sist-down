@@ -25,6 +25,7 @@ public class Update {
 
     /**
      * Funcao que faz a atualização do Sistdown para a versão V1.
+     * Motivo: Deploy jdk era colocado junto ao sist-down
      * Depreciado since: v1.0.1
      */
     private void V1_0_0() {
@@ -39,6 +40,7 @@ public class Update {
 
     /**
      * Funcao que faz a atualização do Sistdown para a versão V2.
+     * Motivo: Atualizado a forma como era colocado os configs na arquitetura atual
      * Depreciado since: v2.0.0
      */
     private void V2_0_0() {
@@ -53,6 +55,8 @@ public class Update {
 
     /**
      * Funcao que deleta o antigo runnable do Sistdown
+     * Motivo: Deploy não é mais colocado na maquina local de cada usuario, mas sim, no servidor
+     * Depreciado since: v2.2.0
      */
     private void V2_2_0() {
         File oldRunnable = Paths.get(Caminho.SISTDOWN_ROOT.toString(), "jdk-18.0.2.1", "bin", "sist-down.jar").toFile();
@@ -66,6 +70,7 @@ public class Update {
 
     /**
      * Deleta arquivos depreciados para troca de contexto entre local e rede
+     * Motivo: Função toggler entre local e rede foi desativada devido ao sucesso do sistdown não necessitar mais do uso na rede
      * Depreciado since: v2.2.7
      */
     private void V2_2_9() {
@@ -84,6 +89,7 @@ public class Update {
 
     /**
      * Deleta antigo formato de arquivo de logs local
+     * Motivo: Atualizacao no formato de logs de download local para padronizar
      * Depreciado since: v2.3.0
      * @throws IOException
      */
@@ -98,8 +104,6 @@ public class Update {
             System.out.println(" * Sistdown atualizado para v2.3.0");
             Downloads.delete(oldInfo.toFile());
         }
-
-        // Path temp = 
     }
     
 }

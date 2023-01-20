@@ -1,7 +1,8 @@
 package sistdown.model;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+
 import sistdown.service.Util;
 
 
@@ -10,57 +11,47 @@ import sistdown.service.Util;
  */
 public class PromptInputs {
     
-    public static List<String> listaComInputs = Collections.synchronizedList(new ArrayList<>());
+    private static Set<String> listaComInputs;
 
 
-    /**
-     * Adiciona na lista os inputs digitados no prompt.
-     */
-    public static void adicionaNaLista(String trecho) {
-        if (Util.isValid(trecho)) {
-            if (TagsConfiguracao.ehUmaTag(trecho)) {
-                    listaComInputs.add(trecho.toUpperCase());
+
+    public static void reiniciaPromptEAdicionaInputs(String fullInput) {
+        listaComInputs = Collections.synchronizedSet(new HashSet<>());
+        fullInput = fullInput.replaceAll("\\s+", ",").replaceAll("[.<>;:/?°-]", ",");
+        for (String input : fullInput.split(","))
+            adicionaInputsValidosNaLista(input);
+    }
+
+
+
+    private static void adicionaInputsValidosNaLista(String input) {
+        if (Util.isValid(input)) {
+            if (TagsConfiguracao.ehUmaTag(input)) {
+                listaComInputs.add(input.toUpperCase());
             } else {
-                trecho = trecho.replaceAll("[^\\d.]", "");
-                if (Util.isValid(trecho))
-                    listaComInputs.add(trecho);
+                input = input.replaceAll("[^\\d.]", "");
+                if (Util.isValid(input))
+                    listaComInputs.add(input);
             }
         }
     }
 
 
-
-    /**
-     * @return int contendo a quantidade de inputs validos digitados no prompt.
-     */
-    public static int sizeList() {
-        return listaComInputs.size();
+    
+    public static void removeInputDaLista(String input) {
+        listaComInputs.remove(input);
     }
-
-
-
-    /**
-     * @return String contendo o primeiro input digitado na List.
-     */
-    public static String getNextInListAndDeleteIt() {
-        String id = listaComInputs.get(0);
-        listaComInputs.remove(0);
-        return id;
-    }
-
 
 
 
     public static boolean foiSolicitadoLimpar() {
-        boolean hasClearTag = false;
-        for (int i=0; i<listaComInputs.size(); i++) {
-            if (TagsConfiguracao.ehUmaTagDeLimpar(listaComInputs.get(i))) {
-                listaComInputs.remove(i);
-                hasClearTag = true;
-            }
-        }
-        return hasClearTag;
+        return listaComInputs.removeIf(i -> TagsConfiguracao.ehUmaTagDeLimpar(i));
     }
 
+
+
+    public static Set<String> obtemIdsDigitados() {
+        return Collections.unmodifiableSet(listaComInputs);
+    }
 
 }

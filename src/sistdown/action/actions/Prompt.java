@@ -14,9 +14,8 @@ public class Prompt implements Acao {
     @SuppressWarnings({ "resource" })
     public void executa() throws Exception {
         Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine().replaceAll("\\s+", ",").replaceAll("[.<>;:/?°-]", ",");
-        for (String trecho : input.split(","))
-            PromptInputs.adicionaNaLista(trecho);
+        String input = scanner.nextLine();
+        PromptInputs.reiniciaPromptEAdicionaInputs(input);
     }
 
 }

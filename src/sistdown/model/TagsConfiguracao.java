@@ -30,8 +30,7 @@ public enum TagsConfiguracao {
             text.equalsIgnoreCase(LIMPAR.toString()) ||
             text.equalsIgnoreCase(LIMP.toString()) ||
             text.equalsIgnoreCase(CLEAR.toString()) ||
-            text.equalsIgnoreCase(CLEAN.toString()) ||
-            text.equalsIgnoreCase(CLS.toString())
+            text.equalsIgnoreCase(CLEAN.toString())
             )
                 return true;
         return false;
