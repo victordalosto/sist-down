@@ -1,19 +1,18 @@
 package sistdown.action.actions;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import sistdown.model.InputsPrompt;
-import sistdown.model.Trechos;
+import sistdown.model.PromptInputs;
 import sistdown.service.Caminho;
-import sistdown.service.Util;
+import sistdown.service.DBTrechos;
+import sistdown.service.Downloads;
+import sistdown.service.LogsDownloads;
 
 
 /**
@@ -24,37 +23,34 @@ import sistdown.service.Util;
  */
 public class HandleDownload implements Acao {
     
-    static ExecutorService executorService = Executors.newFixedThreadPool(3);
+    private static ExecutorService executorService = Executors.newFixedThreadPool(3);
  
 
     /**
      * Faz o download dos trechos na maquina local.
      */
     public void executa() throws Exception {
-        Util.criaListBancoComTrechosDisponiveis();
-        if (InputsPrompt.sizeList() > 0) {
-            System.out.println(" * ...Iniciando o download dos trechos");
-            List<Tarefa> listaTarefa = new ArrayList<>();
-            List<String> trechosBaixadosNesseLoop = new ArrayList<>();
-            while (InputsPrompt.sizeList() > 0) {
-                String idTrecho = InputsPrompt.getFirstInList();
-                String caminho = Trechos.getCaminho(idTrecho);
-                InputsPrompt.removeFirstInList();
+        Set<String> idsParaBaixar = PromptInputs.obtemIdsDigitados();
+        if (idsParaBaixar.size() > 0) {
+            System.out.println("\n * ... Iniciando o download dos trechos");
+            Set<Tarefa> listaParaBaixar = new HashSet<>();
+            Set<String> trechosBaixadosNesseLoop = new HashSet<>();
+            for (String id : idsParaBaixar) {
+                String caminho = DBTrechos.getPath(id);
                 if (caminho == null) {
-                    System.out.println(" * ...Não foi encontrado o trecho de id: "+idTrecho+".");
-                    continue;
-                } else if(trechosBaixadosNesseLoop.contains(caminho)) {
-                    System.out.println(" * ...Trecho de id: "+idTrecho+" já foi ou já esta sendo baixado.");
-                    continue;
-                }else {
+                    System.out.println(" * ... Trecho de id: "+id+" não está no banco.");
+                } else if(!trechosBaixadosNesseLoop.contains(caminho)) {
                     trechosBaixadosNesseLoop.add(caminho);
-                    Tarefa tarefa = new Tarefa(idTrecho, caminho);
-                    listaTarefa.add(tarefa);
+                    listaParaBaixar.add(new Tarefa(id, caminho));
                 } 
             }
-            executorService.invokeAll(listaTarefa);
+            executorService.invokeAll(listaParaBaixar);
         }
     }
+
+
+
+
 }
 
 
@@ -76,10 +72,10 @@ class Tarefa implements Callable<Void> {
     @Override
     public Void call() {
         try {
-            Path origin = Paths.get(Caminho.REDE_VIDEO_FOLDER.toString(), caminho);
-            Path target = getTarget(caminho);
-            Util.deleteFolder(target.toFile());
-            Util.copyFolder(origin, target, StandardCopyOption.REPLACE_EXISTING);
+            Path input = Paths.get(Caminho.INPUT_ROOT.toString(), caminho);
+            Path target = Paths.get(Caminho.TARGET_DOWNLOAD.toString(), caminho);
+            Downloads.delete(target.toFile());
+            Downloads.walkAndCopy(input, target, StandardCopyOption.REPLACE_EXISTING);
             informaQueTrechoFoiBaixado(idTrecho, target);
         } catch (Exception e) {
             e.printStackTrace();
@@ -87,19 +83,12 @@ class Tarefa implements Callable<Void> {
         return null;
     }
 
-    
-    private Path getTarget(String caminhoTrecho) {
-        if (Util.contexto.equalsIgnoreCase("LOCAL"))
-            return Paths.get(Caminho.SISTDOWN_CURRENT.toString(), caminhoTrecho);
-        return Paths.get(Caminho.SISTDOWN_DOWNLOADS_LOCAL.toString(), caminhoTrecho);
-    }
-
 
 
     private void informaQueTrechoFoiBaixado(String idTrecho, Path target) throws IOException {
-        String nomeTrecho = idTrecho + "-" + target.toString().replaceAll(".+_", "").substring(0, 5);
-        Files.write(Caminho.SISTDOWN_CONFIG_INFODOWNLOADS.toPath(), (nomeTrecho + ",  ").getBytes(), StandardOpenOption.APPEND);
-        System.out.println(" * ...>Baixado " + nomeTrecho);
+        String nomeTrecho = LogsDownloads.log(idTrecho, target);
+        System.out.println(" * ...> Baixado: " + nomeTrecho);
+        PromptInputs.removeInputDaLista(idTrecho);
     }
 
 }

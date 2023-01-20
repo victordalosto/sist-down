@@ -1,6 +1,6 @@
 package sistdown.action.actions;
 import java.util.Scanner;
-import sistdown.model.InputsPrompt;
+import sistdown.model.PromptInputs;
 
 
 /**
@@ -14,16 +14,8 @@ public class Prompt implements Acao {
     @SuppressWarnings({ "resource" })
     public void executa() throws Exception {
         Scanner scanner = new Scanner(System.in);
-            String input = scanner.nextLine().replaceAll("\\s+", ",").replaceAll("[;]", ",").replaceAll("[/]", ",").replaceAll("[.]", ",");
-            if (!input.contains(",")) {
-                InputsPrompt.adicionaNaLista(input);
-            } else {
-                String[] rows = input.split(",");
-                for (String trecho : rows) {
-                    InputsPrompt.adicionaNaLista(trecho);
-                }
-            }
-            System.out.println();
+        String input = scanner.nextLine();
+        PromptInputs.reiniciaPromptEAdicionaInputs(input);
     }
 
 }

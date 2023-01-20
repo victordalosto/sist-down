@@ -1,10 +1,10 @@
 package sistdown.action.actions;
+import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
-
 import sistdown.service.Util;
 
 
@@ -18,22 +18,35 @@ public class Autorizacao implements Acao {
 
     public void executa() throws Exception {
         if (Util.verificaSeEhAPrimeiraVezRodandoOPrograma()) {
-            HttpClient client = HttpClient.newBuilder()
-                    .build();
-
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("https://github.com/victordalosto/sist-down/blob/master/assets/value.json"))
-                    .GET()
-                    .build();
-
-
-            HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
-
-            if (!response.body().contains("*zH$QeJwagH#$AB5")) {
-                System.out.println("\n\n ****** ERRO DE AUTORIZACAO");
+            String token = obtemTokenValidacao();
+            if (!isAuthtenticated(token)){
                 throw new RuntimeException("Usuario não autenticado");
             }
         }
+    }
+
+
+
+    private String obtemTokenValidacao() throws IOException, InterruptedException {
+        HttpClient client = HttpClient.newBuilder()
+                    .build();
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("http://139.144.52.108/"))
+                .GET()
+                .build();
+
+        HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
+        return response.body();
+    }
+
+
+
+    private boolean isAuthtenticated(String auth) {
+        String pass = "zH$QeJwagH#$AB5!@#*45$asWjV+ab=c%&*ap0lJp~(b8r'Ti-Qas4ç";
+        if (auth.contains(pass))
+            return true;
+        return false;
     }
 
 }

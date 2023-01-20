@@ -1,5 +1,4 @@
 package sistdown.action.actions;
-import java.nio.file.Files;
 import sistdown.service.Caminho;
 import sistdown.service.Util;
 
@@ -14,9 +13,7 @@ public class Inicializacao implements Acao {
 
     public void executa() throws Exception {
         if (Util.verificaSeEhAPrimeiraVezRodandoOPrograma()) {
-            Caminho.criarDiretorios();
-            Caminho.criarArquivos();
-            Util.contexto = Files.readAllLines(Caminho.SISTDOWN_CONFIG_CONTEXTO.toPath()).get(0);
+            new Caminho().init();
         }
     }
 
