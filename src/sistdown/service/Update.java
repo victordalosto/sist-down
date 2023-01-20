@@ -44,7 +44,7 @@ public class Update {
     private void V2_0_0() {
         File CONFIG_OLD  = Paths.get(Caminho.SISTDOWN_ROOT.toString(), "configs").toFile();
         if (CONFIG_OLD.isFile()) {
-            CONFIG_OLD.renameTo(Caminho.SISTDOWN_INFO_DOWNLOADS);
+            CONFIG_OLD.renameTo(Caminho.INFO_DOWNLOADS);
             System.out.println(" * Sistdown atualizado para v2.0.0");
         }
     }
@@ -90,14 +90,16 @@ public class Update {
     private void V2_3_0() throws IOException {
         Path oldInfo = Paths.get(Caminho.CONFIG_FOLDER.toString(), "info-downloads");
         if (oldInfo.toFile().isFile()) {
-            if (!Caminho.SISTDOWN_INFO_DOWNLOADS.exists())
-                Caminho.SISTDOWN_INFO_DOWNLOADS.createNewFile();
+            if (!Caminho.INFO_DOWNLOADS.exists())
+                Caminho.INFO_DOWNLOADS.createNewFile();
             String trechosNaLocal = Files.readString(oldInfo).replaceAll("\\s+", "").replaceAll(",$", "");
             for (String trecho : trechosNaLocal.split(","))
                 LogsDownloads.log(trecho.split("-")[0], Paths.get(trecho.split("-")[1]));
             System.out.println(" * Sistdown atualizado para v2.3.0");
             Downloads.delete(oldInfo.toFile());
         }
+
+        // Path temp = 
     }
     
 }

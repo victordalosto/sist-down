@@ -74,7 +74,7 @@ class Tarefa implements Callable<Void> {
     public Void call() {
         try {
             Path input = Paths.get(Caminho.INPUT_ROOT.toString(), caminho);
-            Path target = Paths.get(Caminho.TARGET_ROOT.toString(), caminho);
+            Path target = Paths.get(Caminho.TARGET_DOWNLOAD.toString(), caminho);
             Downloads.delete(target.toFile());
             Downloads.walkAndCopy(input, target, StandardCopyOption.REPLACE_EXISTING);
             informaQueTrechoFoiBaixado(idTrecho, target);

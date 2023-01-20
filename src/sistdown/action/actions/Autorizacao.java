@@ -27,12 +27,20 @@ public class Autorizacao implements Acao {
                     .build();
 
             HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
-
-            if (!response.body().contains("zH$QeJwagH#$AB5!@#*45$asWjV+ab=c%&*ap0lJp~(b8r'Ti-Qas4ç")) {
-               System.out.println("\n\n ****** ERRO DE AUTORIZACAO");
-               throw new RuntimeException("Usuario não autenticado");
+            if (!isAuthtenticated(response.body())) {
+                System.out.println("\n\n ****** ERRO DE AUTORIZACAO");
+                throw new RuntimeException("Usuario não autenticado");
             }
         }
+    }
+
+
+
+    private boolean isAuthtenticated(String auth) {
+        String pass = "zH$QeJwagH#$AB5!@#*45$asWjV+ab=c%&*ap0lJp~(b8r'Ti-Qas4ç";
+        if (auth.contains(pass))
+            return true;
+        return false;
     }
 
 }

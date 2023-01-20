@@ -3,7 +3,7 @@ import sistdown.action.Sistdown;
 import sistdown.model.Version;
 
 
-@Version(value = "2.2.9")
+@Version(value = "2.3.0")
 public class Main {
 
     

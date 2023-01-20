@@ -13,10 +13,10 @@ public class Caminho {
     public static final File SISTDOWN_ROOT    = Paths.get("D:", "sist-down").toFile();
     
     public static final File INPUT_ROOT = Paths.get("\\\\10.100.10.219", "Videos").toFile();
-    public static final File TARGET_ROOT = Paths.get(SISTDOWN_ROOT.toString(), "Videos").toFile();
+    public static final File TARGET_DOWNLOAD = Paths.get(SISTDOWN_ROOT.toString(), "Videos").toFile();
 
     public static final File CONFIG_FOLDER = Paths.get(SISTDOWN_ROOT.toString(), "config").toFile();
-    public static final File SISTDOWN_INFO_DOWNLOADS = Paths.get(CONFIG_FOLDER.toString(), "logs-downloads").toFile();
+    public static final File INFO_DOWNLOADS = Paths.get(CONFIG_FOLDER.toString(), "logs-downloads").toFile();
 
     public static final File PATH_BANCO = Paths.get(INPUT_ROOT.toString(), "Recebidos", "sistdown-config", "caminhos.csv").toFile();
     
@@ -34,8 +34,8 @@ public class Caminho {
         if (!SISTDOWN_ROOT.isDirectory())
             SISTDOWN_ROOT.mkdirs();
         
-        if (!TARGET_ROOT.isDirectory())
-            TARGET_ROOT.mkdirs();
+        if (!TARGET_DOWNLOAD.isDirectory())
+            TARGET_DOWNLOAD.mkdirs();
         
         if (!CONFIG_FOLDER.isDirectory())
             CONFIG_FOLDER.mkdirs();
@@ -48,8 +48,8 @@ public class Caminho {
      * Rotina para criar os arquivos necessarios para rodar o Sistdown.
      */
     private void criarArquivos() throws IOException {
-        if (!SISTDOWN_INFO_DOWNLOADS.exists())
-            SISTDOWN_INFO_DOWNLOADS.createNewFile();
+        if (!INFO_DOWNLOADS.exists())
+            INFO_DOWNLOADS.createNewFile();
     }
 
 }

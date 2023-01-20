@@ -16,7 +16,7 @@ public class LogsDownloads {
         String uf = hash.substring(3,5);
         String br = hash.substring(0, 3);
         String append = idTrecho+";"+uf+";"+br;
-        Files.write(Caminho.SISTDOWN_INFO_DOWNLOADS.toPath(), (append+"\n").getBytes(), StandardOpenOption.APPEND);
+        Files.write(Caminho.INFO_DOWNLOADS.toPath(), (append+"\n").getBytes(), StandardOpenOption.APPEND);
         return format(append);
     }
 
@@ -34,7 +34,7 @@ public class LogsDownloads {
 
 
     public static void clear() throws IOException {
-        FileWriter f = new FileWriter(Caminho.SISTDOWN_INFO_DOWNLOADS, false);
+        FileWriter f = new FileWriter(Caminho.INFO_DOWNLOADS, false);
         f.close();
     }
 
@@ -42,7 +42,7 @@ public class LogsDownloads {
 
 
     public static void printaTrechosQueEstaoNaMaquinaLocal() throws Exception {
-        List<String> lines = Files.readAllLines(Paths.get(Caminho.SISTDOWN_INFO_DOWNLOADS.toString()));
+        List<String> lines = Files.readAllLines(Paths.get(Caminho.INFO_DOWNLOADS.toString()));
         if (lines == null || lines.size() == 0) {
             System.out.println(" ======================================================================================");
             System.out.println(" * 0 trechos baixados.    Digite o numero dos ids para baixar trechos");

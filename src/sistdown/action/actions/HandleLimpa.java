@@ -1,4 +1,5 @@
 package sistdown.action.actions;
+import java.io.File;
 import sistdown.model.InputsPrompt;
 import sistdown.model.TagsConfiguracao;
 import sistdown.service.Caminho;
@@ -19,11 +20,24 @@ public class HandleLimpa implements Acao {
             if (TagsConfiguracao.isClearTag(param)) {
                 InputsPrompt.listaComInputs.remove(i);
                 LogsDownloads.clear();
-                Downloads.delete(Caminho.TARGET_ROOT);
-                Caminho.TARGET_ROOT.mkdir();
-                System.out.print("\n * ... Pasta Limpa");
+                clearTheDownLoadTargetFolder();
             }
         }
+    }
+
+
+    private void clearTheDownLoadTargetFolder() {
+        File temp = new File(Caminho.SISTDOWN_ROOT.toString(), "Videos-local");
+        boolean isRenamed = Caminho.TARGET_DOWNLOAD.renameTo(temp);
+        if (isRenamed) {
+            new Thread(() -> {
+                Downloads.delete(temp);
+            }).start(); ;
+        } else {
+            Downloads.delete(Caminho.TARGET_DOWNLOAD);
+        }
+        Caminho.TARGET_DOWNLOAD.mkdirs();
+        System.out.print("\n * ... Pasta Limpa");
     }
 
 
