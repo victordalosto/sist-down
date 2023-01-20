@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import sistdown.model.InputsPrompt;
+import sistdown.model.PromptInputs;
 import sistdown.service.Caminho;
 import sistdown.service.DBTrechos;
 import sistdown.service.Downloads;
@@ -30,12 +30,12 @@ public class HandleDownload implements Acao {
      * Faz o download dos trechos na maquina local.
      */
     public void executa() throws Exception {
-        if (InputsPrompt.sizeList() > 0) {
+        if (PromptInputs.sizeList() > 0) {
             System.out.println("\n * ... Iniciando o download dos trechos");
             List<Tarefa> listaTarefa = new ArrayList<>();
             List<String> trechosBaixadosNesseLoop = new ArrayList<>();
-            while (InputsPrompt.sizeList() > 0) {
-                String idTrecho = InputsPrompt.getNextInListAndDeleteIt();
+            while (PromptInputs.sizeList() > 0) {
+                String idTrecho = PromptInputs.getNextInListAndDeleteIt();
                 String caminho = DBTrechos.getPath(idTrecho);
                 if (caminho == null) {
                     System.out.println(" * ... Não foi encontrado o trecho de id: "+idTrecho+".");

@@ -1,6 +1,6 @@
 package sistdown.action.actions;
 import java.util.Scanner;
-import sistdown.model.InputsPrompt;
+import sistdown.model.PromptInputs;
 
 
 /**
@@ -16,7 +16,7 @@ public class Prompt implements Acao {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine().replaceAll("\\s+", ",").replaceAll("[.<>;:/?°-]", ",");
         for (String trecho : input.split(","))
-            InputsPrompt.adicionaNaLista(trecho);
+            PromptInputs.adicionaNaLista(trecho);
     }
 
 }

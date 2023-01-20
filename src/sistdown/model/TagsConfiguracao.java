@@ -12,7 +12,7 @@ public enum TagsConfiguracao {
     /**
      * Verifica se o input enviado é uma Tag para uma funcionalidade.
      */
-    public static boolean isTag(String text) {
+    public static boolean ehUmaTag(String text) {
         for (TagsConfiguracao tag : TagsConfiguracao.values()) {
             if (text.equalsIgnoreCase(tag.toString()))
                 return true;
@@ -25,7 +25,7 @@ public enum TagsConfiguracao {
     /**
      * Verifica se o input enviado é uma Tag para uma funcionalidade.
      */
-    public static boolean isClearTag(String text) {
+    public static boolean ehUmaTagDeLimpar(String text) {
         if (text.equalsIgnoreCase(LIMPA.toString()) ||
             text.equalsIgnoreCase(LIMPAR.toString()) ||
             text.equalsIgnoreCase(LIMP.toString()) ||

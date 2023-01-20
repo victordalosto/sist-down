@@ -1,5 +1,6 @@
 package sistdown.model;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import sistdown.service.Util;
 
@@ -7,9 +8,9 @@ import sistdown.service.Util;
 /**
  * Classe que guarda os inputs digitados na Action Prompt.
  */
-public class InputsPrompt {
+public class PromptInputs {
     
-    public static List<String> listaComInputs = new ArrayList<>();
+    public static List<String> listaComInputs = Collections.synchronizedList(new ArrayList<>());
 
 
     /**
@@ -17,7 +18,7 @@ public class InputsPrompt {
      */
     public static void adicionaNaLista(String trecho) {
         if (Util.isValid(trecho)) {
-            if (TagsConfiguracao.isTag(trecho)) {
+            if (TagsConfiguracao.ehUmaTag(trecho)) {
                     listaComInputs.add(trecho.toUpperCase());
             } else {
                 trecho = trecho.replaceAll("[^\\d.]", "");
@@ -45,6 +46,20 @@ public class InputsPrompt {
         String id = listaComInputs.get(0);
         listaComInputs.remove(0);
         return id;
+    }
+
+
+
+
+    public static boolean foiSolicitadoLimpar() {
+        boolean hasClearTag = false;
+        for (int i=0; i<listaComInputs.size(); i++) {
+            if (TagsConfiguracao.ehUmaTagDeLimpar(listaComInputs.get(i))) {
+                listaComInputs.remove(i);
+                hasClearTag = true;
+            }
+        }
+        return hasClearTag;
     }
 
 
