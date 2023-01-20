@@ -10,9 +10,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import sistdown.model.PromptInputs;
 import sistdown.service.Caminho;
-import sistdown.service.DBTrechos;
-import sistdown.service.Downloads;
-import sistdown.service.LogsDownloads;
+import sistdown.service.DBTrecho;
+import sistdown.service.Download;
+import sistdown.service.Logger;
 
 
 /**
@@ -36,7 +36,7 @@ public class HandleDownload implements Acao {
             Set<Tarefa> listaParaBaixar = new HashSet<>();
             Set<String> trechosBaixadosNesseLoop = new HashSet<>();
             for (String id : idsParaBaixar) {
-                String caminho = DBTrechos.getPath(id);
+                String caminho = DBTrecho.getPath(id);
                 if (caminho == null) {
                     System.out.println(" * ... Trecho de id: "+id+" não está no banco.");
                 } else if(!trechosBaixadosNesseLoop.contains(caminho)) {
@@ -69,13 +69,14 @@ class Tarefa implements Callable<Void> {
         this.caminho = caminho;
     }
 
+    
     @Override
     public Void call() {
         try {
             Path input = Paths.get(Caminho.INPUT_ROOT.toString(), caminho);
             Path target = Paths.get(Caminho.TARGET_DOWNLOAD.toString(), caminho);
-            Downloads.delete(target.toFile());
-            Downloads.walkAndCopy(input, target, StandardCopyOption.REPLACE_EXISTING);
+            Download.delete(target.toFile());
+            Download.walkAndCopy(input, target, StandardCopyOption.REPLACE_EXISTING);
             informaQueTrechoFoiBaixado(idTrecho, target);
         } catch (Exception e) {
             e.printStackTrace();
@@ -86,7 +87,7 @@ class Tarefa implements Callable<Void> {
 
 
     private void informaQueTrechoFoiBaixado(String idTrecho, Path target) throws IOException {
-        String nomeTrecho = LogsDownloads.log(idTrecho, target);
+        String nomeTrecho = Logger.logDownload(idTrecho, target);
         System.out.println(" * ...> Baixado: " + nomeTrecho);
         PromptInputs.removeInputDaLista(idTrecho);
     }

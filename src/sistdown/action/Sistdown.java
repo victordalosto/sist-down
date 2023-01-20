@@ -26,8 +26,8 @@ public class Sistdown {
     static {
         acoes.add(new Atualizacao());
         acoes.add(new Inicializacao());
-        acoes.add(new PrintaInicio());
         acoes.add(new Autorizacao());
+        acoes.add(new PrintaInicio());
         acoes.add(new Prompt());
         acoes.add(new HandleLimpa());
         acoes.add(new HandleDownload());
@@ -47,8 +47,9 @@ public class Sistdown {
                     acao.executa();
             }
         } catch (Exception e) {
+            System.out.println("\n\n");
             e.printStackTrace();
-            System.out.println(" * Problema com o Sistdown. Favor, avisar o vitão");
+            System.out.println(" * Problema com o Sistdown. Favor, avisar o vitão.\n\n");
         }
     }
 

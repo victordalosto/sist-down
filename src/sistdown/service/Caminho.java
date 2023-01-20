@@ -39,7 +39,6 @@ public class Caminho {
         
         if (!CONFIG_FOLDER.isDirectory())
             CONFIG_FOLDER.mkdirs();
-        
     }
 
 

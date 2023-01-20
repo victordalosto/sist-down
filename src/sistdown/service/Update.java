@@ -31,7 +31,7 @@ public class Update {
     private void V1_0_0() {
         File CODIGO_JAVA = Paths.get(Caminho.SISTDOWN_ROOT.toString(), "codigo-java").toFile();
         if (CODIGO_JAVA.isDirectory()) {
-            Downloads.delete(CODIGO_JAVA);
+            Download.delete(CODIGO_JAVA);
             System.out.println(" * Sistdown atualizado para v1.0.0");
         }
     }
@@ -61,7 +61,7 @@ public class Update {
     private void V2_2_0() {
         File oldRunnable = Paths.get(Caminho.SISTDOWN_ROOT.toString(), "jdk-18.0.2.1", "bin", "sist-down.jar").toFile();
         if (oldRunnable.isFile()) {
-            Downloads.delete(oldRunnable);
+            Download.delete(oldRunnable);
             System.out.println(" * Sistdown atualizado para v2.2.0");
         }
     }
@@ -76,13 +76,13 @@ public class Update {
     private void V2_2_9() {
         File shortcut_rede   = Paths.get(Caminho.SISTDOWN_ROOT.toString(), "Videos-rede").toFile();
         if (shortcut_rede.isFile())
-            Downloads.delete(shortcut_rede);
+            Download.delete(shortcut_rede);
         File temp_download_local = Paths.get(Caminho.SISTDOWN_ROOT.toString(), "Videos-local").toFile();
         if (temp_download_local.isDirectory())
-            Downloads.delete(temp_download_local);
+            Download.delete(temp_download_local);
         File context = Paths.get(Caminho.SISTDOWN_ROOT.toString(), "config", "contexto").toFile();
         if (context.isFile())
-            Downloads.delete(context);
+            Download.delete(context);
     }
 
 
@@ -100,9 +100,9 @@ public class Update {
                 Caminho.INFO_DOWNLOADS.createNewFile();
             String trechosNaLocal = Files.readString(oldInfo).replaceAll("\\s+", "").replaceAll(",$", "");
             for (String trecho : trechosNaLocal.split(","))
-                LogsDownloads.log(trecho.split("-")[0], Paths.get(trecho.split("-")[1]));
+                Logger.logDownload(trecho.split("-")[0], Paths.get(trecho.split("-")[1]));
             System.out.println(" * Sistdown atualizado para v2.3.0");
-            Downloads.delete(oldInfo.toFile());
+            Download.delete(oldInfo.toFile());
         }
     }
     

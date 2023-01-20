@@ -20,7 +20,7 @@ public class Autorizacao implements Acao {
         if (Util.verificaSeEhAPrimeiraVezRodandoOPrograma()) {
             String token = obtemTokenValidacao();
             if (!isAuthtenticated(token)){
-                throw new RuntimeException("Usuario não autenticado");
+                throw new RuntimeException(" Servidor não autenticado");
             }
         }
     }

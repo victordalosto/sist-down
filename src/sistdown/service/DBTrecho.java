@@ -11,7 +11,7 @@ import java.util.Scanner;
  * Com o id de identificação do trecho, é possível obter a partir do seu value, 
  * o target da pasta contendo o caminho do trecho para ser baixado na rede.
  */
-public class DBTrechos {
+public class DBTrecho {
 
     public static Map<String, String> hashTrechos = new HashMap<>();
     private static long lastModified = 0;
@@ -29,6 +29,7 @@ public class DBTrechos {
         return hashTrechos.get(id);
     }
 
+    
 
     /**
      * Carrega os trechos que estão disponíveis para download. <p>

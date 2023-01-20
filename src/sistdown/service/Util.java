@@ -12,6 +12,7 @@ public class Util {
     private static boolean primeiraInicializacao = true;
 
 
+
     public static boolean verificaSeEhAPrimeiraVezRodandoOPrograma() {
         if (primeiraInicializacao)
             return true;
@@ -26,10 +27,7 @@ public class Util {
 
 
 
-    /**
-     * Verifica se o texto digitado é um input valido. Pode ser um trecho ou uma Tag.
-     */
-    public static boolean isValid(String text) {
+    public static boolean textEhValido(String text) {
         if (text != null && !text.isBlank()) 
             return true;
         return false;
@@ -37,10 +35,7 @@ public class Util {
 
 
     
-    /**
-     * @return Current version of Sistdown
-     */
-    public static String getVersion() {
+    public static String getSistdownVersion() {
         Class<?> main = Main.class;
         Version version = main.getDeclaredAnnotation(Version.class);
         return version.value();

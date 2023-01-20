@@ -8,10 +8,10 @@ import java.nio.file.StandardOpenOption;
 import java.util.List;
 
 
-public class LogsDownloads {
+public class Logger {
 
 
-    public static String log(String idTrecho, Path target) throws IOException {
+    public static String logDownload(String idTrecho, Path target) throws IOException {
         String hash = target.toString().replaceAll(".+_", "");
         String uf = hash.substring(3,5);
         String br = hash.substring(0, 3);
@@ -34,8 +34,8 @@ public class LogsDownloads {
 
 
 
-    public static String format(String row) {
-        if (!Util.isValid(row) || !row.contains(";") || row.split(";").length != 3)
+    private static String format(String row) {
+        if (!Util.textEhValido(row) || !row.contains(";") || row.split(";").length != 3)
             return "[" + row + "]";
         String[] array = row.split(";");
         while (array[0].length() < 5) {
@@ -64,7 +64,7 @@ public class LogsDownloads {
                 if (i == 0) System.out.print("  ");
                 else if (i%4 == 0)  System.out.print("\n  ");
                 else System.out.print("    ");
-                System.out.print(LogsDownloads.format(lines.get(i)));
+                System.out.print(Logger.format(lines.get(i)));
             }
             System.out.println();
         }

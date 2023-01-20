@@ -1,5 +1,5 @@
 package sistdown.action.actions;
-import sistdown.service.LogsDownloads;
+import sistdown.service.Logger;
 import sistdown.service.Util;
 
 
@@ -13,14 +13,12 @@ public class PrintaInicio implements Acao {
     
     public void executa() throws Exception {
         if (Util.verificaSeEhAPrimeiraVezRodandoOPrograma()) {
-            System.out.println("\n SISTDOWN: " + Util.getVersion());
+            System.out.println("\n SISTDOWN: " + Util.getSistdownVersion());
         } else {
             System.out.println("\n Downloads finalizados..");
         }
-        LogsDownloads.printaTrechosQueEstaoNaMaquinaLocal();
+        Logger.printaTrechosQueEstaoNaMaquinaLocal();
         System.out.print(" FLY-now> ");
     }
-
-
 
 }
