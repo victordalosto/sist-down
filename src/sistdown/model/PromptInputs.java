@@ -11,7 +11,7 @@ import sistdown.service.Util;
  */
 public class PromptInputs {
     
-    private static Set<String> listaComInputs = Collections.synchronizedSet(new HashSet<>());
+    private static Set<String> inputs = Collections.synchronizedSet(new HashSet<>());
 
 
 
@@ -26,11 +26,11 @@ public class PromptInputs {
     private static void adicionaInputsValidosNaLista(String input) {
         if (Util.textEhValido(input)) {
             if (TagsConfiguracao.ehUmaTag(input)) {
-                listaComInputs.add(input.toUpperCase());
+                inputs.add(input.toUpperCase());
             } else {
                 input = input.replaceAll("[^\\d.]", "");
                 if (Util.textEhValido(input))
-                    listaComInputs.add(input);
+                    inputs.add(input);
             }
         }
     }
@@ -38,25 +38,25 @@ public class PromptInputs {
 
 
     public static void removeInputDaLista(String input) {
-        listaComInputs.remove(input);
+        inputs.remove(input);
     }
 
 
 
     public static boolean foiSolicitadoLimpar() {
-        return listaComInputs.removeIf(i -> TagsConfiguracao.ehUmaTagDeLimpar(i));
+        return inputs.removeIf(i -> TagsConfiguracao.ehUmaTagDeLimpar(i));
     }
 
 
 
     public static Set<String> obtemIdsDigitados() {
-        return Collections.unmodifiableSet(listaComInputs);
+        return Collections.unmodifiableSet(inputs);
     }
 
 
 
     public static void reiniciaPromptDigitados() {
-        listaComInputs = Collections.synchronizedSet(new HashSet<>());
+        inputs = Collections.synchronizedSet(new HashSet<>());
     }
 
 }

@@ -48,9 +48,6 @@ public class HandleDownload implements Acao {
         }
     }
 
-
-
-
 }
 
 
@@ -69,7 +66,6 @@ class Tarefa implements Callable<Void> {
         this.caminho = caminho;
     }
 
-    
     @Override
     public Void call() {
         try {
