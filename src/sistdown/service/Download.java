@@ -20,8 +20,8 @@ public class Download {
             @Override
             public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
                 String pasta = dir.toString().toLowerCase();
-                if (pasta.endsWith("videos")  || pasta.endsWith("camera1")  || 
-                    pasta.endsWith("camera2") || pasta.endsWith("camera3")) {
+                if (!pasta.endsWith("geo") && !pasta.endsWith("irap") && !pasta.endsWith("rinex") &&
+                    !pasta.endsWith("arquivos") && !pasta.endsWith("DadosBrutos")) {
                     Files.createDirectories(target.resolve(source.relativize(dir)));
                     return FileVisitResult.CONTINUE;
                 }
@@ -31,7 +31,9 @@ public class Download {
             @Override
             public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
                 String arquivo = file.toString().toLowerCase();
-                if (arquivo.endsWith(".mp4")  || arquivo.endsWith(".jpg") || arquivo.endsWith("logstrecho.xml"))
+                if (arquivo.endsWith(".mp4")  || arquivo.endsWith(".avi") || arquivo.endsWith(".flv") || 
+                    arquivo.endsWith(".jpeg") || arquivo.endsWith(".jpg") || arquivo.endsWith(".png") || 
+                    arquivo.endsWith("logstrecho.xml"))
                     Files.copy(file, target.resolve(source.relativize(file)), options);
                 return FileVisitResult.CONTINUE;
             }
