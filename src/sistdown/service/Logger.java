@@ -56,10 +56,10 @@ public class Logger {
     public static void printaTrechosQueEstaoNaMaquinaLocal() throws Exception {
         List<String> lines = Files.readAllLines(Paths.get(Caminho.INFO_DOWNLOADS.toString()));
         if (lines == null || lines.size() == 0) {
-            System.out.println(" ======================================================================================");
+            System.out.println(" --------------------------------------------------------------------------------------");
             System.out.println(" * 0 trechos baixados.    Digite o numero dos ids para baixar trechos");
         } else {
-            System.out.println(" ================================== TRECHOS BAIXADOS ==================================");
+            System.out.println(" ---------------------------------- TRECHOS BAIXADOS ----------------------------------");
             for (int i = 0; i < lines.size(); i++) {
                 if (i == 0) System.out.print("  ");
                 else if (i%4 == 0)  System.out.print("\n  ");
@@ -68,7 +68,7 @@ public class Logger {
             }
             System.out.println();
         }
-        System.out.println(" ======================================================================================");
+        System.out.println(" --------------------------------------------------------------------------------------");
     }
 
     

@@ -6,6 +6,7 @@ import sistdown.action.actions.Atualizacao;
 import sistdown.action.actions.Autorizacao;
 import sistdown.action.actions.Fim;
 import sistdown.action.actions.HandleDownload;
+import sistdown.action.actions.HandleHelp;
 import sistdown.action.actions.HandleLimpa;
 import sistdown.action.actions.Inicializacao;
 import sistdown.action.actions.PrintaInicio;
@@ -29,6 +30,7 @@ public class Sistdown {
         acoes.add(new Autorizacao());
         acoes.add(new PrintaInicio());
         acoes.add(new Prompt());
+        acoes.add(new HandleHelp());
         acoes.add(new HandleLimpa());
         acoes.add(new HandleDownload());
         acoes.add(new Fim());

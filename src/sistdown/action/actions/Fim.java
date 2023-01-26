@@ -12,7 +12,7 @@ public class Fim implements Acao {
     public void executa() throws Exception {
         Util.iniciaNovamenteOPrograma();
         PromptInputs.reiniciaPromptDigitados();
-        System.out.println("\n\n\n\n");
+        System.out.println("\n\n");
     }
     
 }

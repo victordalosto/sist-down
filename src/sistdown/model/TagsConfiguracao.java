@@ -7,7 +7,7 @@ package sistdown.model;
 public enum TagsConfiguracao {
 
     LIMPA, LIMPAR, LIMP, 
-    CLEAR, CLEAN, CLS;
+    HELP, AJUDA;
 
     /**
      * Verifica se o input enviado é uma Tag para uma funcionalidade.
@@ -27,6 +27,17 @@ public enum TagsConfiguracao {
      */
     public static boolean ehUmaTagDeLimpar(String text) {
         if (text.toUpperCase().contains(LIMP.toString()))
+            return true;
+        return false;
+    }
+
+    
+    /**
+     * Verifica se o input enviado é uma Tag para uma funcionalidade.
+     */
+    public static boolean ehUmaTagDeAjuda(String text) {
+        if (text.toUpperCase().contains(HELP.toString())
+         || text.toUpperCase().contains(AJUDA.toString()))
             return true;
         return false;
     }
