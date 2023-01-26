@@ -13,12 +13,14 @@ public class PrintaInicio implements Acao {
     
     public void executa() throws Exception {
         if (Util.verificaSeEhAPrimeiraVezRodandoOPrograma()) {
+            System.out.println("\n\n\n");
+            System.out.print("\033[H\033[2J");
             System.out.println("\n SISTDOWN: " + Util.getSistdownVersion());
         } else {
             System.out.println("\n Downloads finalizados..");
         }
         Logger.printaTrechosQueEstaoNaMaquinaLocal();
-        System.out.print(" FLY-now> ");
+        System.out.print(" > ");
     }
 
 }

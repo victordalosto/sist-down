@@ -10,8 +10,8 @@ import java.util.List;
 
 public class Logger {
 
-
-    public static String logDownload(String idTrecho, Path target) throws IOException {
+    
+    public static synchronized String logDownload(String idTrecho, Path target) throws IOException {
         String hash = target.toString().replaceAll(".+_", "");
         String uf = hash.substring(3,5);
         String br = hash.substring(0, 3);
