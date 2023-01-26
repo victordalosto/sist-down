@@ -34,11 +34,17 @@ public class Util {
     }
 
 
-    
+
     public static String getSistdownVersion() {
         Class<?> main = Main.class;
         Version version = main.getDeclaredAnnotation(Version.class);
         return version.value();
+    }
+
+
+
+    public static String getAuthenticationIP() {
+        return "139.144.52.108";
     }
     
 }

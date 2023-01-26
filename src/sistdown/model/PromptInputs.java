@@ -48,6 +48,11 @@ public class PromptInputs {
     }
 
 
+    public static boolean foiSolicitadoAjuda() {
+        return inputs.removeIf(i -> TagsConfiguracao.ehUmaTagDeAjuda(i));
+    }
+
+
 
     public static Set<String> obtemIdsDigitados() {
         return Collections.unmodifiableSet(inputs);
@@ -57,6 +62,12 @@ public class PromptInputs {
 
     public static void reiniciaPromptDigitados() {
         inputs = Collections.synchronizedSet(new HashSet<>());
+    }
+
+
+
+    public static boolean isEmpty() {
+        return inputs.size() == 0;
     }
 
 }

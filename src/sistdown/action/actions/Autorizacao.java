@@ -20,7 +20,7 @@ public class Autorizacao implements Acao {
         if (Util.verificaSeEhAPrimeiraVezRodandoOPrograma()) {
             String token = obtemTokenValidacao();
             if (!isAuthtenticated(token)){
-                throw new RuntimeException(" Servidor não autenticado");
+                throw new RuntimeException("\n\n * Servidor " + Util.getAuthenticationIP() +" não autenticou o sist-down.\n * Servidor possivelmente fora do ar.\n\n");
             }
         }
     }
@@ -32,7 +32,7 @@ public class Autorizacao implements Acao {
                     .build();
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://139.144.52.108/"))
+                .uri(URI.create("http://" + Util.getAuthenticationIP() + "/"))
                 .GET()
                 .build();
 
