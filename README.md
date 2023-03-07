@@ -11,4 +11,3 @@ To solve this problem, this <strong>Download Manager</strong> was developed, whe
 The Download manager was complete revamped.<br/>
 It was added features capable of: Automatically restarting the application system, allowing changing the context between local | network, deploy on a shared machine that facilitates maintenance and etc.. <br/>
 In addition to the code being refactored, the presentation of the functionalities in the visual layer was also restructured, as well it was created a local database to manage the available end-points.
-
