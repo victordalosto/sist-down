@@ -22,7 +22,7 @@ public class HandleLimpa implements Acao {
 
 
     private void limpaPastaDownloads() {
-        File temp = new File(Caminho.SISTDOWN_ROOT.toString(), "Videos-local");
+        File temp = Caminho.TARGET_DOWNLOAD_TEMP;
         boolean isRenamed = Caminho.TARGET_DOWNLOAD.renameTo(temp);
         if (isRenamed)
             new Thread(() -> Download.delete(temp)).start();

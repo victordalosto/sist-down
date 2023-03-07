@@ -14,11 +14,12 @@ public class Update {
 
 
     public void now() throws IOException {
-        V1_0_0();
-        V2_0_0();
-        V2_2_0();
-        V2_2_9();
-        V2_3_0();
+        v1_0_0();
+        v2_0_0();
+        v2_2_0();
+        v2_2_9();
+        v2_3_0();
+        v2_4_0();
     }
 
 
@@ -28,7 +29,7 @@ public class Update {
      * Motivo: Deploy jdk era colocado junto ao sist-down
      * Depreciado since: v1.0.1
      */
-    private void V1_0_0() {
+    private void v1_0_0() {
         File CODIGO_JAVA = Paths.get(Caminho.SISTDOWN_ROOT.toString(), "codigo-java").toFile();
         if (CODIGO_JAVA.isDirectory()) {
             Download.delete(CODIGO_JAVA);
@@ -43,8 +44,8 @@ public class Update {
      * Motivo: Atualizado a forma como era colocado os configs na arquitetura atual
      * Depreciado since: v2.0.0
      */
-    private void V2_0_0() {
-        File CONFIG_OLD  = Paths.get(Caminho.SISTDOWN_ROOT.toString(), "configs").toFile();
+    private void v2_0_0() {
+        File CONFIG_OLD = Paths.get(Caminho.SISTDOWN_ROOT.toString(), "configs").toFile();
         if (CONFIG_OLD.isFile()) {
             CONFIG_OLD.renameTo(Caminho.INFO_DOWNLOADS);
             System.out.println(" * Sistdown atualizado para v2.0.0");
@@ -58,7 +59,7 @@ public class Update {
      * Motivo: Deploy não é mais colocado na maquina local de cada usuario, mas sim, no servidor
      * Depreciado since: v2.2.0
      */
-    private void V2_2_0() {
+    private void v2_2_0() {
         File oldRunnable = Paths.get(Caminho.SISTDOWN_ROOT.toString(), "jdk-18.0.2.1", "bin", "sist-down.jar").toFile();
         if (oldRunnable.isFile()) {
             Download.delete(oldRunnable);
@@ -73,8 +74,8 @@ public class Update {
      * Motivo: Função toggler entre local e rede foi desativada devido ao sucesso do sistdown não necessitar mais do uso na rede
      * Depreciado since: v2.2.7
      */
-    private void V2_2_9() {
-        File shortcut_rede   = Paths.get(Caminho.SISTDOWN_ROOT.toString(), "Videos-rede").toFile();
+    private void v2_2_9() {
+        File shortcut_rede  = Paths.get(Caminho.SISTDOWN_ROOT.toString(), "Videos-rede").toFile();
         if (shortcut_rede.isFile())
             Download.delete(shortcut_rede);
         File temp_download_local = Paths.get(Caminho.SISTDOWN_ROOT.toString(), "Videos-local").toFile();
@@ -93,7 +94,7 @@ public class Update {
      * Depreciado since: v2.3.0
      * @throws IOException
      */
-    private void V2_3_0() throws IOException {
+    private void v2_3_0() throws IOException {
         Path oldInfo = Paths.get(Caminho.CONFIG_FOLDER.toString(), "info-downloads");
         if (oldInfo.toFile().isFile()) {
             if (!Caminho.INFO_DOWNLOADS.exists())
@@ -104,6 +105,21 @@ public class Update {
             System.out.println(" * Sistdown atualizado para v2.3.0");
             Download.delete(oldInfo.toFile());
         }
+    }
+
+
+
+    /**
+     * Deleta pasta de downloads temporarios
+     * Depreciado since: v2.3.3
+     * @throws IOException
+     */
+    private void v2_4_0() {
+        File downloadTemp = Caminho.TARGET_DOWNLOAD_TEMP;
+        if (downloadTemp.isFile())
+            Download.delete(downloadTemp);
+        
+
     }
     
 }

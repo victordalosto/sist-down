@@ -17,10 +17,7 @@ public class HandleHelp implements Acao {
             System.out.println("\n\n\n\n\n\n\n\n\n ");
             System.out.println(" NENHUM COMANDO DIGITADO.");
             System.out.println(" Se precisar de ajuda, digite 'AJUDA' ou 'HELP'   Exemplo:\n  > ajuda");
-        }
-
-
-        if (PromptInputs.foiSolicitadoAjuda()) {
+        } else if (PromptInputs.foiSolicitadoAjuda()) {
             System.out.println("\n\n");
             System.out.println("==============================================");
             System.out.println(" SISTDOWN");
@@ -42,8 +39,6 @@ public class HandleHelp implements Acao {
             System.out.println("  (iii) Altene [\"raizVideos\" value=] entre  \\\\10.100.10.219\\Videos   ou   D:\\sist-down\\Videos");
         }
     }
-
-
 
 
 }
