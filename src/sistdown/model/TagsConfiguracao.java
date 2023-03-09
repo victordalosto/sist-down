@@ -7,14 +7,14 @@ package sistdown.model;
 public enum TagsConfiguracao {
 
     LIMPA, LIMPAR, LIMP, 
-    HELP, AJUDA;
+    HELP, AJUDA, APAGA;
 
     /**
      * Verifica se o input enviado é uma Tag para uma funcionalidade.
      */
     public static boolean ehUmaTag(String text) {
         for (TagsConfiguracao tag : TagsConfiguracao.values()) {
-            if (text.equalsIgnoreCase(tag.toString()))
+            if (text.toLowerCase().contains(tag.toString().toLowerCase()))
                 return true;
         }
         return false;
@@ -32,6 +32,16 @@ public enum TagsConfiguracao {
     }
 
     
+        /**
+     * Verifica se o input enviado é uma Tag para uma funcionalidade.
+     */
+    public static boolean ehUmaTagDeApagar(String text) {
+        if (text.toUpperCase().contains(APAGA.toString()))
+            return true;
+        return false;
+    }
+
+
     /**
      * Verifica se o input enviado é uma Tag para uma funcionalidade.
      */

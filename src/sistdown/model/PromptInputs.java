@@ -13,10 +13,12 @@ public class PromptInputs {
     
     private static Set<String> inputs = Collections.synchronizedSet(new HashSet<>());
 
+    private static String text;
+
 
 
     public static void adicionaInputs(String fullInput) {
-        fullInput = fullInput.replaceAll("\\s+", ",").replaceAll("[.<>;:/?°-]", ",");
+        fullInput = fullInput.replaceAll("\\s+", ",").replaceAll("[.<>;/?°]", ",");
         for (String input : fullInput.split(","))
             adicionaInputsValidosNaLista(input);
     }
@@ -45,6 +47,21 @@ public class PromptInputs {
 
     public static boolean foiSolicitadoLimpar() {
         return inputs.removeIf(i -> TagsConfiguracao.ehUmaTagDeLimpar(i));
+    }
+
+
+
+    public static ApagaModel foiSolicitadoApagar() {
+        ApagaModel apaga;
+        inputs.forEach(i -> {
+            if (TagsConfiguracao.ehUmaTagDeApagar(i)) {
+                text = i;
+            }
+        });
+        apaga = new ApagaModel(text);
+        text = null;
+        inputs.removeIf(i -> TagsConfiguracao.ehUmaTagDeApagar(i));
+        return apaga;
     }
 
 

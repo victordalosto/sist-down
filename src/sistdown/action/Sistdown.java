@@ -1,7 +1,9 @@
 package sistdown.action;
 import java.util.ArrayList;
 import java.util.List;
+
 import sistdown.action.actions.Acao;
+import sistdown.action.actions.Apaga;
 import sistdown.action.actions.Atualizacao;
 import sistdown.action.actions.Autorizacao;
 import sistdown.action.actions.Fim;
@@ -32,6 +34,7 @@ public class Sistdown {
         acoes.add(new Inicializacao());
         acoes.add(new PrintaInicio());
         acoes.add(new Prompt());
+        acoes.add(new Apaga());
         acoes.add(new HandleHelp());
         acoes.add(new HandleLimpa());
         acoes.add(new HandleDownload());
