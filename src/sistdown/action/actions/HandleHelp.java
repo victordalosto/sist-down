@@ -21,10 +21,9 @@ public class HandleHelp implements Acao {
             System.out.println("\n\n");
             System.out.println("==============================================");
             System.out.println(" SISTDOWN");
-            System.out.println(" Versão:  " + Util.getSistdownVersion());
-            System.out.println(" Server:  " + Util.getAuthenticationIP());
-            System.out.println(" Root:    " + Caminho.TARGET_DOWNLOAD);
-            System.out.println(" Banco:   " + Caminho.PATH_BANCO);
+            System.out.println(" Versão:  " + Util.getVersaoSistdown());
+            System.out.println(" Root:    " + Caminho.DIR_TARGET_VIDEOS_ROOT);
+            System.out.println(" Banco:   " + Caminho.FILE_TARGET_BANCO_CSV);
             System.out.println();
             System.out.println(" COMANDOS:");
             System.out.println(" Para baixar trechos, digite os ids separado por virgula ou espaco. Exemplo:\n   > 1234,1235,1236,1237 1238");

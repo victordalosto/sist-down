@@ -14,7 +14,7 @@ public class PrintaInicio implements Acao {
     public void executa() throws Exception {
         if (Util.verificaSeEhAPrimeiraVezRodandoOPrograma()) {
             System.out.println("\n");
-            System.out.println("\n SISTDOWN: " + Util.getSistdownVersion());
+            System.out.println("\n SISTDOWN: " + Util.getVersaoSistdown());
         } else {
             System.out.println("\n Downloads finalizados..");
         }

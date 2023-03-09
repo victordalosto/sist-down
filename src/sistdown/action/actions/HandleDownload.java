@@ -10,8 +10,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import sistdown.model.PromptInputs;
 import sistdown.service.Caminho;
-import sistdown.service.DBTrecho;
-import sistdown.service.Download;
+import sistdown.service.TrechoRepository;
+import sistdown.service.RecursosHandler;
 import sistdown.service.Logger;
 
 
@@ -36,7 +36,7 @@ public class HandleDownload implements Acao {
             Set<Tarefa> listaParaBaixar = new HashSet<>();
             Set<String> trechosBaixadosNesseLoop = new HashSet<>();
             for (String id : idsParaBaixar) {
-                String caminho = DBTrecho.getPath(id);
+                String caminho = TrechoRepository.getPath(id);
                 if (caminho == null) {
                     System.out.println(" * ... Trecho de id: "+id+" não está no banco.");
                 } else if(!trechosBaixadosNesseLoop.contains(caminho)) {
@@ -69,10 +69,10 @@ class Tarefa implements Callable<Void> {
     @Override
     public Void call() {
         try {
-            Path input = Paths.get(Caminho.INPUT_ROOT.toString(), caminho);
-            Path target = Paths.get(Caminho.TARGET_DOWNLOAD.toString(), caminho);
-            Download.delete(target.toFile());
-            Download.walkAndCopy(input, target, StandardCopyOption.REPLACE_EXISTING);
+            Path input = Paths.get(Caminho.DIR_REDE_VIDEOS_ROOT.toString(), caminho);
+            Path target = Paths.get(Caminho.DIR_TARGET_VIDEOS_ROOT.toString(), caminho);
+            RecursosHandler.delete(target.toFile());
+            RecursosHandler.walkAndCopy(input, target, StandardCopyOption.REPLACE_EXISTING);
             informaQueTrechoFoiBaixado(idTrecho, target);
         } catch (Exception e) {
             e.printStackTrace();
@@ -83,7 +83,7 @@ class Tarefa implements Callable<Void> {
 
 
     private void informaQueTrechoFoiBaixado(String idTrecho, Path target) throws IOException {
-        String nomeTrecho = Logger.logDownload(idTrecho, target);
+        String nomeTrecho = Logger.logaUmDownload(idTrecho, target);
         System.out.println(" * ...> Baixado: " + nomeTrecho);
         PromptInputs.removeInputDaLista(idTrecho);
     }

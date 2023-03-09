@@ -1,5 +1,5 @@
 package sistdown.action.actions;
-import sistdown.service.Update;
+import sistdown.service.Updater;
 import sistdown.service.Util;
 
 
@@ -12,6 +12,6 @@ public class Atualizacao implements Acao {
 
     public void executa() throws Exception {
         if (Util.verificaSeEhAPrimeiraVezRodandoOPrograma())
-            new Update().now();
+            new Updater().update();
     }
 }

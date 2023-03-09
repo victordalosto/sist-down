@@ -11,11 +11,10 @@ import java.util.Scanner;
  * Com o id de identificação do trecho, é possível obter a partir do seu value, 
  * o target da pasta contendo o caminho do trecho para ser baixado na rede.
  */
-public class DBTrecho {
+public class TrechoRepository {
 
     public static Map<String, String> hashTrechos = new HashMap<>();
     private static long lastModified = 0;
-
 
 
     /**
@@ -30,15 +29,14 @@ public class DBTrecho {
     }
 
     
-
     /**
      * Carrega os trechos que estão disponíveis para download. <p>
      */
     private static void atualizaTrechosDisponiveisBanco() throws FileNotFoundException {
-        File pathCSV = new File(Caminho.PATH_BANCO.toString());
+        File pathCSV = new File(Caminho.FILE_TARGET_BANCO_CSV.toString());
         if (pathCSV.lastModified() != lastModified) {
-            hashTrechos = new HashMap<>();
             lastModified = pathCSV.lastModified();
+            hashTrechos = new HashMap<>();
             try(Scanner scanner = new Scanner(pathCSV)) {
                 while (scanner.hasNextLine()) {
                     String[] row = scanner.nextLine().split(";");

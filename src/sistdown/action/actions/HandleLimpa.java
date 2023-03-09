@@ -2,7 +2,7 @@ package sistdown.action.actions;
 import java.io.File;
 import sistdown.model.PromptInputs;
 import sistdown.service.Caminho;
-import sistdown.service.Download;
+import sistdown.service.RecursosHandler;
 import sistdown.service.Logger;
 
 
@@ -15,20 +15,20 @@ public class HandleLimpa implements Acao {
     
     public void executa() throws Exception {
         if (PromptInputs.foiSolicitadoLimpar()) {
-            Logger.clear();
+            Logger.clearLog();
             limpaPastaDownloads();
         }
     }
 
 
     private void limpaPastaDownloads() {
-        File temp = Caminho.TARGET_DOWNLOAD_TEMP;
-        boolean isRenamed = Caminho.TARGET_DOWNLOAD.renameTo(temp);
+        File temp = Caminho.FILE_TARGET_VIDEOS_TEMP;
+        boolean isRenamed = Caminho.DIR_TARGET_VIDEOS_ROOT.renameTo(temp);
         if (isRenamed)
-            new Thread(() -> Download.delete(temp)).start();
+            new Thread(() -> RecursosHandler.delete(temp)).start();
         else
-            Download.delete(Caminho.TARGET_DOWNLOAD);
-        Caminho.TARGET_DOWNLOAD.mkdirs();
+            RecursosHandler.delete(Caminho.DIR_TARGET_VIDEOS_ROOT);
+        Caminho.DIR_TARGET_VIDEOS_ROOT.mkdirs();
         System.out.print("\n * ... Pasta Limpa");
     }
 

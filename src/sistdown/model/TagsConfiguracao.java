@@ -1,26 +1,23 @@
 package sistdown.model;
 
 
-/**
- * Enum contendo os inputs para acionar as principais funcionalidades do sistema.
- */
+/** Enum contendo os inputs para acionar as principais funcionalidades do sistema. */
 public enum TagsConfiguracao {
 
-    LIMPA, LIMPAR, LIMP, 
-    HELP, AJUDA, APAGA;
+    LIMP, HELP, AJUDA, APAGA;
+
 
     /**
      * Verifica se o input enviado é uma Tag para uma funcionalidade.
      */
     public static boolean ehUmaTag(String text) {
         for (TagsConfiguracao tag : TagsConfiguracao.values()) {
-            if (text.toLowerCase().contains(tag.toString().toLowerCase()))
+            if (text.toUpperCase().contains(tag.toString()))
                 return true;
         }
         return false;
     }
 
-    
 
     /**
      * Verifica se o input enviado é uma Tag para uma funcionalidade.
@@ -32,7 +29,7 @@ public enum TagsConfiguracao {
     }
 
     
-        /**
+    /**
      * Verifica se o input enviado é uma Tag para uma funcionalidade.
      */
     public static boolean ehUmaTagDeApagar(String text) {

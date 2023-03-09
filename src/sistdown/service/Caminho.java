@@ -10,48 +10,52 @@ import java.nio.file.Paths;
  */
 public class Caminho {
 
-    public static final File SISTDOWN_ROOT    = Paths.get("D:", "sist-down").toFile();
+    public static final File DIR_SISTDOWN_ROOT    = Paths.get("D:", "sist-down").toFile();
     
-    public static final File INPUT_ROOT = Paths.get("\\\\10.100.10.219", "Videos").toFile();
-    public static final File TARGET_DOWNLOAD = Paths.get("D:", "sist-down", "Videos").toFile();
+    public static final File DIR_REDE_VIDEOS_ROOT = Paths.get("\\\\10.100.10.219", "Videos").toFile();
+    public static final File DIR_TARGET_VIDEOS_ROOT = Paths.get("D:", "sist-down", "Videos").toFile();
 
-    public static final File TARGET_DOWNLOAD_TEMP = Paths.get("D:", "sist-down", "Videos-temp").toFile();
+    public static final File FILE_TARGET_VIDEOS_TEMP = Paths.get("D:", "sist-down", "Videos-temp").toFile();
 
-    public static final File CONFIG_FOLDER = Paths.get("D:", "sist-down", "config").toFile();
-    public static final File INFO_DOWNLOADS = Paths.get("D:", "sist-down", "config", "logs-downloads").toFile();
+    public static final File DIR_TARGET_CONFIG = Paths.get("D:", "sist-down", "config").toFile();
+    public static final File FILE_TARGET_INFO_DOWNLOADS = Paths.get("D:", "sist-down", "config", 
+                                                                "logs-downloads").toFile();
 
-    public static final File PATH_BANCO = Paths.get(INPUT_ROOT.toString(), "Recebidos", "sistdown-config", "caminhos.csv").toFile();
+    public static final File FILE_TARGET_BANCO_CSV = Paths.get(DIR_REDE_VIDEOS_ROOT.toString(), "Recebidos", 
+                                                          "sistdown-config", "caminhos.csv").toFile();
     
 
-
+    /**
+     * Rotina para criar as pastas necessarias para rodar o Sistdown.
+     */
     public void init() throws IOException {
         criarDiretorios();
         criarArquivos();
     }
 
 
-    /**
-     * Rotina para criar as pastas necessarias para rodar o Sistdown.
-     */
     private void criarDiretorios() {
-        if (!SISTDOWN_ROOT.isDirectory())
-            SISTDOWN_ROOT.mkdirs();
+        if (!DIR_SISTDOWN_ROOT.isDirectory()) {
+            DIR_SISTDOWN_ROOT.mkdirs();
+        }
         
-        if (!TARGET_DOWNLOAD.isDirectory())
-            TARGET_DOWNLOAD.mkdirs();
+        if (!DIR_TARGET_VIDEOS_ROOT.isDirectory()) {
+            DIR_TARGET_VIDEOS_ROOT.mkdirs(); 
+        }
         
-        if (!CONFIG_FOLDER.isDirectory())
-            CONFIG_FOLDER.mkdirs();
+        if (!DIR_TARGET_CONFIG.isDirectory()) {
+            DIR_TARGET_CONFIG.mkdirs();
+        }
     }
-
 
 
     /**
      * Rotina para criar os arquivos necessarios para rodar o Sistdown.
      */
     private void criarArquivos() throws IOException {
-        if (!INFO_DOWNLOADS.exists())
-            INFO_DOWNLOADS.createNewFile();
+        if (!FILE_TARGET_INFO_DOWNLOADS.exists()) {
+            FILE_TARGET_INFO_DOWNLOADS.createNewFile();
+        }
     }
 
 }

@@ -10,32 +10,46 @@ import java.util.List;
 
 public class Logger {
 
+
+    public static void printaLinhaConsole() {
+        System.out.println(" --------------------------------------------------------------------------------------");
+    }
+
+
+    public static void printaMensagemConsole(String text) {
+        System.out.println(" * " + text);
+    }
+
+
+    public static void appendMensagemToLog(String msg) throws IOException {
+        Files.write(Caminho.FILE_TARGET_INFO_DOWNLOADS.toPath(), (msg+"\n").getBytes(), StandardOpenOption.APPEND);
+    }
+
+
+    public static List<String> readAllLog() throws IOException {
+        return Files.readAllLines(Paths.get(Caminho.FILE_TARGET_INFO_DOWNLOADS.toString()));
+    }
+
+
+    public static void clearLog() throws IOException {
+        FileWriter f = new FileWriter(Caminho.FILE_TARGET_INFO_DOWNLOADS, false);
+        f.close();
+    }
+
     
-    public static synchronized String logDownload(String idTrecho, Path target) throws IOException {
+    public static synchronized String logaUmDownload(String idTrecho, Path target) throws IOException {
         String hash = target.toString().replaceAll(".+_", "");
         String uf = hash.substring(3,5);
         String br = hash.substring(0, 3);
         String append = idTrecho+";"+uf+";"+br;
         if (logEhUnicoNoArquivo(append))
-            Files.write(Caminho.INFO_DOWNLOADS.toPath(), (append+"\n").getBytes(), StandardOpenOption.APPEND);
-        return format(append);
+            appendMensagemToLog(append);
+        return formataNomeTrecho(append);
     }
 
 
-
-    private static boolean logEhUnicoNoArquivo(String append) throws IOException {
-        List<String> lines = Files.readAllLines(Paths.get(Caminho.INFO_DOWNLOADS.toString()));
-        for (String l : lines) {
-            if (append.equals(l))
-                return false;
-        }
-        return true;
-    }
-
-
-
-    private static String format(String row) {
-        if (!Util.textEhValido(row) || !row.contains(";") || row.split(";").length != 3)
+    private static String formataNomeTrecho(String row) {
+        if (!Util.textoEhValido(row) || !row.contains(";") || row.split(";").length != 3)
             return "[" + row + "]";
         String[] array = row.split(";");
         while (array[0].length() < 5) {
@@ -45,31 +59,32 @@ public class Logger {
     }
 
 
-
-    public static void clear() throws IOException {
-        FileWriter f = new FileWriter(Caminho.INFO_DOWNLOADS, false);
-        f.close();
+    private static boolean logEhUnicoNoArquivo(String append) throws IOException {
+        List<String> lines = readAllLog();
+        for (String l : lines) {
+            if (append.equals(l))
+                return false;
+        }
+        return true;
     }
 
 
-
     public static void printaTrechosQueEstaoNaMaquinaLocal() throws Exception {
-        List<String> lines = Files.readAllLines(Paths.get(Caminho.INFO_DOWNLOADS.toString()));
+        List<String> lines = Files.readAllLines(Paths.get(Caminho.FILE_TARGET_INFO_DOWNLOADS.toString()));
         if (lines == null || lines.size() == 0) {
-            System.out.println(" --------------------------------------------------------------------------------------");
-            System.out.println(" * 0 trechos baixados.    Digite o numero dos ids para baixar trechos");
+            Logger.printaLinhaConsole();
+            printaMensagemConsole("0 trechos baixados.    Digite o numero dos ids para baixar trechos");
         } else {
-            System.out.println(" ---------------------------------- TRECHOS BAIXADOS ----------------------------------");
+            Logger.printaLinhaConsole();
             for (int i = 0; i < lines.size(); i++) {
                 if (i == 0) System.out.print("  ");
                 else if (i%4 == 0)  System.out.print("\n  ");
                 else System.out.print("    ");
-                System.out.print(Logger.format(lines.get(i)));
+                System.out.print(Logger.formataNomeTrecho(lines.get(i)));
             }
             System.out.println();
         }
-        System.out.println(" --------------------------------------------------------------------------------------");
+        Logger.printaLinhaConsole();
     }
-
     
 }

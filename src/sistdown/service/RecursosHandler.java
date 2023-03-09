@@ -8,7 +8,8 @@ import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 
-public class Download {
+
+public class RecursosHandler {
 
     
     /**
@@ -33,26 +34,28 @@ public class Download {
                 String arquivo = file.toString().toLowerCase();
                 if (arquivo.endsWith(".mp4")  || arquivo.endsWith(".avi") || arquivo.endsWith(".flv") || 
                     arquivo.endsWith(".jpeg") || arquivo.endsWith(".jpg") || arquivo.endsWith(".png") || 
-                    arquivo.endsWith("logstrecho.xml"))
-                    Files.copy(file, target.resolve(source.relativize(file)), options);
+                    arquivo.endsWith("logstrecho.xml")) {
+                        Files.copy(file, target.resolve(source.relativize(file)), options);
+                    }
                 return FileVisitResult.CONTINUE;
             }
         });
     }
 
 
-
     /**
-     * Algoritmo para deletar uma pasta
+     * Algoritmo para deletar uma pasta ou arquivo
      */
     public static void delete(File folder) {
         File[] files = folder.listFiles();
         if (files != null) { // some JVMs return null for empty dirs
             for (File f : files) {
-                if (f.isDirectory())
+                if (f.isDirectory()) {
                     delete(f);
-                else
+                }
+                else {
                     f.delete();
+                }
             }
         }
         folder.delete();

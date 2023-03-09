@@ -26,12 +26,12 @@ public class PromptInputs {
 
 
     private static void adicionaInputsValidosNaLista(String input) {
-        if (Util.textEhValido(input)) {
+        if (Util.textoEhValido(input)) {
             if (TagsConfiguracao.ehUmaTag(input)) {
                 inputs.add(input.toUpperCase());
             } else {
                 input = input.replaceAll("[^\\d.]", "");
-                if (Util.textEhValido(input))
+                if (Util.textoEhValido(input))
                     inputs.add(input);
             }
         }

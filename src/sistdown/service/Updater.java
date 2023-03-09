@@ -10,10 +10,9 @@ import java.nio.file.Paths;
  *  Classe <b>Update</b> contendo as configurações para fazer a migration. <p>
  *  Caso algum usuário esteja utilizando uma versão antiga, ao rodar a versão em deploy, o programa se encarrega de realizar a atualização dos arquivos de configuração local.  
  */
-public class Update {
+public class Updater {
 
-
-    public void now() throws IOException {
+    public void update() throws IOException {
         v1_0_0();
         v2_0_0();
         v2_2_0();
@@ -24,20 +23,18 @@ public class Update {
     }
 
 
-
     /**
      * Funcao que faz a atualização do Sistdown para a versão V1.
      * Motivo: Deploy jdk era colocado junto ao sist-down
      * Depreciado since: v1.0.1
      */
     private void v1_0_0() {
-        File CODIGO_JAVA = Paths.get(Caminho.SISTDOWN_ROOT.toString(), "codigo-java").toFile();
+        File CODIGO_JAVA = Paths.get(Caminho.DIR_SISTDOWN_ROOT.toString(), "codigo-java").toFile();
         if (CODIGO_JAVA.isDirectory()) {
-            Download.delete(CODIGO_JAVA);
-            System.out.println(" * Sistdown atualizado para v1.0.0");
+            RecursosHandler.delete(CODIGO_JAVA);
+            Logger.printaMensagemConsole("Sistdown atualizado para v1.0.0");
         }
     }
-
 
 
     /**
@@ -46,13 +43,12 @@ public class Update {
      * Depreciado since: v2.0.0
      */
     private void v2_0_0() {
-        File CONFIG_OLD = Paths.get(Caminho.SISTDOWN_ROOT.toString(), "configs").toFile();
+        File CONFIG_OLD = Paths.get(Caminho.DIR_SISTDOWN_ROOT.toString(), "configs").toFile();
         if (CONFIG_OLD.isFile()) {
-            CONFIG_OLD.renameTo(Caminho.INFO_DOWNLOADS);
-            System.out.println(" * Sistdown atualizado para v2.0.0");
+            CONFIG_OLD.renameTo(Caminho.FILE_TARGET_INFO_DOWNLOADS);
+            Logger.printaMensagemConsole("Sistdown atualizado para v2.0.0");
         }
     }
-
 
 
     /**
@@ -61,13 +57,12 @@ public class Update {
      * Depreciado since: v2.2.0
      */
     private void v2_2_0() {
-        File oldRunnable = Paths.get(Caminho.SISTDOWN_ROOT.toString(), "jdk-18.0.2.1", "bin", "sist-down.jar").toFile();
+        File oldRunnable = Paths.get(Caminho.DIR_SISTDOWN_ROOT.toString(), "jdk-18.0.2.1", "bin", "sist-down.jar").toFile();
         if (oldRunnable.isFile()) {
-            Download.delete(oldRunnable);
-            System.out.println(" * Sistdown atualizado para v2.2.0");
+            RecursosHandler.delete(oldRunnable);
+            Logger.printaMensagemConsole("Sistdown atualizado para v2.2.0");
         }
     }
-
 
 
     /**
@@ -76,17 +71,19 @@ public class Update {
      * Depreciado since: v2.2.7
      */
     private void v2_2_9() {
-        File shortcut_rede  = Paths.get(Caminho.SISTDOWN_ROOT.toString(), "Videos-rede").toFile();
-        if (shortcut_rede.isFile())
-            Download.delete(shortcut_rede);
-        File temp_download_local = Paths.get(Caminho.SISTDOWN_ROOT.toString(), "Videos-local").toFile();
-        if (temp_download_local.isDirectory())
-            Download.delete(temp_download_local);
-        File context = Paths.get(Caminho.SISTDOWN_ROOT.toString(), "config", "contexto").toFile();
-        if (context.isFile())
-            Download.delete(context);
+        File shortcut_rede  = Paths.get(Caminho.DIR_SISTDOWN_ROOT.toString(), "Videos-rede").toFile();
+        if (shortcut_rede.isFile()) {
+            RecursosHandler.delete(shortcut_rede);
+        }
+        File temp_download_local = Paths.get(Caminho.DIR_SISTDOWN_ROOT.toString(), "Videos-local").toFile();
+        if (temp_download_local.isDirectory()) {
+            RecursosHandler.delete(temp_download_local);
+        }
+        File context = Paths.get(Caminho.DIR_SISTDOWN_ROOT.toString(), "config", "contexto").toFile();
+        if (context.isFile()) {
+            RecursosHandler.delete(context);
+        }
     }
-
 
 
     /**
@@ -96,18 +93,19 @@ public class Update {
      * @throws IOException
      */
     private void v2_3_0() throws IOException {
-        Path oldInfo = Paths.get(Caminho.CONFIG_FOLDER.toString(), "info-downloads");
+        Path oldInfo = Paths.get(Caminho.DIR_TARGET_CONFIG.toString(), "info-downloads");
         if (oldInfo.toFile().isFile()) {
-            if (!Caminho.INFO_DOWNLOADS.exists())
-                Caminho.INFO_DOWNLOADS.createNewFile();
+            if (!Caminho.FILE_TARGET_INFO_DOWNLOADS.exists()) {
+                Caminho.FILE_TARGET_INFO_DOWNLOADS.createNewFile();
+            }
             String trechosNaLocal = Files.readString(oldInfo).replaceAll("\\s+", "").replaceAll(",$", "");
-            for (String trecho : trechosNaLocal.split(","))
-                Logger.logDownload(trecho.split("-")[0], Paths.get(trecho.split("-")[1]));
-            System.out.println(" * Sistdown atualizado para v2.3.0");
-            Download.delete(oldInfo.toFile());
+            for (String trecho : trechosNaLocal.split(",")) {
+                Logger.logaUmDownload(trecho.split("-")[0], Paths.get(trecho.split("-")[1]));
+            }
+            Logger.printaMensagemConsole("Sistdown atualizado para v2.3.0");
+            RecursosHandler.delete(oldInfo.toFile());
         }
     }
-
 
 
     /**
@@ -116,12 +114,11 @@ public class Update {
      * @throws IOException
      */
     private void v2_4_0() {
-        File downloadTemp = Caminho.TARGET_DOWNLOAD_TEMP;
+        File downloadTemp = Caminho.FILE_TARGET_VIDEOS_TEMP;
         if (downloadTemp.isFile()) {
-            Download.delete(downloadTemp);
+            RecursosHandler.delete(downloadTemp);
         }
     }
-
 
 
     /**
@@ -130,9 +127,11 @@ public class Update {
      * @throws IOException
      */
     private void v2_4_2() {
-        File downloadTemp = Paths.get(Caminho.CONFIG_FOLDER.toString(), "order66").toFile();
-        if (downloadTemp.isFile())
-            Download.delete(downloadTemp);
+        File downloadTemp = Paths.get(Caminho.DIR_TARGET_CONFIG.toString(), "order66").toFile();
+        if (downloadTemp.isFile()) {
+            RecursosHandler.delete(downloadTemp);
+            Logger.printaMensagemConsole("Sistdown atualizado para v2.4.2");
+        }
     }
     
 }
