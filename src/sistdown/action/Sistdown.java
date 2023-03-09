@@ -17,13 +17,13 @@ import sistdown.action.actions.SistHeroScript;
 
 
 /**
- * Função principal que faz a inicialização do <b>Sist-down</b>.<p>
- * Para iniciar o sistema basta rodar o método estático <code>iniciar()</code>
+ * Classe principal que faz a inicialização do <b>Sist-down</b>.<p>
+ * Para iniciar o sistema basta rodar o método estático: <code>iniciar()</code>
  */
 public class Sistdown {
 
     /** Lista com as ações executadas pelo sistema. */
-    private static List<Acao> acoes = new ArrayList<>();
+    private static List<Acao> acoes = new ArrayList<>(11);
     
     
     /** Cria o encademaneto das ações. */
@@ -50,8 +50,9 @@ public class Sistdown {
     public static void inicia() {
         try {
             while (true) {
-                for (Acao acao : acoes)
+                for (Acao acao : acoes) {
                     acao.executa();
+                }
             }
         } catch (Exception e) {
             System.out.println("\n\n");

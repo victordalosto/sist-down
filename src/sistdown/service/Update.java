@@ -20,6 +20,7 @@ public class Update {
         v2_2_9();
         v2_3_0();
         v2_4_0();
+        v2_4_2();
     }
 
 
@@ -116,10 +117,22 @@ public class Update {
      */
     private void v2_4_0() {
         File downloadTemp = Caminho.TARGET_DOWNLOAD_TEMP;
+        if (downloadTemp.isFile()) {
+            Download.delete(downloadTemp);
+        }
+    }
+
+
+
+    /**
+     * Deleta pasta de order66 temporaria
+     * Depreciado since: v2.4.1
+     * @throws IOException
+     */
+    private void v2_4_2() {
+        File downloadTemp = Paths.get(Caminho.CONFIG_FOLDER.toString(), "order66").toFile();
         if (downloadTemp.isFile())
             Download.delete(downloadTemp);
-        
-
     }
     
 }
