@@ -8,10 +8,11 @@ import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import sistdown.model.PromptInputs;
+
+import sistdown.Handler.PromptInputsHandler;
+import sistdown.Handler.RecursosHandler;
+import sistdown.repository.TrechoRepository;
 import sistdown.service.Caminho;
-import sistdown.service.TrechoRepository;
-import sistdown.service.RecursosHandler;
 import sistdown.service.Logger;
 
 
@@ -30,7 +31,7 @@ public class HandleDownload implements Acao {
      * Faz o download dos trechos na maquina local.
      */
     public void executa() throws Exception {
-        Set<String> idsParaBaixar = PromptInputs.obtemIdsDigitados();
+        Set<String> idsParaBaixar = PromptInputsHandler.obtemIdsDigitados();
         if (idsParaBaixar.size() > 0) {
             System.out.println("\n * ... Iniciando o download dos trechos");
             Set<Tarefa> listaParaBaixar = new HashSet<>();
@@ -85,7 +86,7 @@ class Tarefa implements Callable<Void> {
     private void informaQueTrechoFoiBaixado(String idTrecho, Path target) throws IOException {
         String nomeTrecho = Logger.logaUmDownload(idTrecho, target);
         System.out.println(" * ...> Baixado: " + nomeTrecho);
-        PromptInputs.removeInputDaLista(idTrecho);
+        PromptInputsHandler.removeInputDaLista(idTrecho);
     }
 
 }

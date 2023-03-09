@@ -7,11 +7,11 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
+import sistdown.Handler.PromptInputsHandler;
+import sistdown.Handler.RecursosHandler;
 import sistdown.model.ApagaModel;
-import sistdown.model.PromptInputs;
+import sistdown.repository.TrechoRepository;
 import sistdown.service.Caminho;
-import sistdown.service.TrechoRepository;
-import sistdown.service.RecursosHandler;
 import sistdown.service.Logger;
 
 
@@ -23,7 +23,7 @@ public class Apaga implements Acao {
 
 
     public void executa() throws Exception {
-        ApagaModel apaga = PromptInputs.foiSolicitadoApagar();
+        ApagaModel apaga = PromptInputsHandler.foiSolicitadoApagar();
         if (apaga.getQuantidade() >= 0) {
             try {
                 List<String> lines = Files.readAllLines(Paths.get(Caminho.FILE_TARGET_INFO_DOWNLOADS.toString()));

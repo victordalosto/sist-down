@@ -1,8 +1,9 @@
 package sistdown.action.actions;
 import java.io.File;
-import sistdown.model.PromptInputs;
+
+import sistdown.Handler.PromptInputsHandler;
+import sistdown.Handler.RecursosHandler;
 import sistdown.service.Caminho;
-import sistdown.service.RecursosHandler;
 import sistdown.service.Logger;
 
 
@@ -14,7 +15,7 @@ public class HandleLimpa implements Acao {
 
     
     public void executa() throws Exception {
-        if (PromptInputs.foiSolicitadoLimpar()) {
+        if (PromptInputsHandler.foiSolicitadoLimpar()) {
             Logger.clearLog();
             limpaPastaDownloads();
         }

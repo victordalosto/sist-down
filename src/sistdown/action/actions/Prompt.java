@@ -1,6 +1,5 @@
 package sistdown.action.actions;
-import java.util.Scanner;
-import sistdown.model.PromptInputs;
+import sistdown.Handler.PromptInputsHandler;
 
 
 /**
@@ -10,12 +9,8 @@ import sistdown.model.PromptInputs;
  */
 public class Prompt implements Acao {
     
-
-    @SuppressWarnings({ "resource" })
     public void executa() throws Exception {
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
-        PromptInputs.adicionaInputs(input);
+        PromptInputsHandler.obtemInputs();
     }
 
 }

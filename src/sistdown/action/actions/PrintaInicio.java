@@ -1,6 +1,5 @@
 package sistdown.action.actions;
 import sistdown.service.Logger;
-import sistdown.service.Util;
 
 
 /**
@@ -12,14 +11,7 @@ public class PrintaInicio implements Acao {
     
     
     public void executa() throws Exception {
-        if (Util.verificaSeEhAPrimeiraVezRodandoOPrograma()) {
-            System.out.println("\n");
-            System.out.println("\n SISTDOWN: " + Util.getVersaoSistdown());
-        } else {
-            System.out.println("\n Downloads finalizados..");
-        }
-        Logger.printaTrechosQueEstaoNaMaquinaLocal();
-        System.out.print(" > ");
+        Logger.printaInicio();
     }
 
 }

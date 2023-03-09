@@ -5,6 +5,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import sistdown.Handler.RecursosHandler;
+
 
 /**
  *  Classe <b>Update</b> contendo as configurações para fazer a migration. <p>

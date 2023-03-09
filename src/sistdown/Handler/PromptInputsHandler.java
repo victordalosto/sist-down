@@ -1,23 +1,28 @@
-package sistdown.model;
+package sistdown.Handler;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Scanner;
 import java.util.Set;
 
+import sistdown.model.ApagaModel;
+import sistdown.model.TagsConfiguracao;
 import sistdown.service.Util;
 
 
 /**
  * Classe que guarda os inputs digitados na Action Prompt.
  */
-public class PromptInputs {
+public class PromptInputsHandler {
     
     private static Set<String> inputs = Collections.synchronizedSet(new HashSet<>());
+    private static Scanner scanner = new Scanner(System.in);
 
     private static String text;
 
 
 
-    public static void adicionaInputs(String fullInput) {
+    public static void obtemInputs() {
+        String fullInput = scanner.nextLine();
         fullInput = fullInput.replaceAll("\\s+", ",").replaceAll("[.<>;/?°]", ",");
         for (String input : fullInput.split(","))
             adicionaInputsValidosNaLista(input);

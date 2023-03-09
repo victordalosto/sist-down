@@ -36,6 +36,17 @@ public class Logger {
         f.close();
     }
 
+    public static void printaInicio() throws Exception {
+        if (Util.verificaSeEhAPrimeiraVezRodandoOPrograma()) {
+            System.out.println("\n");
+            System.out.println("\n SISTDOWN: " + Util.getVersaoSistdown());
+        } else {
+            System.out.println("\n Downloads finalizados..");
+        }
+        Logger.printaTrechosQueEstaoNaMaquinaLocal();
+        System.out.print(" > ");
+    }
+
     
     public static synchronized String logaUmDownload(String idTrecho, Path target) throws IOException {
         String hash = target.toString().replaceAll(".+_", "");

@@ -1,5 +1,4 @@
 package sistdown.action.actions;
-import sistdown.model.PromptInputs;
 import sistdown.service.Util;
 
 
@@ -11,8 +10,6 @@ public class Fim implements Acao {
     
     public void executa() throws Exception {
         Util.iniciaNovamenteOPrograma();
-        PromptInputs.reiniciaPromptDigitados();
-        System.out.println("\n\n");
     }
     
 }
