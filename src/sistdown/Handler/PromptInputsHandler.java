@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.function.Predicate;
-import sistdown.model.ApagaModel;
+import java.util.stream.Collectors;
 import sistdown.model.InputArgsModel;
 import sistdown.model.TagsConfiguracao;
 import sistdown.service.Util;
@@ -18,9 +18,7 @@ public class PromptInputsHandler {
     private static Set<String> setInputs;
     private static Scanner scanner = new Scanner(System.in);
 
-    private static String text;
-
-
+    
     public static void obtemInputs() {
         setInputs = Collections.synchronizedSet(new HashSet<>());
         String fullInputConsoleLine = scanner.nextLine();
@@ -58,38 +56,12 @@ public class PromptInputsHandler {
     }
 
 
-    public static boolean foiSolicitadoLimpar() {
-        setInputs.forEach(item -> {
-            if (TagsConfiguracao.ehUmaTagDeLimpar(item)) {
-            }
-        });
-        return setInputs.removeIf(i -> TagsConfiguracao.ehUmaTagDeLimpar(i));
-    }
-
-
-    public static ApagaModel foiSolicitadoApagar() {
-        ApagaModel apaga;
-        setInputs.forEach(i -> {
-            if (TagsConfiguracao.ehUmaTagDeApagar(i)) {
-                text = i;
-            }
-        });
-        apaga = new ApagaModel(text);
-        text = null;
-        setInputs.removeIf(i -> TagsConfiguracao.ehUmaTagDeApagar(i));
-        return apaga;
-    }
-
-
-    public static boolean foiSolicitadoAjuda() {
-        return setInputs.removeIf(i -> TagsConfiguracao.ehUmaTagDeAjuda(i));
-    }
-
 
     public static Set<String> obtemIdsDigitados() {
-        return Collections.unmodifiableSet(setInputs);
+        return setInputs.stream().filter(i -> i.matches("[0-9]+")).collect(Collectors.toSet());
     }
 
+    
     public static boolean isEmpty() {
         return setInputs.size() == 0;
     }

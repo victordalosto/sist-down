@@ -39,8 +39,7 @@ public class Registrador {
     
     public static void printaInicio() throws Exception {
         if (Util.verificaSeEhAPrimeiraVezRodandoOPrograma()) {
-            System.out.println("\n");
-            System.out.println("\n SISTDOWN: " + Util.getVersaoSistdown());
+            System.out.println("\n SISTDOWN");
         } else {
             System.out.println("\n Downloads finalizados..");
         }
@@ -67,7 +66,7 @@ public class Registrador {
         while (array[0].length() < 5) {
             array[0] = " " + array[0];
         }
-        return "[ "+array[0]+" - " + array[1] + "/" + array[2] +" ]";
+        return "["+array[0]+" - " + array[1] + "/" + array[2] +" ]";
     }
 
 

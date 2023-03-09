@@ -22,7 +22,7 @@ public class Util {
     
     public static void iniciaNovamenteOPrograma() {
         primeiraInicializacao = false;
-        System.out.println("\n\n\n");
+        System.out.println("\n");
     }
 
 

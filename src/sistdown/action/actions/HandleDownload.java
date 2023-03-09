@@ -30,15 +30,16 @@ public class HandleDownload implements Acao {
      * Faz o download dos trechos na maquina local.
      */
     public void executa() throws Exception {
+        
         Set<String> idsParaBaixar = PromptInputsHandler.obtemIdsDigitados();
         if (idsParaBaixar.size() > 0) {
-            Registrador.printaMensagemConsole("  ... Iniciando o download dos trechos");
+            Registrador.printaMensagemConsole("... Iniciando o download dos trechos");
             Set<Tarefa> listaParaBaixar = new HashSet<>();
             Set<String> trechosBaixadosNesseLoop = new HashSet<>();
             for (String id : idsParaBaixar) {
                 String caminho = TrechoRepository.getPath(id);
                 if (caminho == null) {
-                    Registrador.printaMensagemConsole("!!! Trecho de id: "+id+" não está no banco.");
+                    Registrador.printaMensagemConsole("!!! Trecho de id: "+id+" não está no banco !!!");
                 } else if(!trechosBaixadosNesseLoop.contains(caminho)) {
                     trechosBaixadosNesseLoop.add(caminho);
                     listaParaBaixar.add(new Tarefa(id, caminho));

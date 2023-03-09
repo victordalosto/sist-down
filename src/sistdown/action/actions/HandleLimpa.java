@@ -1,8 +1,9 @@
 package sistdown.action.actions;
 import java.io.File;
-
 import sistdown.Handler.PromptInputsHandler;
 import sistdown.Handler.RecursosHandler;
+import sistdown.model.InputArgsModel;
+import sistdown.model.TagsConfiguracao;
 import sistdown.service.Caminho;
 import sistdown.service.Registrador;
 
@@ -15,7 +16,9 @@ public class HandleLimpa implements Acao {
 
     
     public void executa() throws Exception {
-        if (PromptInputsHandler.foiSolicitadoLimpar()) {
+        InputArgsModel input = PromptInputsHandler.verificaSeFoiSolicitado(
+                               (txt) -> TagsConfiguracao.textEhUmaTag(txt, TagsConfiguracao.LIMPA));
+        if (input.foiSolicitado()) {
             Registrador.clearLog();
             limpaPastaDownloads();
         }

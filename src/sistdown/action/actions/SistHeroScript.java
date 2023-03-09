@@ -1,7 +1,4 @@
 package sistdown.action.actions;
-import java.io.IOException;
-import sistdown.service.Util;
-
 
 /**
  * Inicializa o script de SistHero Basic que possibilita a sua correta execucao
