@@ -34,7 +34,7 @@ public class HandleDownload implements Acao {
         Set<String> idsParaBaixar = PromptInputsHandler.obtemIdsDigitados();
         if (idsParaBaixar.size() > 0) {
             Registrador.printaMensagemConsole("... Iniciando o download dos trechos");
-            Set<Tarefa> listaParaBaixar = new HashSet<>();
+            Set<TarefaDownload> listaParaBaixar = new HashSet<>();
             Set<String> trechosBaixadosNesseLoop = new HashSet<>();
             for (String id : idsParaBaixar) {
                 String caminho = TrechoRepository.getPath(id);
@@ -42,7 +42,7 @@ public class HandleDownload implements Acao {
                     Registrador.printaMensagemConsole("!!! Trecho de id: "+id+" não está no banco !!!");
                 } else if(!trechosBaixadosNesseLoop.contains(caminho)) {
                     trechosBaixadosNesseLoop.add(caminho);
-                    listaParaBaixar.add(new Tarefa(id, caminho));
+                    listaParaBaixar.add(new TarefaDownload(id, caminho));
                 } 
             }
             executorService.invokeAll(listaParaBaixar);
@@ -57,12 +57,12 @@ public class HandleDownload implements Acao {
 /**
  * Classe contendo Callable Task, permitindo que a aplicação faça o Download em diferentes Threads.
  */
-class Tarefa implements Callable<Void> {
+class TarefaDownload implements Callable<Void> {
 
     String idTrecho;
     String caminho;
 
-    Tarefa(String idTrecho, String caminho) {
+    TarefaDownload(String idTrecho, String caminho) {
         this.idTrecho = idTrecho;
         this.caminho = caminho;
     }
@@ -85,7 +85,7 @@ class Tarefa implements Callable<Void> {
 
     private void informaQueTrechoFoiBaixado(String idTrecho, Path target) throws IOException {
         String nomeTrecho = Registrador.logaUmDownload(idTrecho, target);
-        Registrador.printaMensagemConsole(" * ...> Baixado: " + nomeTrecho);
+        Registrador.printaMensagemConsole("...> Baixado: " + nomeTrecho);
     }
 
 }
