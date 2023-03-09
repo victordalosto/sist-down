@@ -29,8 +29,10 @@ public class Caminho {
      * Rotina para criar as pastas necessarias para rodar o Sistdown.
      */
     public void init() throws IOException {
-        criarDiretorios();
-        criarArquivos();
+        if (Util.verificaSeEhAPrimeiraVezRodandoOPrograma()) {
+            criarDiretorios();
+            criarArquivos();
+        }
     }
 
 

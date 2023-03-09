@@ -1,6 +1,5 @@
 package sistdown.service;
 import sistdown.Main;
-import sistdown.Handler.PromptInputsHandler;
 import sistdown.model.Version;
 
 
@@ -23,8 +22,7 @@ public class Util {
     
     public static void iniciaNovamenteOPrograma() {
         primeiraInicializacao = false;
-        PromptInputsHandler.reiniciaPromptDigitados();
-        System.out.println("\n\n");
+        System.out.println("\n\n\n");
     }
 
 

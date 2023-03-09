@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sistdown.action.actions.Acao;
-import sistdown.action.actions.Apaga;
+import sistdown.action.actions.HandleApaga;
 import sistdown.action.actions.Atualizacao;
 import sistdown.action.actions.Autorizacao;
 import sistdown.action.actions.Fim;
@@ -14,6 +14,7 @@ import sistdown.action.actions.Inicializacao;
 import sistdown.action.actions.PrintaInicio;
 import sistdown.action.actions.Prompt;
 import sistdown.action.actions.SistHeroScript;
+import sistdown.service.Registrador;
 
 
 /**
@@ -34,7 +35,7 @@ public class Sistdown {
         acoes.add(new Inicializacao());
         acoes.add(new PrintaInicio());
         acoes.add(new Prompt());
-        acoes.add(new Apaga());
+        acoes.add(new HandleApaga());
         acoes.add(new HandleHelp());
         acoes.add(new HandleLimpa());
         acoes.add(new HandleDownload());
@@ -55,9 +56,8 @@ public class Sistdown {
                 }
             }
         } catch (Exception e) {
-            System.out.println("\n\n");
             e.printStackTrace();
-            System.out.println(" * Problema com o Sistdown. Favor, avisar o vitão.\n\n");
+            Registrador.printaMensagemConsole("Problema com o Sistdown. Favor, avisar o vitão.\n\n");
         }
     }
 

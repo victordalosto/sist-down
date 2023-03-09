@@ -1,5 +1,5 @@
 package sistdown.action.actions;
-import sistdown.service.Logger;
+import sistdown.service.Registrador;
 
 
 /**
@@ -11,7 +11,7 @@ public class PrintaInicio implements Acao {
     
     
     public void executa() throws Exception {
-        Logger.printaInicio();
+        Registrador.printaInicio();
     }
 
 }

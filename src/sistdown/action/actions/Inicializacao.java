@@ -1,6 +1,5 @@
 package sistdown.action.actions;
 import sistdown.service.Caminho;
-import sistdown.service.Util;
 
 
 /**
@@ -12,9 +11,7 @@ public class Inicializacao implements Acao {
 
 
     public void executa() throws Exception {
-        if (Util.verificaSeEhAPrimeiraVezRodandoOPrograma()) {
-            new Caminho().init();
-        }
+        new Caminho().init();
     }
 
 }

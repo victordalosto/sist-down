@@ -4,7 +4,7 @@ import java.io.File;
 import sistdown.Handler.PromptInputsHandler;
 import sistdown.Handler.RecursosHandler;
 import sistdown.service.Caminho;
-import sistdown.service.Logger;
+import sistdown.service.Registrador;
 
 
 /**
@@ -16,7 +16,7 @@ public class HandleLimpa implements Acao {
     
     public void executa() throws Exception {
         if (PromptInputsHandler.foiSolicitadoLimpar()) {
-            Logger.clearLog();
+            Registrador.clearLog();
             limpaPastaDownloads();
         }
     }
@@ -30,7 +30,7 @@ public class HandleLimpa implements Acao {
         else
             RecursosHandler.delete(Caminho.DIR_TARGET_VIDEOS_ROOT);
         Caminho.DIR_TARGET_VIDEOS_ROOT.mkdirs();
-        System.out.print("\n * ... Pasta Limpa");
+        Registrador.printaMensagemConsole("... Pasta Limpa");
     }
 
 

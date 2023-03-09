@@ -8,7 +8,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.List;
 
 
-public class Logger {
+public class Registrador {
 
 
     public static void printaLinhaConsole() {
@@ -36,6 +36,7 @@ public class Logger {
         f.close();
     }
 
+    
     public static void printaInicio() throws Exception {
         if (Util.verificaSeEhAPrimeiraVezRodandoOPrograma()) {
             System.out.println("\n");
@@ -43,7 +44,7 @@ public class Logger {
         } else {
             System.out.println("\n Downloads finalizados..");
         }
-        Logger.printaTrechosQueEstaoNaMaquinaLocal();
+        Registrador.printaTrechosQueEstaoNaMaquinaLocal();
         System.out.print(" > ");
     }
 
@@ -79,23 +80,30 @@ public class Logger {
         return true;
     }
 
+    public static void recriaLogApartirDeString(List<String> list) throws IOException {
+        clearLog();
+        for (String item : list) {
+            Files.write(Caminho.FILE_TARGET_INFO_DOWNLOADS.toPath(), (item+"\n").getBytes(), StandardOpenOption.APPEND);
+        }
+    }
+
 
     public static void printaTrechosQueEstaoNaMaquinaLocal() throws Exception {
         List<String> lines = Files.readAllLines(Paths.get(Caminho.FILE_TARGET_INFO_DOWNLOADS.toString()));
         if (lines == null || lines.size() == 0) {
-            Logger.printaLinhaConsole();
+            Registrador.printaLinhaConsole();
             printaMensagemConsole("0 trechos baixados.    Digite o numero dos ids para baixar trechos");
         } else {
-            Logger.printaLinhaConsole();
+            Registrador.printaLinhaConsole();
             for (int i = 0; i < lines.size(); i++) {
                 if (i == 0) System.out.print("  ");
                 else if (i%4 == 0)  System.out.print("\n  ");
                 else System.out.print("    ");
-                System.out.print(Logger.formataNomeTrecho(lines.get(i)));
+                System.out.print(Registrador.formataNomeTrecho(lines.get(i)));
             }
             System.out.println();
         }
-        Logger.printaLinhaConsole();
+        Registrador.printaLinhaConsole();
     }
     
 }

@@ -8,12 +8,11 @@ import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 import sistdown.Handler.PromptInputsHandler;
 import sistdown.Handler.RecursosHandler;
 import sistdown.repository.TrechoRepository;
 import sistdown.service.Caminho;
-import sistdown.service.Logger;
+import sistdown.service.Registrador;
 
 
 /**
@@ -33,13 +32,13 @@ public class HandleDownload implements Acao {
     public void executa() throws Exception {
         Set<String> idsParaBaixar = PromptInputsHandler.obtemIdsDigitados();
         if (idsParaBaixar.size() > 0) {
-            System.out.println("\n * ... Iniciando o download dos trechos");
+            Registrador.printaMensagemConsole("  ... Iniciando o download dos trechos");
             Set<Tarefa> listaParaBaixar = new HashSet<>();
             Set<String> trechosBaixadosNesseLoop = new HashSet<>();
             for (String id : idsParaBaixar) {
                 String caminho = TrechoRepository.getPath(id);
                 if (caminho == null) {
-                    System.out.println(" * ... Trecho de id: "+id+" não está no banco.");
+                    Registrador.printaMensagemConsole("!!! Trecho de id: "+id+" não está no banco.");
                 } else if(!trechosBaixadosNesseLoop.contains(caminho)) {
                     trechosBaixadosNesseLoop.add(caminho);
                     listaParaBaixar.add(new Tarefa(id, caminho));
@@ -84,9 +83,8 @@ class Tarefa implements Callable<Void> {
 
 
     private void informaQueTrechoFoiBaixado(String idTrecho, Path target) throws IOException {
-        String nomeTrecho = Logger.logaUmDownload(idTrecho, target);
-        System.out.println(" * ...> Baixado: " + nomeTrecho);
-        PromptInputsHandler.removeInputDaLista(idTrecho);
+        String nomeTrecho = Registrador.logaUmDownload(idTrecho, target);
+        Registrador.printaMensagemConsole(" * ...> Baixado: " + nomeTrecho);
     }
 
 }
