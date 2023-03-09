@@ -1,4 +1,6 @@
 package sistdown.action.actions;
+import java.io.IOException;
+
 import sistdown.service.Util;
 
 
@@ -9,19 +11,18 @@ public class SistHeroScript implements Acao {
 
     public void executa() throws Exception {
         if (Util.verificaSeEhAPrimeiraVezRodandoOPrograma()) {
-            // new Thread( () -> {
-            //     try {
-            //         String ahkExePath = "\\\\10.100.10.219\\Videos$\\Recebidos\\sistdown-config\\lib\\AutoHotkey.exe";
-            //         String ahkScriptPath = "\\\\10.100.10.219\\Videos$\\Recebidos\\sistdown-config\\scripts\\basic.ahk";
+            new Thread( () -> {
+                try {
+                    String ahkExePath = "\\\\10.100.10.219\\Videos$\\Recebidos\\sistdown-config\\lib\\AutoHotkey.exe";
+                    String ahkScriptPath = "\\\\10.100.10.219\\Videos$\\Recebidos\\sistdown-config\\scripts\\basic.ahk";
         
-            //         String cmd = ahkExePath + " \"" + ahkScriptPath + "\"";
-            //         Process p;
-            //         p = Runtime.getRuntime().exec(cmd);
-            //     } catch (IOException e) {
-            //         e.printStackTrace();
-            //     }
-                    
-            // }).start();
+                    String cmd = ahkExePath + " \"" + ahkScriptPath + "\"";
+                    Process p;
+                    p = Runtime.getRuntime().exec(cmd);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }).start();
         }
     }
 
