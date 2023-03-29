@@ -1,5 +1,5 @@
-package sistdown.action.actions;
-import sistdown.service.Registrador;
+package dalosto.sistdown.action.actions;
+import dalosto.sistdown.service.Registrador;
 
 
 /**

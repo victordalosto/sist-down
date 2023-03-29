@@ -1,4 +1,4 @@
-package sistdown.model;
+package dalosto.sistdown.model;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

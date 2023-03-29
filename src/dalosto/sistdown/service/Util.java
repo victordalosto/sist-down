@@ -1,6 +1,6 @@
-package sistdown.service;
-import sistdown.Main;
-import sistdown.model.Version;
+package dalosto.sistdown.service;
+import dalosto.sistdown.Main;
+import dalosto.sistdown.model.Version;
 
 
 /**

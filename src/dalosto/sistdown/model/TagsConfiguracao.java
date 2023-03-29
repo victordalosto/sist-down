@@ -1,4 +1,4 @@
-package sistdown.model;
+package dalosto.sistdown.model;
 
 
 /** Enum contendo os inputs para acionar as principais funcionalidades do sistema. */

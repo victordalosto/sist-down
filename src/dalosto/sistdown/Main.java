@@ -1,0 +1,14 @@
+package dalosto.sistdown;
+import dalosto.sistdown.action.Sistdown;
+import dalosto.sistdown.model.Version;
+
+
+@Version(value = "2.4.4")
+public class Main {
+
+    
+    public static void main(String[] args) {
+        Sistdown.inicia();
+    }
+
+}

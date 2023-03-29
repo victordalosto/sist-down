@@ -1,5 +1,5 @@
-package sistdown.action.actions;
-import sistdown.Handler.PromptInputsHandler;
+package dalosto.sistdown.action.actions;
+import dalosto.sistdown.Handler.PromptInputsHandler;
 
 
 /**

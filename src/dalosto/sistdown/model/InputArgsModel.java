@@ -1,6 +1,6 @@
-package sistdown.model;
+package dalosto.sistdown.model;
 
-import sistdown.service.Util;
+import dalosto.sistdown.service.Util;
 
 public class InputArgsModel {
 

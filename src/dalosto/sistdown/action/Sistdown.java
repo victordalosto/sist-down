@@ -1,18 +1,18 @@
-package sistdown.action;
+package dalosto.sistdown.action;
 import java.util.ArrayList;
 import java.util.List;
-import sistdown.action.actions.Acao;
-import sistdown.action.actions.Atualizacao;
-import sistdown.action.actions.Autorizacao;
-import sistdown.action.actions.Fim;
-import sistdown.action.actions.HandleApaga;
-import sistdown.action.actions.HandleDownload;
-import sistdown.action.actions.HandleHelp;
-import sistdown.action.actions.HandleLimpa;
-import sistdown.action.actions.Inicializacao;
-import sistdown.action.actions.PrintaInicio;
-import sistdown.action.actions.Prompt;
-import sistdown.service.Registrador;
+import dalosto.sistdown.action.actions.Acao;
+import dalosto.sistdown.action.actions.Atualizacao;
+import dalosto.sistdown.action.actions.Autorizacao;
+import dalosto.sistdown.action.actions.Fim;
+import dalosto.sistdown.action.actions.HandleApaga;
+import dalosto.sistdown.action.actions.HandleDownload;
+import dalosto.sistdown.action.actions.HandleHelp;
+import dalosto.sistdown.action.actions.HandleLimpa;
+import dalosto.sistdown.action.actions.Inicializacao;
+import dalosto.sistdown.action.actions.PrintaInicio;
+import dalosto.sistdown.action.actions.Prompt;
+import dalosto.sistdown.service.Registrador;
 
 
 /**
