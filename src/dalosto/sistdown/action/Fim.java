@@ -1,10 +1,12 @@
-package dalosto.sistdown.action.actions;
+package dalosto.sistdown.action;
+import dalosto.sistdown.domain.annotations.Component;
 import dalosto.sistdown.service.Util;
 
 
 /**
  * Classe que finaliza o ciclo das ações, preparando o Sistema para ser reiniciado automicamente. <p>
  */
+@Component
 public class Fim implements Acao {
 
     

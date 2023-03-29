@@ -4,8 +4,7 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-
-import dalosto.sistdown.service.Caminho;
+import dalosto.sistdown.helper.CaminhoHelper;
 
 
 /**
@@ -26,7 +25,7 @@ public class TrechoRepository {
      * @throws FileNotFoundException
      */
     public static String getPath(String id) throws FileNotFoundException {
-        atualizaTrechosDisponiveisBanco();
+        TrechoRepository.atualizaTrechosDisponiveisBanco();
         return hashTrechos.get(id);
     }
 
@@ -35,7 +34,7 @@ public class TrechoRepository {
      * Carrega os trechos que estão disponíveis para download. <p>
      */
     private static void atualizaTrechosDisponiveisBanco() throws FileNotFoundException {
-        File pathCSV = new File(Caminho.FILE_TARGET_BANCO_CSV.toString());
+        File pathCSV = new File(CaminhoHelper.FILE_TARGET_BANCO_CSV.toString());
         if (pathCSV.lastModified() != lastModified) {
             lastModified = pathCSV.lastModified();
             hashTrechos = new HashMap<>();

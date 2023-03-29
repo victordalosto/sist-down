@@ -1,4 +1,4 @@
-package dalosto.sistdown.model;
+package dalosto.sistdown.domain;
 
 import dalosto.sistdown.service.Util;
 

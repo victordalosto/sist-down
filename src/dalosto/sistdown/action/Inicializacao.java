@@ -1,5 +1,6 @@
-package dalosto.sistdown.action.actions;
-import dalosto.sistdown.service.Caminho;
+package dalosto.sistdown.action;
+import dalosto.sistdown.domain.annotations.Component;
+import dalosto.sistdown.helper.CaminhoHelper;
 
 
 /**
@@ -7,11 +8,12 @@ import dalosto.sistdown.service.Caminho;
  * (i) Cria pastas para fazer a inicialização;  <p>
  * (ii) Carrega uma List com os possiveis trechos para download.
  */
+@Component
 public class Inicializacao implements Acao {
 
 
     public void executa() throws Exception {
-        new Caminho().init();
+        new CaminhoHelper().init();
     }
 
 }

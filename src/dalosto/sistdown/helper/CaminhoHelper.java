@@ -1,14 +1,15 @@
-package dalosto.sistdown.service;
+package dalosto.sistdown.helper;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
+import dalosto.sistdown.service.Util;
 
 
 /**
  * Classe <b>Caminho</b> contendo os caminhos dos arquivos de configuração,
  * bem como métodos utilitários para criar os arquivos de configuração.
  */
-public class Caminho {
+public class CaminhoHelper {
 
     public static final File DIR_SISTDOWN_ROOT    = Paths.get("D:", "sist-down").toFile();
     

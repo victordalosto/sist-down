@@ -1,12 +1,12 @@
-package dalosto.sistdown.Handler;
+package dalosto.sistdown.handler;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import dalosto.sistdown.model.InputArgsModel;
-import dalosto.sistdown.model.TagsConfiguracao;
+import dalosto.sistdown.domain.InputArgsModel;
+import dalosto.sistdown.domain.TagsConfiguracao;
 import dalosto.sistdown.service.Util;
 
 

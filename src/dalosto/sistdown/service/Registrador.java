@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
+import dalosto.sistdown.helper.CaminhoHelper;
 
 
 public class Registrador {
@@ -22,17 +23,17 @@ public class Registrador {
 
 
     public static void appendMensagemToLog(String msg) throws IOException {
-        Files.write(Caminho.FILE_TARGET_INFO_DOWNLOADS.toPath(), (msg+"\n").getBytes(), StandardOpenOption.APPEND);
+        Files.write(CaminhoHelper.FILE_TARGET_INFO_DOWNLOADS.toPath(), (msg+"\n").getBytes(), StandardOpenOption.APPEND);
     }
 
 
     public static List<String> readAllLog() throws IOException {
-        return Files.readAllLines(Paths.get(Caminho.FILE_TARGET_INFO_DOWNLOADS.toString()));
+        return Files.readAllLines(Paths.get(CaminhoHelper.FILE_TARGET_INFO_DOWNLOADS.toString()));
     }
 
 
     public static void clearLog() throws IOException {
-        FileWriter f = new FileWriter(Caminho.FILE_TARGET_INFO_DOWNLOADS, false);
+        FileWriter f = new FileWriter(CaminhoHelper.FILE_TARGET_INFO_DOWNLOADS, false);
         f.close();
     }
 
@@ -82,13 +83,13 @@ public class Registrador {
     public static void recriaLogApartirDeString(List<String> list) throws IOException {
         clearLog();
         for (String item : list) {
-            Files.write(Caminho.FILE_TARGET_INFO_DOWNLOADS.toPath(), (item+"\n").getBytes(), StandardOpenOption.APPEND);
+            Files.write(CaminhoHelper.FILE_TARGET_INFO_DOWNLOADS.toPath(), (item+"\n").getBytes(), StandardOpenOption.APPEND);
         }
     }
 
 
     public static void printaTrechosQueEstaoNaMaquinaLocal() throws Exception {
-        List<String> lines = Files.readAllLines(Paths.get(Caminho.FILE_TARGET_INFO_DOWNLOADS.toString()));
+        List<String> lines = Files.readAllLines(Paths.get(CaminhoHelper.FILE_TARGET_INFO_DOWNLOADS.toString()));
         if (lines == null || lines.size() == 0) {
             Registrador.printaLinhaConsole();
             printaMensagemConsole("0 trechos baixados.    Digite o numero dos ids para baixar trechos");

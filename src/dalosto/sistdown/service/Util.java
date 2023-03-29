@@ -1,7 +1,4 @@
 package dalosto.sistdown.service;
-import dalosto.sistdown.Main;
-import dalosto.sistdown.model.Version;
-
 
 /**
  *  Classe <b>Util</b> contendo métodos estáticos utilitários. <p>
@@ -33,11 +30,5 @@ public class Util {
         return false;
     }
 
-
-    public static String getVersaoSistdown() {
-        Class<?> main = Main.class;
-        Version version = main.getDeclaredAnnotation(Version.class);
-        return version.value();
-    }
     
 }

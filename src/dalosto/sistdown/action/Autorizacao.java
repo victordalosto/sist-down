@@ -1,10 +1,11 @@
-package dalosto.sistdown.action.actions;
+package dalosto.sistdown.action;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
+import dalosto.sistdown.domain.annotations.Component;
 import dalosto.sistdown.service.Util;
 
 
@@ -13,6 +14,7 @@ import dalosto.sistdown.service.Util;
  * (i) Cria pastas para fazer a inicialização;  <p>
  * (ii) Carrega uma List com os possiveis trechos para download.
  */
+@Component
 public class Autorizacao implements Acao {
 
 

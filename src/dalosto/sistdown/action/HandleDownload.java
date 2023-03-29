@@ -1,4 +1,4 @@
-package dalosto.sistdown.action.actions;
+package dalosto.sistdown.action;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -8,10 +8,11 @@ import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import dalosto.sistdown.Handler.PromptInputsHandler;
-import dalosto.sistdown.Handler.RecursosHandler;
+import dalosto.sistdown.domain.annotations.Component;
+import dalosto.sistdown.handler.PromptInputsHandler;
+import dalosto.sistdown.handler.RecursosHandler;
+import dalosto.sistdown.helper.CaminhoHelper;
 import dalosto.sistdown.repository.TrechoRepository;
-import dalosto.sistdown.service.Caminho;
 import dalosto.sistdown.service.Registrador;
 
 
@@ -21,6 +22,7 @@ import dalosto.sistdown.service.Registrador;
  * Caso o usuário faça a alteração de contexto, o sistema é capaz de 
  * migrar o target da aplicação para trabalhar com a rede e continuar baixando os vídeos.
  */
+@Component
 public class HandleDownload implements Acao {
     
     private static ExecutorService executorService = Executors.newFixedThreadPool(3);
@@ -70,8 +72,8 @@ class TarefaDownload implements Callable<Void> {
     @Override
     public Void call() {
         try {
-            Path input = Paths.get(Caminho.DIR_REDE_VIDEOS_ROOT.toString(), caminho);
-            Path target = Paths.get(Caminho.DIR_TARGET_VIDEOS_ROOT.toString(), caminho);
+            Path input = Paths.get(CaminhoHelper.DIR_REDE_VIDEOS_ROOT.toString(), caminho);
+            Path target = Paths.get(CaminhoHelper.DIR_TARGET_VIDEOS_ROOT.toString(), caminho);
             RecursosHandler.delete(target.toFile());
             RecursosHandler.walkAndCopy(input, target, StandardCopyOption.REPLACE_EXISTING);
             informaQueTrechoFoiBaixado(idTrecho, target);

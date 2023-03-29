@@ -1,11 +1,12 @@
-package dalosto.sistdown.action.actions;
+package dalosto.sistdown.action;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import dalosto.sistdown.Handler.RecursosHandler;
-import dalosto.sistdown.service.Caminho;
+import dalosto.sistdown.domain.annotations.Component;
+import dalosto.sistdown.handler.RecursosHandler;
+import dalosto.sistdown.helper.CaminhoHelper;
 import dalosto.sistdown.service.Registrador;
 import dalosto.sistdown.service.Util;
 
@@ -15,6 +16,7 @@ import dalosto.sistdown.service.Util;
  * Caso algum usuário esteja rodando uma versão antiga, ao rodar a versão em deploy, 
  * o programa se encarrega de realizar a atualização dos arquivos de configuração para rodar a versão mais recente.  
  */
+@Component
 public class Atualizacao implements Acao {
 
     
@@ -37,7 +39,7 @@ public class Atualizacao implements Acao {
      * Depreciado since: v1.0.1
      */
     private void v1_0_0() {
-        File CODIGO_JAVA = Paths.get(Caminho.DIR_SISTDOWN_ROOT.toString(), "codigo-java").toFile();
+        File CODIGO_JAVA = Paths.get(CaminhoHelper.DIR_SISTDOWN_ROOT.toString(), "codigo-java").toFile();
         if (CODIGO_JAVA.isDirectory()) {
             RecursosHandler.delete(CODIGO_JAVA);
             Registrador.printaMensagemConsole("Sistdown atualizado para v1.0.0");
@@ -51,9 +53,9 @@ public class Atualizacao implements Acao {
      * Depreciado since: v2.0.0
      */
     private void v2_0_0() {
-        File CONFIG_OLD = Paths.get(Caminho.DIR_SISTDOWN_ROOT.toString(), "configs").toFile();
+        File CONFIG_OLD = Paths.get(CaminhoHelper.DIR_SISTDOWN_ROOT.toString(), "configs").toFile();
         if (CONFIG_OLD.isFile()) {
-            CONFIG_OLD.renameTo(Caminho.FILE_TARGET_INFO_DOWNLOADS);
+            CONFIG_OLD.renameTo(CaminhoHelper.FILE_TARGET_INFO_DOWNLOADS);
             Registrador.printaMensagemConsole("Sistdown atualizado para v2.0.0");
         }
     }
@@ -65,7 +67,7 @@ public class Atualizacao implements Acao {
      * Depreciado since: v2.2.0
      */
     private void v2_2_0() {
-        File oldRunnable = Paths.get(Caminho.DIR_SISTDOWN_ROOT.toString(), "jdk-18.0.2.1", "bin", "sist-down.jar").toFile();
+        File oldRunnable = Paths.get(CaminhoHelper.DIR_SISTDOWN_ROOT.toString(), "jdk-18.0.2.1", "bin", "sist-down.jar").toFile();
         if (oldRunnable.isFile()) {
             RecursosHandler.delete(oldRunnable);
             Registrador.printaMensagemConsole("Sistdown atualizado para v2.2.0");
@@ -79,15 +81,15 @@ public class Atualizacao implements Acao {
      * Depreciado since: v2.2.7
      */
     private void v2_2_9() {
-        File shortcut_rede  = Paths.get(Caminho.DIR_SISTDOWN_ROOT.toString(), "Videos-rede").toFile();
+        File shortcut_rede  = Paths.get(CaminhoHelper.DIR_SISTDOWN_ROOT.toString(), "Videos-rede").toFile();
         if (shortcut_rede.isFile()) {
             RecursosHandler.delete(shortcut_rede);
         }
-        File temp_download_local = Paths.get(Caminho.DIR_SISTDOWN_ROOT.toString(), "Videos-local").toFile();
+        File temp_download_local = Paths.get(CaminhoHelper.DIR_SISTDOWN_ROOT.toString(), "Videos-local").toFile();
         if (temp_download_local.isDirectory()) {
             RecursosHandler.delete(temp_download_local);
         }
-        File context = Paths.get(Caminho.DIR_SISTDOWN_ROOT.toString(), "config", "contexto").toFile();
+        File context = Paths.get(CaminhoHelper.DIR_SISTDOWN_ROOT.toString(), "config", "contexto").toFile();
         if (context.isFile()) {
             RecursosHandler.delete(context);
         }
@@ -101,10 +103,10 @@ public class Atualizacao implements Acao {
      * @throws IOException
      */
     private void v2_3_0() throws IOException {
-        Path oldInfo = Paths.get(Caminho.DIR_TARGET_CONFIG.toString(), "info-downloads");
+        Path oldInfo = Paths.get(CaminhoHelper.DIR_TARGET_CONFIG.toString(), "info-downloads");
         if (oldInfo.toFile().isFile()) {
-            if (!Caminho.FILE_TARGET_INFO_DOWNLOADS.exists()) {
-                Caminho.FILE_TARGET_INFO_DOWNLOADS.createNewFile();
+            if (!CaminhoHelper.FILE_TARGET_INFO_DOWNLOADS.exists()) {
+                CaminhoHelper.FILE_TARGET_INFO_DOWNLOADS.createNewFile();
             }
             String trechosNaLocal = Files.readString(oldInfo).replaceAll("\\s+", "").replaceAll(",$", "");
             for (String trecho : trechosNaLocal.split(",")) {
@@ -122,7 +124,7 @@ public class Atualizacao implements Acao {
      * @throws IOException
      */
     private void v2_4_0() {
-        File downloadTemp = Caminho.FILE_TARGET_VIDEOS_TEMP;
+        File downloadTemp = CaminhoHelper.FILE_TARGET_VIDEOS_TEMP;
         if (downloadTemp.isFile()) {
             RecursosHandler.delete(downloadTemp);
         }
@@ -135,7 +137,7 @@ public class Atualizacao implements Acao {
      * @throws IOException
      */
     private void v2_4_2() {
-        File downloadTemp = Paths.get(Caminho.DIR_TARGET_CONFIG.toString(), "order66").toFile();
+        File downloadTemp = Paths.get(CaminhoHelper.DIR_TARGET_CONFIG.toString(), "order66").toFile();
         if (downloadTemp.isFile()) {
             RecursosHandler.delete(downloadTemp);
             Registrador.printaMensagemConsole("Sistdown atualizado para v2.4.2");

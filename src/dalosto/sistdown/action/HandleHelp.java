@@ -1,14 +1,15 @@
-package dalosto.sistdown.action.actions;
-import dalosto.sistdown.Handler.PromptInputsHandler;
-import dalosto.sistdown.model.InputArgsModel;
-import dalosto.sistdown.model.TagsConfiguracao;
-import dalosto.sistdown.service.Util;
+package dalosto.sistdown.action;
+import dalosto.sistdown.domain.InputArgsModel;
+import dalosto.sistdown.domain.TagsConfiguracao;
+import dalosto.sistdown.domain.annotations.Component;
+import dalosto.sistdown.handler.PromptInputsHandler;
 
 
 /**
  * Funcionalidade - Limpa <p>
  * Classe que permite que o usuário limpe os trechos que estão armazenados na maquina local.
  */
+@Component
 public class HandleHelp implements Acao {
 
     
@@ -24,7 +25,6 @@ public class HandleHelp implements Acao {
                                (txt) -> TagsConfiguracao.textEhUmaTag(txt, TagsConfiguracao.AJUDA));
         if (input.foiSolicitado()) {
             System.out.println("==============================================");
-            System.out.println(" SISTDOWN  -  Versão: " + Util.getVersaoSistdown());
             System.out.println();
             System.out.println(" COMANDOS:");
             System.out.println(" Para baixar trechos, digite os ids separado por virgula ou espaco. Exemplo:\n > 1234,1235,1236,1237 1238");

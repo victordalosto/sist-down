@@ -1,13 +1,13 @@
 package dalosto.sistdown;
-import dalosto.sistdown.action.Sistdown;
-import dalosto.sistdown.model.Version;
+import java.io.IOException;
+import dalosto.sistdown.app.Sistdown;
 
 
-@Version(value = "2.4.4")
 public class Main {
 
-    
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException, IOException {
+        // List<Class<? extends Acao>> implementations = ImplementationFinder
+        //         .findClases("dalosto.sistdown", Acao.class);
         Sistdown.inicia();
     }
 

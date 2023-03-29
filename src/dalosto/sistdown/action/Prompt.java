@@ -1,5 +1,6 @@
-package dalosto.sistdown.action.actions;
-import dalosto.sistdown.Handler.PromptInputsHandler;
+package dalosto.sistdown.action;
+import dalosto.sistdown.domain.annotations.Component;
+import dalosto.sistdown.handler.PromptInputsHandler;
 
 
 /**
@@ -7,6 +8,7 @@ import dalosto.sistdown.Handler.PromptInputsHandler;
  * (i)  Trechos para baixar na maquina local,
  * (ii) Tags de funcionalidades que manipulam o Sistdown.
  */
+@Component
 public class Prompt implements Acao {
     
     public void executa() throws Exception {
