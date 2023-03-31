@@ -8,9 +8,9 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import dalosto.sistdown.action.Teste;
 import dalosto.sistdown.framework.annotations.Autowired;
 import dalosto.sistdown.framework.annotations.Component;
+import dalosto.sistdown.framework.annotations.Order;
 
 
 public class ApplicationContext {
@@ -62,7 +62,7 @@ public class ApplicationContext {
                             Collections.sort(matchingObjects, new Comparator<Object>() {
                                 @Override
                                 public int compare(Object o1, Object o2) {
-                                    return OrderComparator.orderComparator.compare(o1.getClass(),
+                                    return Order.orderComparator.compare(o1.getClass(),
                                             o2.getClass());
                                 }
                             });

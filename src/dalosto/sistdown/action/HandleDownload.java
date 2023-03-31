@@ -8,12 +8,14 @@ import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import dalosto.sistdown.framework.annotations.Autowired;
 import dalosto.sistdown.framework.annotations.Component;
 import dalosto.sistdown.framework.annotations.Order;
 import dalosto.sistdown.handler.PromptInputsHandler;
 import dalosto.sistdown.handler.RecursosHandler;
 import dalosto.sistdown.helper.CaminhoHelper;
 import dalosto.sistdown.repository.TrechoRepository;
+import dalosto.sistdown.service.LoggerArquivoService;
 import dalosto.sistdown.service.LoggerConsoleService;
 
 
@@ -26,6 +28,12 @@ import dalosto.sistdown.service.LoggerConsoleService;
 @Component
 @Order(9)
 public class HandleDownload implements Acao {
+
+    @Autowired
+    LoggerConsoleService loggerConsoleService;
+
+    @Autowired
+    LoggerArquivoService loggerArquivoService;
     
     private static ExecutorService executorService = Executors.newFixedThreadPool(3);
  
@@ -37,16 +45,16 @@ public class HandleDownload implements Acao {
         
         Set<String> idsParaBaixar = PromptInputsHandler.obtemIdsDigitados();
         if (idsParaBaixar.size() > 0) {
-            LoggerConsoleService.printaMensagemConsole("... Iniciando o download dos trechos");
+            loggerConsoleService.printaMensagem("... Iniciando o download dos trechos");
             Set<TarefaDownload> listaParaBaixar = new HashSet<>();
             Set<String> trechosBaixadosNesseLoop = new HashSet<>();
             for (String id : idsParaBaixar) {
                 String caminho = TrechoRepository.getPath(id);
                 if (caminho == null) {
-                    LoggerConsoleService.printaMensagemConsole("!!! Trecho de id: "+id+" não está no banco !!!");
+                    loggerConsoleService.printaMensagem("!!! Trecho de id: "+id+" não está no banco !!!");
                 } else if(!trechosBaixadosNesseLoop.contains(caminho)) {
                     trechosBaixadosNesseLoop.add(caminho);
-                    listaParaBaixar.add(new TarefaDownload(id, caminho));
+                    listaParaBaixar.add(new TarefaDownload(id, caminho, loggerConsoleService, loggerArquivoService));
                 } 
             }
             executorService.invokeAll(listaParaBaixar);
@@ -65,10 +73,17 @@ class TarefaDownload implements Callable<Void> {
 
     String idTrecho;
     String caminho;
+    LoggerConsoleService loggerConsoleService;
+    LoggerArquivoService loggerArquivoService;
 
-    TarefaDownload(String idTrecho, String caminho) {
+    TarefaDownload(String idTrecho, 
+                   String caminho, 
+                   LoggerConsoleService loggerConsoleService, 
+                   LoggerArquivoService loggerArquivoService) {
         this.idTrecho = idTrecho;
         this.caminho = caminho;
+        this.loggerConsoleService = loggerConsoleService;
+        this.loggerArquivoService = loggerArquivoService;
     }
 
     @Override
@@ -88,8 +103,8 @@ class TarefaDownload implements Callable<Void> {
 
 
     private void informaQueTrechoFoiBaixado(String idTrecho, Path target) throws IOException {
-        String nomeTrecho = LoggerConsoleService.logaUmDownload(idTrecho, target);
-        LoggerConsoleService.printaMensagemConsole("...> Baixado: " + nomeTrecho);
+        String nomeTrecho = loggerArquivoService.logaUmDownload(idTrecho, target);
+        loggerConsoleService.printaMensagem("...> Baixado: " + nomeTrecho);
     }
 
 }

@@ -1,4 +1,5 @@
 package dalosto.sistdown.action;
+import dalosto.sistdown.framework.annotations.Autowired;
 import dalosto.sistdown.framework.annotations.Component;
 import dalosto.sistdown.framework.annotations.Order;
 import dalosto.sistdown.service.LoggerConsoleService;
@@ -12,10 +13,13 @@ import dalosto.sistdown.service.LoggerConsoleService;
 @Component
 @Order(4)
 public class PrintaInicio implements Acao {
-    
-    
+
+    @Autowired
+    LoggerConsoleService loggerConsoleService;
+
+
     public void executa() throws Exception {
-        LoggerConsoleService.printaInicio();
+        loggerConsoleService.printaMensagemInicio();
     }
 
 }

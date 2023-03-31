@@ -2,11 +2,13 @@ package dalosto.sistdown.action;
 import java.io.File;
 import dalosto.sistdown.domain.InputArgsModel;
 import dalosto.sistdown.domain.TagsConfiguracao;
+import dalosto.sistdown.framework.annotations.Autowired;
 import dalosto.sistdown.framework.annotations.Component;
 import dalosto.sistdown.framework.annotations.Order;
 import dalosto.sistdown.handler.PromptInputsHandler;
 import dalosto.sistdown.handler.RecursosHandler;
 import dalosto.sistdown.helper.CaminhoHelper;
+import dalosto.sistdown.service.LoggerArquivoService;
 import dalosto.sistdown.service.LoggerConsoleService;
 
 
@@ -18,12 +20,18 @@ import dalosto.sistdown.service.LoggerConsoleService;
 @Order(8)
 public class HandleLimpa implements Acao {
 
+    @Autowired
+    LoggerConsoleService loggerConsoleService;
+
+    @Autowired
+    LoggerArquivoService loggerArquivoService;
+
     
     public void executa() throws Exception {
         InputArgsModel input = PromptInputsHandler.verificaSeFoiSolicitado(
                                (txt) -> TagsConfiguracao.textEhUmaTag(txt, TagsConfiguracao.LIMPA));
         if (input.foiSolicitado()) {
-            LoggerConsoleService.clearLog();
+            loggerArquivoService.clearLog();
             limpaPastaDownloads();
         }
     }
@@ -37,7 +45,7 @@ public class HandleLimpa implements Acao {
         else
             RecursosHandler.delete(CaminhoHelper.DIR_TARGET_VIDEOS_ROOT);
         CaminhoHelper.DIR_TARGET_VIDEOS_ROOT.mkdirs();
-        LoggerConsoleService.printaMensagemConsole("... Pasta Limpa");
+        loggerConsoleService.printaMensagem("... Pasta Limpa");
     }
 
 
