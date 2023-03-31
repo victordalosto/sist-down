@@ -12,7 +12,7 @@ import dalosto.sistdown.action.HandleLimpa;
 import dalosto.sistdown.action.Inicializacao;
 import dalosto.sistdown.action.PrintaInicio;
 import dalosto.sistdown.action.Prompt;
-import dalosto.sistdown.service.Registrador;
+import dalosto.sistdown.service.LoggerConsoleService;
 
 
 /**
@@ -54,7 +54,7 @@ public class Sistdown {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Registrador.printaMensagemConsole("Problema com o Sistdown. Favor, avisar o vitão.\n\n");
+            LoggerConsoleService.printaMensagemConsole("Problema com o Sistdown. Favor, avisar o vitão.\n\n");
         }
     }
 

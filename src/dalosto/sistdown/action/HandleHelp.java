@@ -1,7 +1,7 @@
 package dalosto.sistdown.action;
 import dalosto.sistdown.domain.InputArgsModel;
 import dalosto.sistdown.domain.TagsConfiguracao;
-import dalosto.sistdown.domain.annotations.Component;
+import dalosto.sistdown.framework.annotations.Component;
 import dalosto.sistdown.handler.PromptInputsHandler;
 
 

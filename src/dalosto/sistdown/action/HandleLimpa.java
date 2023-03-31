@@ -2,11 +2,11 @@ package dalosto.sistdown.action;
 import java.io.File;
 import dalosto.sistdown.domain.InputArgsModel;
 import dalosto.sistdown.domain.TagsConfiguracao;
-import dalosto.sistdown.domain.annotations.Component;
+import dalosto.sistdown.framework.annotations.Component;
 import dalosto.sistdown.handler.PromptInputsHandler;
 import dalosto.sistdown.handler.RecursosHandler;
 import dalosto.sistdown.helper.CaminhoHelper;
-import dalosto.sistdown.service.Registrador;
+import dalosto.sistdown.service.LoggerConsoleService;
 
 
 /**
@@ -21,7 +21,7 @@ public class HandleLimpa implements Acao {
         InputArgsModel input = PromptInputsHandler.verificaSeFoiSolicitado(
                                (txt) -> TagsConfiguracao.textEhUmaTag(txt, TagsConfiguracao.LIMPA));
         if (input.foiSolicitado()) {
-            Registrador.clearLog();
+            LoggerConsoleService.clearLog();
             limpaPastaDownloads();
         }
     }
@@ -35,7 +35,7 @@ public class HandleLimpa implements Acao {
         else
             RecursosHandler.delete(CaminhoHelper.DIR_TARGET_VIDEOS_ROOT);
         CaminhoHelper.DIR_TARGET_VIDEOS_ROOT.mkdirs();
-        Registrador.printaMensagemConsole("... Pasta Limpa");
+        LoggerConsoleService.printaMensagemConsole("... Pasta Limpa");
     }
 
 

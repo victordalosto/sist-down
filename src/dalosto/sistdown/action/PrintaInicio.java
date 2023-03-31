@@ -1,6 +1,6 @@
 package dalosto.sistdown.action;
-import dalosto.sistdown.domain.annotations.Component;
-import dalosto.sistdown.service.Registrador;
+import dalosto.sistdown.framework.annotations.Component;
+import dalosto.sistdown.service.LoggerConsoleService;
 
 
 /**
@@ -13,7 +13,7 @@ public class PrintaInicio implements Acao {
     
     
     public void executa() throws Exception {
-        Registrador.printaInicio();
+        LoggerConsoleService.printaInicio();
     }
 
 }

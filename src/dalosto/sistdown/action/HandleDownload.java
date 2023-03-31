@@ -8,12 +8,12 @@ import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import dalosto.sistdown.domain.annotations.Component;
+import dalosto.sistdown.framework.annotations.Component;
 import dalosto.sistdown.handler.PromptInputsHandler;
 import dalosto.sistdown.handler.RecursosHandler;
 import dalosto.sistdown.helper.CaminhoHelper;
 import dalosto.sistdown.repository.TrechoRepository;
-import dalosto.sistdown.service.Registrador;
+import dalosto.sistdown.service.LoggerConsoleService;
 
 
 /**
@@ -35,13 +35,13 @@ public class HandleDownload implements Acao {
         
         Set<String> idsParaBaixar = PromptInputsHandler.obtemIdsDigitados();
         if (idsParaBaixar.size() > 0) {
-            Registrador.printaMensagemConsole("... Iniciando o download dos trechos");
+            LoggerConsoleService.printaMensagemConsole("... Iniciando o download dos trechos");
             Set<TarefaDownload> listaParaBaixar = new HashSet<>();
             Set<String> trechosBaixadosNesseLoop = new HashSet<>();
             for (String id : idsParaBaixar) {
                 String caminho = TrechoRepository.getPath(id);
                 if (caminho == null) {
-                    Registrador.printaMensagemConsole("!!! Trecho de id: "+id+" não está no banco !!!");
+                    LoggerConsoleService.printaMensagemConsole("!!! Trecho de id: "+id+" não está no banco !!!");
                 } else if(!trechosBaixadosNesseLoop.contains(caminho)) {
                     trechosBaixadosNesseLoop.add(caminho);
                     listaParaBaixar.add(new TarefaDownload(id, caminho));
@@ -86,8 +86,8 @@ class TarefaDownload implements Callable<Void> {
 
 
     private void informaQueTrechoFoiBaixado(String idTrecho, Path target) throws IOException {
-        String nomeTrecho = Registrador.logaUmDownload(idTrecho, target);
-        Registrador.printaMensagemConsole("...> Baixado: " + nomeTrecho);
+        String nomeTrecho = LoggerConsoleService.logaUmDownload(idTrecho, target);
+        LoggerConsoleService.printaMensagemConsole("...> Baixado: " + nomeTrecho);
     }
 
 }

@@ -1,4 +1,4 @@
-package dalosto.sistdown.domain.annotations;
+package dalosto.sistdown.framework.annotations;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -6,11 +6,9 @@ import java.lang.annotation.Target;
 
 
 /**
- * Indica que uma classe eh injetavel
+ * Indica que um atributo sera injetado
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-public @interface Component {
-
-
+@Target(ElementType.FIELD)
+public @interface Autowired {
 }

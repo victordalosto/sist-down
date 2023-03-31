@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import dalosto.sistdown.domain.annotations.Component;
+import dalosto.sistdown.framework.annotations.Component;
 import dalosto.sistdown.handler.RecursosHandler;
 import dalosto.sistdown.helper.CaminhoHelper;
-import dalosto.sistdown.service.Registrador;
+import dalosto.sistdown.service.LoggerConsoleService;
 import dalosto.sistdown.service.Util;
 
 
@@ -42,7 +42,7 @@ public class Atualizacao implements Acao {
         File CODIGO_JAVA = Paths.get(CaminhoHelper.DIR_SISTDOWN_ROOT.toString(), "codigo-java").toFile();
         if (CODIGO_JAVA.isDirectory()) {
             RecursosHandler.delete(CODIGO_JAVA);
-            Registrador.printaMensagemConsole("Sistdown atualizado para v1.0.0");
+            LoggerConsoleService.printaMensagemConsole("Sistdown atualizado para v1.0.0");
         }
     }
 
@@ -56,7 +56,7 @@ public class Atualizacao implements Acao {
         File CONFIG_OLD = Paths.get(CaminhoHelper.DIR_SISTDOWN_ROOT.toString(), "configs").toFile();
         if (CONFIG_OLD.isFile()) {
             CONFIG_OLD.renameTo(CaminhoHelper.FILE_TARGET_INFO_DOWNLOADS);
-            Registrador.printaMensagemConsole("Sistdown atualizado para v2.0.0");
+            LoggerConsoleService.printaMensagemConsole("Sistdown atualizado para v2.0.0");
         }
     }
 
@@ -70,7 +70,7 @@ public class Atualizacao implements Acao {
         File oldRunnable = Paths.get(CaminhoHelper.DIR_SISTDOWN_ROOT.toString(), "jdk-18.0.2.1", "bin", "sist-down.jar").toFile();
         if (oldRunnable.isFile()) {
             RecursosHandler.delete(oldRunnable);
-            Registrador.printaMensagemConsole("Sistdown atualizado para v2.2.0");
+            LoggerConsoleService.printaMensagemConsole("Sistdown atualizado para v2.2.0");
         }
     }
 
@@ -110,9 +110,9 @@ public class Atualizacao implements Acao {
             }
             String trechosNaLocal = Files.readString(oldInfo).replaceAll("\\s+", "").replaceAll(",$", "");
             for (String trecho : trechosNaLocal.split(",")) {
-                Registrador.logaUmDownload(trecho.split("-")[0], Paths.get(trecho.split("-")[1]));
+                LoggerConsoleService.logaUmDownload(trecho.split("-")[0], Paths.get(trecho.split("-")[1]));
             }
-            Registrador.printaMensagemConsole("Sistdown atualizado para v2.3.0");
+            LoggerConsoleService.printaMensagemConsole("Sistdown atualizado para v2.3.0");
             RecursosHandler.delete(oldInfo.toFile());
         }
     }
@@ -140,7 +140,7 @@ public class Atualizacao implements Acao {
         File downloadTemp = Paths.get(CaminhoHelper.DIR_TARGET_CONFIG.toString(), "order66").toFile();
         if (downloadTemp.isFile()) {
             RecursosHandler.delete(downloadTemp);
-            Registrador.printaMensagemConsole("Sistdown atualizado para v2.4.2");
+            LoggerConsoleService.printaMensagemConsole("Sistdown atualizado para v2.4.2");
         }
     }
 }

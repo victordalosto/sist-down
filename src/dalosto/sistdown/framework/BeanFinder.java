@@ -1,38 +1,37 @@
-package dalosto.sistdown.service;
+package dalosto.sistdown.framework;
 import java.io.File;
 import java.io.IOException;
+import java.lang.annotation.Annotation;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
-public class ImplementationFinder {
+public class BeanFinder {
 
-    @SuppressWarnings("unchecked")
-    public static <T> List<Class<? extends T>> findClases(String packageName, Class<T> filterClass) throws ClassNotFoundException, IOException {
+    public static <T> Set<Class<?>> findClassesAnnotated(String packageName, Class<? extends Annotation> annotationClass) throws IOException, ClassNotFoundException {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         Enumeration<URL> resources = classLoader.getResources(packageName.replace('.', '/'));
         
-        List<File> directories = new ArrayList<>();
+        Set<File> directories = new HashSet<>();
         while (resources.hasMoreElements()) {
             URL resource = resources.nextElement();
             directories.add(new File(resource.getFile()));
         }
-
-        List<Class<?>> classes = new ArrayList<>();
-        for (File directory : directories) {
-            classes.addAll(findClasses(directory, packageName));
-        }
         
-        // Filter classes that implement the specified interface
-        List<Class<? extends T>> implementations = new ArrayList<>();
-        for (Class<?> clazz : classes) {
-            if (filterClass.isAssignableFrom(clazz) && !clazz.equals(filterClass)) {
-                implementations.add((Class<? extends T>) clazz);
+        Set<Class<?>> componentClasses  = new HashSet<>();
+        for (File directory : directories) {
+            List<Class<?>> classes = findClasses(directory, packageName);
+            for (Class<?> clazz : classes) {
+                if (clazz.isAnnotationPresent(annotationClass)) {
+                    componentClasses.add(clazz);
+                }
             }
         }
-        return implementations;
+        return componentClasses ;
     }
 
 
@@ -46,7 +45,8 @@ public class ImplementationFinder {
             if (file.isDirectory()) {
                 classes.addAll(findClasses(file, packageName + "." + file.getName()));
             } else if (file.getName().endsWith(".class")) {
-                String className = packageName + '.' + file.getName().substring(0, file.getName().length() - 6);
+                String className = packageName + '.'
+                        + file.getName().substring(0, file.getName().length() - 6);
                 classes.add(Class.forName(className));
             }
         }

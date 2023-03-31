@@ -1,47 +1,28 @@
 package dalosto.sistdown.action;
-import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.net.http.HttpResponse.BodyHandlers;
-import dalosto.sistdown.domain.annotations.Component;
+import dalosto.sistdown.framework.annotations.Autowired;
+import dalosto.sistdown.framework.annotations.Component;
+import dalosto.sistdown.service.RequestHTTP;
 import dalosto.sistdown.service.Util;
 
 
 /**
- * Faz o Bootstrap da aplicação:                <p>
- * (i) Cria pastas para fazer a inicialização;  <p>
- * (ii) Carrega uma List com os possiveis trechos para download.
+ * Faz a autenticacao Inicial com o servidor
  */
 @Component
 public class Autorizacao implements Acao {
 
+    @Autowired
+    private RequestHTTP requestTokenService;
+
 
     public void executa() throws Exception {
         if (Util.verificaSeEhAPrimeiraVezRodandoOPrograma()) {
-            String token = obtemTokenValidacao();
-            if (!isAuthtenticated(token)){
+            String token = requestTokenService.obtemTokenValidacao();
+            if (!isAuthtenticated(token)) {
                 throw new RuntimeException(" Servidor não autenticado");
             }
         }
     }
-
-
-
-    private String obtemTokenValidacao() throws IOException, InterruptedException {
-        HttpClient client = HttpClient.newBuilder()
-                            .build();
-
-        HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("https://github.com/victordalosto/sist-down"))
-                    .GET()
-                    .build();
-
-        HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
-        return response.body();
-    }
-
 
 
     private boolean isAuthtenticated(String auth) {

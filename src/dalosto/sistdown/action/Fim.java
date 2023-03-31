@@ -1,5 +1,5 @@
 package dalosto.sistdown.action;
-import dalosto.sistdown.domain.annotations.Component;
+import dalosto.sistdown.framework.annotations.Component;
 import dalosto.sistdown.service.Util;
 
 

@@ -9,7 +9,7 @@ import java.util.List;
 import dalosto.sistdown.helper.CaminhoHelper;
 
 
-public class Registrador {
+public class LoggerConsoleService {
 
 
     public static void printaLinhaConsole() {
@@ -44,7 +44,7 @@ public class Registrador {
         } else {
             System.out.println("\n Downloads finalizados..");
         }
-        Registrador.printaTrechosQueEstaoNaMaquinaLocal();
+        LoggerConsoleService.printaTrechosQueEstaoNaMaquinaLocal();
         System.out.print(" > ");
     }
 
@@ -91,19 +91,19 @@ public class Registrador {
     public static void printaTrechosQueEstaoNaMaquinaLocal() throws Exception {
         List<String> lines = Files.readAllLines(Paths.get(CaminhoHelper.FILE_TARGET_INFO_DOWNLOADS.toString()));
         if (lines == null || lines.size() == 0) {
-            Registrador.printaLinhaConsole();
+            LoggerConsoleService.printaLinhaConsole();
             printaMensagemConsole("0 trechos baixados.    Digite o numero dos ids para baixar trechos");
         } else {
-            Registrador.printaLinhaConsole();
+            LoggerConsoleService.printaLinhaConsole();
             for (int i = 0; i < lines.size(); i++) {
                 if (i == 0) System.out.print("  ");
                 else if (i%4 == 0)  System.out.print("\n  ");
                 else System.out.print("    ");
-                System.out.print(Registrador.formataNomeTrecho(lines.get(i)));
+                System.out.print(LoggerConsoleService.formataNomeTrecho(lines.get(i)));
             }
             System.out.println();
         }
-        Registrador.printaLinhaConsole();
+        LoggerConsoleService.printaLinhaConsole();
     }
     
 }

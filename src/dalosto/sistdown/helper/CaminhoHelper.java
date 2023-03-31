@@ -29,15 +29,14 @@ public class CaminhoHelper {
     /**
      * Rotina para criar as pastas necessarias para rodar o Sistdown.
      */
-    public void init() throws IOException {
+    public void initialize() throws IOException {
         if (Util.verificaSeEhAPrimeiraVezRodandoOPrograma()) {
-            criarDiretorios();
-            criarArquivos();
+            criarArquivosIniciais();
         }
     }
 
 
-    private void criarDiretorios() {
+    private void criarArquivosIniciais() throws IOException {
         if (!DIR_SISTDOWN_ROOT.isDirectory()) {
             DIR_SISTDOWN_ROOT.mkdirs();
         }
@@ -49,16 +48,12 @@ public class CaminhoHelper {
         if (!DIR_TARGET_CONFIG.isDirectory()) {
             DIR_TARGET_CONFIG.mkdirs();
         }
-    }
 
-
-    /**
-     * Rotina para criar os arquivos necessarios para rodar o Sistdown.
-     */
-    private void criarArquivos() throws IOException {
         if (!FILE_TARGET_INFO_DOWNLOADS.exists()) {
             FILE_TARGET_INFO_DOWNLOADS.createNewFile();
         }
     }
+
+
 
 }

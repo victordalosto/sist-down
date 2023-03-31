@@ -1,5 +1,5 @@
 package dalosto.sistdown.action;
-import dalosto.sistdown.domain.annotations.Component;
+import dalosto.sistdown.framework.annotations.Component;
 import dalosto.sistdown.helper.CaminhoHelper;
 
 
@@ -13,7 +13,7 @@ public class Inicializacao implements Acao {
 
 
     public void executa() throws Exception {
-        new CaminhoHelper().init();
+        new CaminhoHelper().initialize();
     }
 
 }
