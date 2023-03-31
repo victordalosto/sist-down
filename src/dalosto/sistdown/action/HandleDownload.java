@@ -9,6 +9,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import dalosto.sistdown.framework.annotations.Component;
+import dalosto.sistdown.framework.annotations.Order;
 import dalosto.sistdown.handler.PromptInputsHandler;
 import dalosto.sistdown.handler.RecursosHandler;
 import dalosto.sistdown.helper.CaminhoHelper;
@@ -23,6 +24,7 @@ import dalosto.sistdown.service.LoggerConsoleService;
  * migrar o target da aplicação para trabalhar com a rede e continuar baixando os vídeos.
  */
 @Component
+@Order(9)
 public class HandleDownload implements Acao {
     
     private static ExecutorService executorService = Executors.newFixedThreadPool(3);

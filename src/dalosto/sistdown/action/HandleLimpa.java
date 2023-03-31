@@ -3,6 +3,7 @@ import java.io.File;
 import dalosto.sistdown.domain.InputArgsModel;
 import dalosto.sistdown.domain.TagsConfiguracao;
 import dalosto.sistdown.framework.annotations.Component;
+import dalosto.sistdown.framework.annotations.Order;
 import dalosto.sistdown.handler.PromptInputsHandler;
 import dalosto.sistdown.handler.RecursosHandler;
 import dalosto.sistdown.helper.CaminhoHelper;
@@ -14,6 +15,7 @@ import dalosto.sistdown.service.LoggerConsoleService;
  * Classe que permite que o usuário limpe os trechos que estão armazenados na maquina local.
  */
 @Component
+@Order(8)
 public class HandleLimpa implements Acao {
 
     

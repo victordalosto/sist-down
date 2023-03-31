@@ -3,6 +3,8 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -19,7 +21,6 @@ public class ApplicationContext {
     public static void initialize() throws Exception {
         scanComponentes(Component.class);
         wireAttributes(Autowired.class);
-        teste();
     }
 
 
@@ -55,8 +56,16 @@ public class ApplicationContext {
                             }
                         }
                         field.setAccessible(true);
+                        
                         if (List.class.isAssignableFrom(field.getType())) {
                             field.set(bean, matchingObjects);
+                            Collections.sort(matchingObjects, new Comparator<Object>() {
+                                @Override
+                                public int compare(Object o1, Object o2) {
+                                    return OrderComparator.orderComparator.compare(o1.getClass(),
+                                            o2.getClass());
+                                }
+                            });
                         } else if (Set.class.isAssignableFrom(field.getType())) {
                             field.set(bean, new HashSet<>(matchingObjects));
                         }
@@ -67,20 +76,5 @@ public class ApplicationContext {
     }
 
 
-    public static void teste() {
-        System.out.println();
-        for (Object c : beans) {
-            // System.out.println(c.getClass().getSimpleName());
-            if (c.getClass().getSimpleName().equals("Teste")) {
-                Teste a = (Teste) c;
-                try {
-                    a.run();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-        }
-    }
 
 }

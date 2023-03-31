@@ -1,5 +1,6 @@
 package dalosto.sistdown.action;
 import dalosto.sistdown.framework.annotations.Component;
+import dalosto.sistdown.framework.annotations.Order;
 import dalosto.sistdown.helper.CaminhoHelper;
 
 
@@ -9,6 +10,7 @@ import dalosto.sistdown.helper.CaminhoHelper;
  * (ii) Carrega uma List com os possiveis trechos para download.
  */
 @Component
+@Order(1)
 public class Inicializacao implements Acao {
 
 

@@ -2,6 +2,7 @@ package dalosto.sistdown.action;
 import dalosto.sistdown.domain.InputArgsModel;
 import dalosto.sistdown.domain.TagsConfiguracao;
 import dalosto.sistdown.framework.annotations.Component;
+import dalosto.sistdown.framework.annotations.Order;
 import dalosto.sistdown.handler.PromptInputsHandler;
 
 
@@ -10,6 +11,7 @@ import dalosto.sistdown.handler.PromptInputsHandler;
  * Classe que permite que o usuário limpe os trechos que estão armazenados na maquina local.
  */
 @Component
+@Order(7)
 public class HandleHelp implements Acao {
 
     

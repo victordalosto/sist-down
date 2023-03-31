@@ -1,6 +1,7 @@
 package dalosto.sistdown.action;
 import dalosto.sistdown.framework.annotations.Autowired;
 import dalosto.sistdown.framework.annotations.Component;
+import dalosto.sistdown.framework.annotations.Order;
 import dalosto.sistdown.service.RequestHTTP;
 import dalosto.sistdown.service.Util;
 
@@ -9,6 +10,7 @@ import dalosto.sistdown.service.Util;
  * Faz a autenticacao Inicial com o servidor
  */
 @Component
+@Order(2)
 public class Autorizacao implements Acao {
 
     @Autowired

@@ -1,5 +1,6 @@
 package dalosto.sistdown.action;
 import dalosto.sistdown.framework.annotations.Component;
+import dalosto.sistdown.framework.annotations.Order;
 import dalosto.sistdown.service.LoggerConsoleService;
 
 
@@ -9,6 +10,7 @@ import dalosto.sistdown.service.LoggerConsoleService;
  * bem como também printa os trechos que foram baixados.
  */
 @Component
+@Order(4)
 public class PrintaInicio implements Acao {
     
     

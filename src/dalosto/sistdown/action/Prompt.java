@@ -1,5 +1,6 @@
 package dalosto.sistdown.action;
 import dalosto.sistdown.framework.annotations.Component;
+import dalosto.sistdown.framework.annotations.Order;
 import dalosto.sistdown.handler.PromptInputsHandler;
 
 
@@ -9,6 +10,7 @@ import dalosto.sistdown.handler.PromptInputsHandler;
  * (ii) Tags de funcionalidades que manipulam o Sistdown.
  */
 @Component
+@Order(5)
 public class Prompt implements Acao {
     
     public void executa() throws Exception {

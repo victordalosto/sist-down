@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import dalosto.sistdown.framework.annotations.Component;
+import dalosto.sistdown.framework.annotations.Order;
 import dalosto.sistdown.handler.RecursosHandler;
 import dalosto.sistdown.helper.CaminhoHelper;
 import dalosto.sistdown.service.LoggerConsoleService;
@@ -17,6 +18,7 @@ import dalosto.sistdown.service.Util;
  * o programa se encarrega de realizar a atualização dos arquivos de configuração para rodar a versão mais recente.  
  */
 @Component
+@Order(3)
 public class Atualizacao implements Acao {
 
     
