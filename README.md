@@ -1,12 +1,29 @@
-<h1 align="center"> Sist-down </h1>
+<h1 align="center">Sist-down</h1>
 
-<b>Sist-down</b> - short for Sistlev Downloader.<br/><br/>
-This was a program created in one day to solve some of the internal network problems at <strong>DNIT</strong> (National Department of Infrastructure  and Transport), where the engineering team could not visualize and evaluate the products (images and videos) stored on the servers due to the large flow of requests. <br/><br/>
-To solve this problem, this <strong>Download Manager</strong> was developed, where the videos and images would be scheduled to download and store on each engineer's local machine, following the schedule and workflow established for each worker, as well as the local storage capacity of each machine.
-<br/><br/>
+<b>Sist-down</b> is a <b>Download Manager</b> and <b>Proxy Application</b> that was created to solve issues of intranet network infraestructure. This was a program created in one day to solve some of the internal network problems at DNIT (National Department of Infrastructure and Transport).
+
+The engineering team was facing difficulties visualizing and evaluating the products (images and videos) stored on the servers due to a high flow of requests. 
+
+Sist-down solved this problem by allowing videos and images to be scheduled for download and stored on each engineer's local machine, following their workflow and schedule, and taking into account each machine's local storage capacity.
+how-it-works.png
+
+![how-it-works](https://github.com/victordalosto/sist-down/blob/master/documentation/assets/how-it-works.png?raw=true)
+
+## Features
+Sist-down has been revamped to include a range of new features, such as automatic system restart, context switching between local and network, and deployment on a shared machine to facilitate maintenance, among others. The code has been refactored, and the functionality presentation in the visual layer has been restructured. A local database has also been created to manage the available endpoints. 
+
+Overall, Sist-down is an efficient and user-friendly download manager that solves the challenges faced by the engineering team at DNIT, making it easier to evaluate and visualize products stored on their servers.
 
 
-## Revamp 2.0
-The Download manager was complete revamped.<br/>
-It was added features capable of: Automatically restarting the application system, allowing changing the context between local | network, deploy on a shared machine that facilitates maintenance and etc.. <br/>
-In addition to the code being refactored, the presentation of the functionalities in the visual layer was also restructured, as well it was created a local database to manage the available end-points.
+
+## How to use
+![tela-inicial](https://github.com/victordalosto/sist-down/blob/master/documentation/assets/print-tela.png?raw=true)
+
+To use Sist-down, the engineering team would open the application, which prompts a shell prompt. From there, they would choose the roads they intend to analyze throughout the week.
+
+Once the roads are selected, Sist-down schedules the download of the corresponding videos from the database and stores them on the engineer's local machine. From that point on, the application works as a proxy, redirecting the calls from the original content to the locally stored content, which allows for faster and smoother analysis.
+
+The application's easy-to-use interface and streamlined functionality make it a reliable tool for engineering teams looking to improve their workflow and productivity. With Sist-down, the engineering team can efficiently analyze road conditions and make informed decisions without worrying about server overload or download speed issues.
+
+
+

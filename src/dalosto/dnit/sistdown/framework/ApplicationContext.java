@@ -13,6 +13,12 @@ import dalosto.dnit.sistdown.framework.annotations.Component;
 import dalosto.dnit.sistdown.framework.annotations.Order;
 
 
+/**
+ * This is the main class of the application. 
+ * It is responsible for initializing the project.
+ * It is also responsible for injecting the dependencies of the classes.
+ * Author: VictorDalosto
+ */
 public class ApplicationContext {
 
     private static Set<Object> beans = new HashSet<>();
@@ -25,7 +31,7 @@ public class ApplicationContext {
 
 
     private static void scanComponentes(Class<? extends Annotation> annotationClass) throws Exception {
-        Set<Class<?>> classes = BeanFinder.findClassesAnnotated("dalosto.sistdown", annotationClass);
+        Set<Class<?>> classes = BeanFinder.findClassesAnnotated("dalosto.dnit.sistdown", annotationClass);
         for (Class<?> clazz : classes) {
             beans.add(clazz.getDeclaredConstructor().newInstance());
         }

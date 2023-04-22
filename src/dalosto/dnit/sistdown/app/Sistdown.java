@@ -9,8 +9,8 @@ import dalosto.dnit.sistdown.service.LoggerConsoleService;
 
 
 /**
- * Classe principal que faz a inicialização do <b>Sist-down</b>.<p>
- * Para iniciar o sistema basta rodar o método estático: <code>iniciar()</code>
+ * Classe principal que faz a inicialização do Sist-down.               <p>
+ * Para iniciar o sistema, basta rodar o método estático: <code>iniciar()</code>
  */
 @Component
 public class Sistdown {
