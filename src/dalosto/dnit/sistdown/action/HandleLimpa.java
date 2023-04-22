@@ -1,0 +1,52 @@
+package dalosto.dnit.sistdown.action;
+import java.io.File;
+import dalosto.dnit.sistdown.domain.InputArgsModel;
+import dalosto.dnit.sistdown.domain.TagsConfiguracao;
+import dalosto.dnit.sistdown.framework.annotations.Autowired;
+import dalosto.dnit.sistdown.framework.annotations.Component;
+import dalosto.dnit.sistdown.framework.annotations.Order;
+import dalosto.dnit.sistdown.handler.PromptInputsHandler;
+import dalosto.dnit.sistdown.handler.RecursosHandler;
+import dalosto.dnit.sistdown.helper.CaminhoHelper;
+import dalosto.dnit.sistdown.service.LoggerArquivoService;
+import dalosto.dnit.sistdown.service.LoggerConsoleService;
+
+
+/**
+ * Funcionalidade - Limpa <p>
+ * Classe que permite que o usuário limpe os trechos que estão armazenados na maquina local.
+ */
+@Component
+@Order(8)
+public class HandleLimpa implements Acao {
+
+    @Autowired
+    LoggerConsoleService loggerConsoleService;
+
+    @Autowired
+    LoggerArquivoService loggerArquivoService;
+
+    
+    public void executa() throws Exception {
+        InputArgsModel input = PromptInputsHandler.verificaSeFoiSolicitado(
+                               (txt) -> TagsConfiguracao.textEhUmaTag(txt, TagsConfiguracao.LIMPA));
+        if (input.foiSolicitado()) {
+            loggerArquivoService.clearLog();
+            limpaPastaDownloads();
+        }
+    }
+
+
+    private void limpaPastaDownloads() {
+        File temp = CaminhoHelper.FILE_TARGET_VIDEOS_TEMP;
+        boolean isRenamed = CaminhoHelper.DIR_TARGET_VIDEOS_ROOT.renameTo(temp);
+        if (isRenamed)
+            new Thread(() -> RecursosHandler.delete(temp)).start();
+        else
+            RecursosHandler.delete(CaminhoHelper.DIR_TARGET_VIDEOS_ROOT);
+        CaminhoHelper.DIR_TARGET_VIDEOS_ROOT.mkdirs();
+        loggerConsoleService.printaMensagem("... Pasta Limpa");
+    }
+
+
+}
