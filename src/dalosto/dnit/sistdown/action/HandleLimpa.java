@@ -29,9 +29,12 @@ public class HandleLimpa implements Acao {
     @Autowired
     RecursosHandler recursosHandler;
 
+    @Autowired
+    PromptInputsHandler promptInputsHandler;
+
     
     public void executa() throws Exception {
-        InputArgsModel input = PromptInputsHandler.verificaSeFoiSolicitado(
+        InputArgsModel input = promptInputsHandler.verificaSeFoiSolicitado(
                                (txt) -> TagsConfiguracao.textEhUmaTag(txt, TagsConfiguracao.LIMPA));
         if (input.foiSolicitado()) {
             loggerArquivoService.clearLog();

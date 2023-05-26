@@ -1,6 +1,7 @@
 package dalosto.dnit.sistdown.action;
 import dalosto.dnit.sistdown.domain.InputArgsModel;
 import dalosto.dnit.sistdown.domain.TagsConfiguracao;
+import dalosto.dnit.sistdown.framework.annotations.Autowired;
 import dalosto.dnit.sistdown.framework.annotations.Component;
 import dalosto.dnit.sistdown.framework.annotations.Order;
 import dalosto.dnit.sistdown.handler.PromptInputsHandler;
@@ -14,16 +15,19 @@ import dalosto.dnit.sistdown.handler.PromptInputsHandler;
 @Order(7)
 public class HandleHelp implements Acao {
 
+    @Autowired
+    PromptInputsHandler promptInputsHandler;
+
     
     public void executa() throws Exception {
 
-        if (PromptInputsHandler.isEmpty()) {
+        if (promptInputsHandler.isEmpty()) {
             System.out.println("\n\n\n\n\n\n\n\n\n ");
             System.out.println(" NENHUM COMANDO DIGITADO.");
             System.out.println(" Se precisar de ajuda, digite 'AJUDA'    Exemplo:\n > ajuda");
             return;
         } 
-        InputArgsModel input = PromptInputsHandler.verificaSeFoiSolicitado(
+        InputArgsModel input = promptInputsHandler.verificaSeFoiSolicitado(
                                (txt) -> TagsConfiguracao.textEhUmaTag(txt, TagsConfiguracao.AJUDA));
         if (input.foiSolicitado()) {
             System.out.println("==============================================");

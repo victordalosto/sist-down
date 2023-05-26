@@ -1,4 +1,5 @@
 package dalosto.dnit.sistdown.action;
+import dalosto.dnit.sistdown.framework.annotations.Autowired;
 import dalosto.dnit.sistdown.framework.annotations.Component;
 import dalosto.dnit.sistdown.framework.annotations.Order;
 import dalosto.dnit.sistdown.handler.PromptInputsHandler;
@@ -12,9 +13,12 @@ import dalosto.dnit.sistdown.handler.PromptInputsHandler;
 @Component
 @Order(5)
 public class Prompt implements Acao {
+
+    @Autowired
+    PromptInputsHandler promptInputsHandler;
     
     public void executa() throws Exception {
-        PromptInputsHandler.obtemInputs();
+        promptInputsHandler.obtemInputs();
     }
 
 }

@@ -7,46 +7,62 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import dalosto.dnit.sistdown.domain.InputArgsModel;
 import dalosto.dnit.sistdown.domain.TagsConfiguracao;
+import dalosto.dnit.sistdown.framework.annotations.Autowired;
+import dalosto.dnit.sistdown.framework.annotations.Component;
+import dalosto.dnit.sistdown.service.LoggerConsoleService;
 import dalosto.dnit.sistdown.service.Util;
 
 
 /**
  * Classe que guarda os inputs digitados na Action Prompt.
  */
+@Component
 public class PromptInputsHandler {
     
-    private static Set<String> setInputs;
-    private static Scanner scanner = new Scanner(System.in);
+    @Autowired
+    LoggerConsoleService loggerConsoleService;
+
+    private Set<String> inputs;
+    private Scanner scanner = new Scanner(System.in);
 
     
-    public static void obtemInputs() {
-        setInputs = Collections.synchronizedSet(new HashSet<>());
-        String fullInputConsoleLine = scanner.nextLine();
-        fullInputConsoleLine = fullInputConsoleLine.replaceAll("\\s+", ",").replaceAll("[.<>;/?°]", ",");
-        for (String input : fullInputConsoleLine.split(",")) {
-            adicionaInputsValidosNaSetDeInputs(input);
-        }
-        System.out.println("\n\n");
+    public void obtemInputs() {
+        inputs = Collections.synchronizedSet(new HashSet<>());
+        fillInputs();
+        loggerConsoleService.pulaLinha(2);
     }
 
 
-    private static void adicionaInputsValidosNaSetDeInputs(String input) {
+    private void fillInputs() {
+        String fullInputConsoleLine = getKeyboardInput();
+        for (String input : fullInputConsoleLine.split(",")) {
+            adicionaInputsValidosNaSetDeInputs(input);
+        }
+    }
+
+
+    private String getKeyboardInput() {
+        return scanner.nextLine().replaceAll("\\s+", ",").replaceAll("[.<>;/?°]", ",");
+    }
+
+
+    private void adicionaInputsValidosNaSetDeInputs(String input) {
         if (Util.textoEhValido(input)) {
             if (TagsConfiguracao.textEhUmaTag(input)) {
-                setInputs.add(input.toUpperCase());
+                inputs.add(input.toUpperCase());
             } else {
                 input = input.replaceAll("[^\\d.]", "");
                 if (Util.textoEhValido(input)) {
-                    setInputs.add(input);
+                    inputs.add(input);
                 }
             }
         }
     }
 
 
-    public static InputArgsModel verificaSeFoiSolicitado(Predicate<String> condicao) {
+    public InputArgsModel verificaSeFoiSolicitado(Predicate<String> condicao) {
         InputArgsModel inputArgsModel = new InputArgsModel();
-        for(String input : setInputs) {
+        for(String input : inputs) {
             if (condicao.test(input)) {
                 inputArgsModel.setStatus(true);
                 inputArgsModel.setArgs(TagsConfiguracao.removeTagFromString(input));
@@ -57,13 +73,13 @@ public class PromptInputsHandler {
 
 
 
-    public static Set<String> obtemIdsDigitados() {
-        return setInputs.stream().filter(i -> i.matches("[0-9]+")).collect(Collectors.toSet());
+    public Set<String> obtemIdsDigitados() {
+        return inputs.stream().filter(i -> i.matches("[0-9]+")).collect(Collectors.toSet());
     }
 
     
-    public static boolean isEmpty() {
-        return setInputs.size() == 0;
+    public boolean isEmpty() {
+        return inputs.size() == 0;
     }
 
 }

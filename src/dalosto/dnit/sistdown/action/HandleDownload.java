@@ -38,7 +38,13 @@ public class HandleDownload implements Acao {
     @Autowired
     RecursosHandler recursosHandler;
 
-    private static ExecutorService executorService = Executors.newFixedThreadPool(3);
+    @Autowired
+    PromptInputsHandler promptInputsHandler;
+
+    @Autowired
+    TrechoRepository trechoRepository;
+
+    private ExecutorService executorService = Executors.newFixedThreadPool(3);
  
 
     /**
@@ -46,13 +52,13 @@ public class HandleDownload implements Acao {
      */
     public void executa() throws Exception {
         
-        Set<String> idsParaBaixar = PromptInputsHandler.obtemIdsDigitados();
+        Set<String> idsParaBaixar = promptInputsHandler.obtemIdsDigitados();
         if (idsParaBaixar.size() > 0) {
             loggerConsoleService.printaMensagem("... Iniciando o download dos trechos");
             Set<TarefaDownload> listaParaBaixar = new HashSet<>();
             Set<String> trechosBaixadosNesseLoop = new HashSet<>();
             for (String id : idsParaBaixar) {
-                String caminho = TrechoRepository.getPath(id);
+                String caminho = trechoRepository.getPath(id);
                 if (caminho == null) {
                     loggerConsoleService.printaMensagem("!!! Trecho de id: "+id+" não está no banco !!!");
                 } else if(!trechosBaixadosNesseLoop.contains(caminho)) {

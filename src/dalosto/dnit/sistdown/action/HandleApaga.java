@@ -33,9 +33,15 @@ public class HandleApaga implements Acao {
     @Autowired
     RecursosHandler recursosHandler;
 
+    @Autowired
+    PromptInputsHandler promptInputsHandler;
+
+    @Autowired
+    TrechoRepository trechoRepository;
+
 
     public void executa() throws Exception {
-        InputArgsModel input = PromptInputsHandler.verificaSeFoiSolicitado(
+        InputArgsModel input = promptInputsHandler.verificaSeFoiSolicitado(
                                             (txt) -> TagsConfiguracao.textEhUmaTag(txt, TagsConfiguracao.APAGA));
         if (input.foiSolicitado()) {
             try {
@@ -44,7 +50,7 @@ public class HandleApaga implements Acao {
                 for (int i = 0; i < lines.size() && i < Integer.valueOf(input.getArgs()); i++) {
                     String id = lines.get(i).split(";")[0];
                     idsToRemove.add(lines.get(i));
-                    recursosHandler.delete(Paths.get(CaminhoHelper.DIR_VIDEOS.toString(), TrechoRepository.getPath(id)).toFile());
+                    recursosHandler.delete(Paths.get(CaminhoHelper.DIR_VIDEOS.toString(), trechoRepository.getPath(id)).toFile());
                     loggerConsoleService.printaMensagem(id + " deletado.");
                 }
                 lines.removeAll(idsToRemove);
