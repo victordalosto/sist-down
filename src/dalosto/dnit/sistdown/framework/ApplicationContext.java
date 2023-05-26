@@ -23,6 +23,8 @@ public class ApplicationContext {
 
     private static Set<Object> beans = new HashSet<>();
 
+    private static String packageName = "dalosto.dnit.sistdown";
+
 
     public static void initialize() throws Exception {
         scanComponentes(Component.class);
@@ -31,7 +33,7 @@ public class ApplicationContext {
 
 
     private static void scanComponentes(Class<? extends Annotation> annotationClass) throws Exception {
-        Set<Class<?>> classes = BeanFinder.findClassesAnnotated("dalosto.dnit.sistdown", annotationClass);
+        Set<Class<?>> classes = BeanFinder.findClassesAnnotated(packageName, annotationClass);
         for (Class<?> clazz : classes) {
             beans.add(clazz.getDeclaredConstructor().newInstance());
         }
@@ -40,43 +42,53 @@ public class ApplicationContext {
 
     private static void wireAttributes(Class<? extends Annotation> annotationClass) throws IllegalArgumentException, IllegalAccessException {
         for (Object bean : beans) {
-            Field[] fields = bean.getClass().getDeclaredFields();
-            for (Field field : fields) {
-                if (field.isAnnotationPresent(annotationClass)) {
-                    for (Object managedBean : beans) {
-                        if (field.getType().isAssignableFrom(managedBean.getClass())) {
-                            field.setAccessible(true);
-                            field.set(bean, managedBean);
-                            break;
-                        }
-                    }
-                    if (List.class.isAssignableFrom(field.getType())
-                       || Set.class.isAssignableFrom(field.getType())) {
-                        ParameterizedType collectionType = (ParameterizedType) field.getGenericType();
-                        Class<?> collectionGenericType = (Class<?>) collectionType.getActualTypeArguments()[0];
+            for (Field field : bean.getClass().getDeclaredFields()) {
+                injectBean(annotationClass, bean, field);
+            }
+        }
+    }
 
-                        List<Object> matchingObjects = new ArrayList<>();
-                        for (Object obj : beans) {
-                            if (collectionGenericType.isAssignableFrom(obj.getClass())) {
-                                matchingObjects.add(obj);
-                            }
-                        }
-                        field.setAccessible(true);
-                        
-                        if (List.class.isAssignableFrom(field.getType())) {
-                            field.set(bean, matchingObjects);
-                            Collections.sort(matchingObjects, new Comparator<Object>() {
-                                @Override
-                                public int compare(Object o1, Object o2) {
-                                    return Order.orderComparator.compare(o1.getClass(),
-                                            o2.getClass());
-                                }
-                            });
-                        } else if (Set.class.isAssignableFrom(field.getType())) {
-                            field.set(bean, new HashSet<>(matchingObjects));
-                        }
+
+    private static void injectBean(Class<? extends Annotation> annotationClass, Object bean, Field field) throws IllegalAccessException {
+        if (field.isAnnotationPresent(annotationClass)) {
+            injectBeanInFieldIfMatches(bean, field);
+            if (List.class.isAssignableFrom(field.getType())
+               || Set.class.isAssignableFrom(field.getType())) {
+                ParameterizedType collectionType = (ParameterizedType) field.getGenericType();
+                Class<?> collectionGenericType = (Class<?>) collectionType.getActualTypeArguments()[0];
+
+                List<Object> matchingObjects = new ArrayList<>();
+                for (Object obj : beans) {
+                    if (collectionGenericType.isAssignableFrom(obj.getClass())) {
+                        matchingObjects.add(obj);
                     }
                 }
+                field.setAccessible(true);
+                
+                if (List.class.isAssignableFrom(field.getType())) {
+                    field.set(bean, matchingObjects);
+                    Collections.sort(matchingObjects, new Comparator<Object>() {
+                        @Override
+                        public int compare(Object o1, Object o2) {
+                            return Order.orderComparator.compare(o1.getClass(),
+                                    o2.getClass());
+                        }
+                    });
+                } else if (Set.class.isAssignableFrom(field.getType())) {
+                    field.set(bean, new HashSet<>(matchingObjects));
+                }
+            }
+        }
+    }
+
+
+    private static void injectBeanInFieldIfMatches(Object bean, Field field) throws IllegalAccessException {
+        for (Object managedBean : beans) {
+            if (field.getType().isAssignableFrom(managedBean.getClass())) {
+                field.setAccessible(true);
+                field.set(bean, managedBean);
+                field.setAccessible(false);
+                break;
             }
         }
     }

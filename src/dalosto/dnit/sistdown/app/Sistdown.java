@@ -10,7 +10,7 @@ import dalosto.dnit.sistdown.service.LoggerConsoleService;
 
 /**
  * Classe principal que faz a inicialização do Sist-down.               <p>
- * Para iniciar o sistema, basta rodar o método estático: <code>iniciar()</code>
+ * Para iniciar o sistema, basta rodar o método estático: iniciar()
  */
 @Component
 public class Sistdown {
@@ -19,7 +19,7 @@ public class Sistdown {
     private static List<Acao> acoes = new ArrayList<>(11);
 
     @Autowired
-    private static LoggerConsoleService loggerConsole;
+    private static LoggerConsoleService logger;
     
 
     /**
@@ -36,7 +36,7 @@ public class Sistdown {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            loggerConsole.printaMensagem("Problema com o Sistdown. Favor, avisar o vitão.\n\n");
+            logger.printaMensagem("Problema com o Sistdown. Favor, avisar o vitão.\n\n");
         }
     }
 
