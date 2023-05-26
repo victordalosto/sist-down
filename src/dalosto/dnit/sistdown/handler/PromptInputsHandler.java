@@ -7,26 +7,39 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import dalosto.dnit.sistdown.domain.InputArgsModel;
 import dalosto.dnit.sistdown.domain.TagsConfiguracao;
+import dalosto.dnit.sistdown.framework.annotations.Autowired;
+import dalosto.dnit.sistdown.framework.annotations.Component;
+import dalosto.dnit.sistdown.service.LoggerConsoleService;
 import dalosto.dnit.sistdown.service.Util;
 
 
 /**
  * Classe que guarda os inputs digitados na Action Prompt.
  */
+@Component
 public class PromptInputsHandler {
     
     private static Set<String> setInputs;
     private static Scanner scanner = new Scanner(System.in);
 
+    @Autowired
+    private static LoggerConsoleService loggerConsoleService;
+
     
     public static void obtemInputs() {
+        String fullInputConsoleLine = getKeyboardInput();
         setInputs = Collections.synchronizedSet(new HashSet<>());
-        String fullInputConsoleLine = scanner.nextLine();
-        fullInputConsoleLine = fullInputConsoleLine.replaceAll("\\s+", ",").replaceAll("[.<>;/?°]", ",");
         for (String input : fullInputConsoleLine.split(",")) {
             adicionaInputsValidosNaSetDeInputs(input);
         }
-        System.out.println("\n\n");
+        loggerConsoleService.pulaLinha(2);
+    }
+
+
+    private static String getKeyboardInput() {
+        return scanner.nextLine()
+                      .replaceAll("\\s+", ",")
+                      .replaceAll("[.<>;/?°]", ",");
     }
 
 

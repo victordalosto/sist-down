@@ -16,6 +16,13 @@ public class LoggerConsoleService {
         System.out.println(" * " + text);
     }
 
+    
+    public void pulaLinha(int qtd) {
+        for (int i = 0; i < qtd; i++) {
+            System.out.println();
+        }
+    }
+
 
     public void printaMensagemInicio() throws Exception {
         printaheader();
