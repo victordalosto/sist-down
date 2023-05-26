@@ -29,6 +29,9 @@ public class Atualizacao implements Acao {
     @Autowired
     LoggerArquivoService loggerArquivoService;
 
+    @Autowired
+    RecursosHandler recursosHandler;
+
     
     public void executa() throws Exception {
         if (Util.verificaSeEhAPrimeiraVezRodandoOPrograma()) {
@@ -51,7 +54,7 @@ public class Atualizacao implements Acao {
     private void v1_0_0() {
         File CODIGO_JAVA = Paths.get(CaminhoHelper.DIR_SISTDOWN_ROOT.toString(), "codigo-java").toFile();
         if (CODIGO_JAVA.isDirectory()) {
-            RecursosHandler.delete(CODIGO_JAVA);
+            recursosHandler.delete(CODIGO_JAVA);
             loggerConsoleService.printaMensagem("Sistdown atualizado para v1.0.0");
         }
     }
@@ -79,7 +82,7 @@ public class Atualizacao implements Acao {
     private void v2_2_0() {
         File oldRunnable = Paths.get(CaminhoHelper.DIR_SISTDOWN_ROOT.toString(), "jdk-18.0.2.1", "bin", "sist-down.jar").toFile();
         if (oldRunnable.isFile()) {
-            RecursosHandler.delete(oldRunnable);
+            recursosHandler.delete(oldRunnable);
             loggerConsoleService.printaMensagem("Sistdown atualizado para v2.2.0");
         }
     }
@@ -93,15 +96,15 @@ public class Atualizacao implements Acao {
     private void v2_2_9() {
         File shortcut_rede  = Paths.get(CaminhoHelper.DIR_SISTDOWN_ROOT.toString(), "Videos-rede").toFile();
         if (shortcut_rede.isFile()) {
-            RecursosHandler.delete(shortcut_rede);
+            recursosHandler.delete(shortcut_rede);
         }
         File temp_download_local = Paths.get(CaminhoHelper.DIR_SISTDOWN_ROOT.toString(), "Videos-local").toFile();
         if (temp_download_local.isDirectory()) {
-            RecursosHandler.delete(temp_download_local);
+            recursosHandler.delete(temp_download_local);
         }
         File context = Paths.get(CaminhoHelper.DIR_SISTDOWN_ROOT.toString(), "config", "contexto").toFile();
         if (context.isFile()) {
-            RecursosHandler.delete(context);
+            recursosHandler.delete(context);
         }
     }
 
@@ -123,7 +126,7 @@ public class Atualizacao implements Acao {
                 loggerArquivoService.logaUmDownload(trecho.split("-")[0], Paths.get(trecho.split("-")[1]));
             }
             loggerConsoleService.printaMensagem("Sistdown atualizado para v2.3.0");
-            RecursosHandler.delete(oldInfo.toFile());
+            recursosHandler.delete(oldInfo.toFile());
         }
     }
 
@@ -136,7 +139,7 @@ public class Atualizacao implements Acao {
     private void v2_4_0() {
         File downloadTemp = CaminhoHelper.DIR_VIDEOS_TEMP;
         if (downloadTemp.isFile()) {
-            RecursosHandler.delete(downloadTemp);
+            recursosHandler.delete(downloadTemp);
         }
     }
 
@@ -149,7 +152,7 @@ public class Atualizacao implements Acao {
     private void v2_4_2() {
         File downloadTemp = Paths.get(CaminhoHelper.DIR_CONFIG.toString(), "order66").toFile();
         if (downloadTemp.isFile()) {
-            RecursosHandler.delete(downloadTemp);
+            recursosHandler.delete(downloadTemp);
             loggerConsoleService.printaMensagem("Sistdown atualizado para v2.4.2");
         }
     }

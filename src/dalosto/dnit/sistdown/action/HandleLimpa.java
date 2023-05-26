@@ -26,6 +26,9 @@ public class HandleLimpa implements Acao {
     @Autowired
     LoggerArquivoService loggerArquivoService;
 
+    @Autowired
+    RecursosHandler recursosHandler;
+
     
     public void executa() throws Exception {
         InputArgsModel input = PromptInputsHandler.verificaSeFoiSolicitado(
@@ -41,9 +44,9 @@ public class HandleLimpa implements Acao {
         File temp = CaminhoHelper.DIR_VIDEOS_TEMP;
         boolean isRenamed = CaminhoHelper.DIR_VIDEOS.renameTo(temp);
         if (isRenamed)
-            new Thread(() -> RecursosHandler.delete(temp)).start();
+            new Thread(() -> recursosHandler.delete(temp)).start();
         else
-            RecursosHandler.delete(CaminhoHelper.DIR_VIDEOS);
+        recursosHandler.delete(CaminhoHelper.DIR_VIDEOS);
         CaminhoHelper.DIR_VIDEOS.mkdirs();
         loggerConsoleService.printaMensagem("... Pasta Limpa");
     }

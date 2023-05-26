@@ -7,15 +7,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import dalosto.dnit.sistdown.framework.annotations.Component;
 
 
+@Component
 public class RecursosHandler {
 
     
     /**
      * Algoritmo para copiar as pastas da rede para a maquina local.
      */
-    public static void walkAndCopy(Path source, Path target, CopyOption... options) throws Exception {
+    public void walkAndCopy(Path source, Path target, CopyOption... options) throws Exception {
         Files.walkFileTree(source, new SimpleFileVisitor<Path>() {
 
             @Override
@@ -57,7 +59,7 @@ public class RecursosHandler {
     /**
      * Algoritmo para deletar uma pasta ou arquivo
      */
-    public static void delete(File folder) {
+    public void delete(File folder) {
         File[] files = folder.listFiles();
         if (files != null) { // some JVMs return null for empty dirs
             for (File f : files) {

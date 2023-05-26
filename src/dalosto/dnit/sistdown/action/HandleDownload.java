@@ -35,6 +35,9 @@ public class HandleDownload implements Acao {
     @Autowired
     LoggerArquivoService loggerArquivoService;
     
+    @Autowired
+    RecursosHandler recursosHandler;
+
     private static ExecutorService executorService = Executors.newFixedThreadPool(3);
  
 
@@ -54,7 +57,7 @@ public class HandleDownload implements Acao {
                     loggerConsoleService.printaMensagem("!!! Trecho de id: "+id+" não está no banco !!!");
                 } else if(!trechosBaixadosNesseLoop.contains(caminho)) {
                     trechosBaixadosNesseLoop.add(caminho);
-                    listaParaBaixar.add(new TarefaDownload(id, caminho, loggerConsoleService, loggerArquivoService));
+                    listaParaBaixar.add(new TarefaDownload(id, caminho, loggerConsoleService, loggerArquivoService, recursosHandler));
                 } 
             }
             executorService.invokeAll(listaParaBaixar);
@@ -75,15 +78,18 @@ class TarefaDownload implements Callable<Void> {
     String caminho;
     LoggerConsoleService loggerConsoleService;
     LoggerArquivoService loggerArquivoService;
+    RecursosHandler recursosHandler;
 
     TarefaDownload(String idTrecho, 
                    String caminho, 
                    LoggerConsoleService loggerConsoleService, 
-                   LoggerArquivoService loggerArquivoService) {
+                   LoggerArquivoService loggerArquivoService,
+                   RecursosHandler recursosHandler) {
         this.idTrecho = idTrecho;
         this.caminho = caminho;
         this.loggerConsoleService = loggerConsoleService;
         this.loggerArquivoService = loggerArquivoService;
+        this.recursosHandler = recursosHandler;
     }
 
     @Override
@@ -91,8 +97,8 @@ class TarefaDownload implements Callable<Void> {
         try {
             Path input = Paths.get(CaminhoHelper.DIR_REDE_VIDEOS.toString(), caminho);
             Path target = Paths.get(CaminhoHelper.DIR_VIDEOS.toString(), caminho);
-            RecursosHandler.delete(target.toFile());
-            RecursosHandler.walkAndCopy(input, target, StandardCopyOption.REPLACE_EXISTING);
+            recursosHandler.delete(target.toFile());
+            recursosHandler.walkAndCopy(input, target, StandardCopyOption.REPLACE_EXISTING);
             informaQueTrechoFoiBaixado(idTrecho, target);
         } catch (Exception e) {
             e.printStackTrace();
