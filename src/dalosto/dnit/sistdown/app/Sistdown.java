@@ -29,14 +29,19 @@ public class Sistdown {
     public static void inicia() {
         try {
             ApplicationContext.initialize();
-            while (true) {
-                for (Acao acao : acoes) {
-                    acao.executa();
-                }
-            }
+            iniciaPrograma();
         } catch (Exception e) {
             e.printStackTrace();
             logger.printaMensagem("Problema com o Sistdown. Favor, avisar o vitão.\n\n");
+        }
+    }
+
+
+    private static void iniciaPrograma() throws Exception {
+        while (true) {
+            for (Acao acao : acoes) {
+                acao.executa();
+            }
         }
     }
 

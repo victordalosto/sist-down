@@ -41,7 +41,7 @@ public class HandleApaga implements Acao {
                 for (int i = 0; i < lines.size() && i < Integer.valueOf(input.getArgs()); i++) {
                     String id = lines.get(i).split(";")[0];
                     idsToRemove.add(lines.get(i));
-                    RecursosHandler.delete(Paths.get(CaminhoHelper.DIR_TARGET_VIDEOS_ROOT.toString(), TrechoRepository.getPath(id)).toFile());
+                    RecursosHandler.delete(Paths.get(CaminhoHelper.DIR_VIDEOS.toString(), TrechoRepository.getPath(id)).toFile());
                     loggerConsoleService.printaMensagem(id + " deletado.");
                 }
                 lines.removeAll(idsToRemove);

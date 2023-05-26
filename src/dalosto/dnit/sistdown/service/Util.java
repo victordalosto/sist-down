@@ -10,24 +10,17 @@ public class Util {
 
 
     public static boolean verificaSeEhAPrimeiraVezRodandoOPrograma() {
-        if (primeiraInicializacao) {
-            return true;
-        }
-        return false;
+        return primeiraInicializacao;
     }
 
     
-    public static void iniciaNovamenteOPrograma() {
+    public static void reiniciaOPrograma() {
         primeiraInicializacao = false;
-        System.out.println("\n");
     }
 
 
     public static boolean textoEhValido(String text) {
-        if (text != null && !text.isBlank()) {
-            return true;
-        }
-        return false;
+        return (text != null && !text.isBlank());
     }
 
     

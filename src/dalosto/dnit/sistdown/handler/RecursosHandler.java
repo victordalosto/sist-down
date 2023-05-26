@@ -21,23 +21,34 @@ public class RecursosHandler {
             @Override
             public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
                 String pasta = dir.toString().toLowerCase();
-                if (!pasta.endsWith("geo") && !pasta.endsWith("irap") && !pasta.endsWith("rinex") &&
-                    !pasta.endsWith("arquivos") && !pasta.endsWith("DadosBrutos")) {
+                if (validDirectory(pasta)) {
                     Files.createDirectories(target.resolve(source.relativize(dir)));
                     return FileVisitResult.CONTINUE;
                 }
                 return FileVisitResult.SKIP_SUBTREE;
             }
 
+
             @Override
             public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                String arquivo = file.toString().toLowerCase();
-                if (arquivo.endsWith(".mp4")  || arquivo.endsWith(".avi") || arquivo.endsWith(".flv") || 
-                    arquivo.endsWith(".jpeg") || arquivo.endsWith(".jpg") || arquivo.endsWith(".png") || 
-                    arquivo.endsWith("logstrecho.xml")) {
+                String fileIsValid = file.toString().toLowerCase();
+                if (validFiles(fileIsValid)) {
                         Files.copy(file, target.resolve(source.relativize(file)), options);
                     }
                 return FileVisitResult.CONTINUE;
+            }
+
+
+            private boolean validDirectory(String pasta) {
+                return !pasta.endsWith("geo") && !pasta.endsWith("irap") && !pasta.endsWith("rinex") &&
+                       !pasta.endsWith("arquivos") && !pasta.endsWith("DadosBrutos");
+            }
+
+
+            private boolean validFiles(String arquivo) {
+                return arquivo.endsWith(".mp4")  || arquivo.endsWith(".avi") || arquivo.endsWith(".flv") || 
+                       arquivo.endsWith(".jpeg") || arquivo.endsWith(".jpg") || arquivo.endsWith(".png") || 
+                       arquivo.endsWith("logstrecho.xml");
             }
         });
     }

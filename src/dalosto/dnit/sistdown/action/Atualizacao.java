@@ -65,7 +65,7 @@ public class Atualizacao implements Acao {
     private void v2_0_0() {
         File CONFIG_OLD = Paths.get(CaminhoHelper.DIR_SISTDOWN_ROOT.toString(), "configs").toFile();
         if (CONFIG_OLD.isFile()) {
-            CONFIG_OLD.renameTo(CaminhoHelper.FILE_TARGET_INFO_DOWNLOADS);
+            CONFIG_OLD.renameTo(CaminhoHelper.FILE_LOGS_DOWNLOADS);
             loggerConsoleService.printaMensagem("Sistdown atualizado para v2.0.0");
         }
     }
@@ -113,10 +113,10 @@ public class Atualizacao implements Acao {
      * @throws IOException
      */
     private void v2_3_0() throws IOException {
-        Path oldInfo = Paths.get(CaminhoHelper.DIR_TARGET_CONFIG.toString(), "info-downloads");
+        Path oldInfo = Paths.get(CaminhoHelper.DIR_CONFIG.toString(), "info-downloads");
         if (oldInfo.toFile().isFile()) {
-            if (!CaminhoHelper.FILE_TARGET_INFO_DOWNLOADS.exists()) {
-                CaminhoHelper.FILE_TARGET_INFO_DOWNLOADS.createNewFile();
+            if (!CaminhoHelper.FILE_LOGS_DOWNLOADS.exists()) {
+                CaminhoHelper.FILE_LOGS_DOWNLOADS.createNewFile();
             }
             String trechosNaLocal = Files.readString(oldInfo).replaceAll("\\s+", "").replaceAll(",$", "");
             for (String trecho : trechosNaLocal.split(",")) {
@@ -134,7 +134,7 @@ public class Atualizacao implements Acao {
      * @throws IOException
      */
     private void v2_4_0() {
-        File downloadTemp = CaminhoHelper.FILE_TARGET_VIDEOS_TEMP;
+        File downloadTemp = CaminhoHelper.DIR_VIDEOS_TEMP;
         if (downloadTemp.isFile()) {
             RecursosHandler.delete(downloadTemp);
         }
@@ -147,7 +147,7 @@ public class Atualizacao implements Acao {
      * @throws IOException
      */
     private void v2_4_2() {
-        File downloadTemp = Paths.get(CaminhoHelper.DIR_TARGET_CONFIG.toString(), "order66").toFile();
+        File downloadTemp = Paths.get(CaminhoHelper.DIR_CONFIG.toString(), "order66").toFile();
         if (downloadTemp.isFile()) {
             RecursosHandler.delete(downloadTemp);
             loggerConsoleService.printaMensagem("Sistdown atualizado para v2.4.2");

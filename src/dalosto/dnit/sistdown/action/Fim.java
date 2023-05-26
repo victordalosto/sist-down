@@ -13,7 +13,7 @@ public class Fim implements Acao {
 
     
     public void executa() throws Exception {
-        Util.iniciaNovamenteOPrograma();
+        Util.reiniciaOPrograma();
     }
     
 }

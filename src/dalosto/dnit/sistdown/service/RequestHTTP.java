@@ -14,7 +14,9 @@ public class RequestHTTP {
     public String obtemTokenValidacao() throws IOException, InterruptedException {
         HttpClient client = HttpClient.newBuilder().build();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://github.com/victordalosto/sist-down")).GET().build();
+                                         .uri(URI.create("https://github.com/victordalosto/sist-down"))
+                                         .GET()
+                                         .build();
         HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
         return response.body();
     }

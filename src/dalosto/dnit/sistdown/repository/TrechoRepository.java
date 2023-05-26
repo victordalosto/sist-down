@@ -14,8 +14,8 @@ import dalosto.dnit.sistdown.helper.CaminhoHelper;
  */
 public class TrechoRepository {
 
-    public static Map<String, String> hashTrechos = new HashMap<>();
-    private static long lastModified = 0;
+    public static Map<String, String> trechos = new HashMap<>();
+    private static long lastModified = -1;
 
 
     /**
@@ -26,7 +26,7 @@ public class TrechoRepository {
      */
     public static String getPath(String id) throws FileNotFoundException {
         TrechoRepository.atualizaTrechosDisponiveisBanco();
-        return hashTrechos.get(id);
+        return trechos.get(id);
     }
 
     
@@ -34,15 +34,20 @@ public class TrechoRepository {
      * Carrega os trechos que estão disponíveis para download. <p>
      */
     private static void atualizaTrechosDisponiveisBanco() throws FileNotFoundException {
-        File pathCSV = new File(CaminhoHelper.FILE_TARGET_BANCO_CSV.toString());
+        File pathCSV = new File(CaminhoHelper.FILE_BANCO_CSV.toString());
         if (pathCSV.lastModified() != lastModified) {
+            trechos = new HashMap<>();
             lastModified = pathCSV.lastModified();
-            hashTrechos = new HashMap<>();
-            try(Scanner scanner = new Scanner(pathCSV)) {
-                while (scanner.hasNextLine()) {
-                    String[] row = scanner.nextLine().split(";");
-                    hashTrechos.put(row[0], row[1]);
-                }
+            fillTrechosFromDB(pathCSV);
+        }
+    }
+
+
+    private static void fillTrechosFromDB(File pathCSV) throws FileNotFoundException {
+        try(Scanner scanner = new Scanner(pathCSV)) {
+            while (scanner.hasNextLine()) {
+                String[] row = scanner.nextLine().split(";");
+                trechos.put(row[0], row[1]);
             }
         }
     }

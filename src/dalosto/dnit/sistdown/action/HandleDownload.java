@@ -89,8 +89,8 @@ class TarefaDownload implements Callable<Void> {
     @Override
     public Void call() {
         try {
-            Path input = Paths.get(CaminhoHelper.DIR_REDE_VIDEOS_ROOT.toString(), caminho);
-            Path target = Paths.get(CaminhoHelper.DIR_TARGET_VIDEOS_ROOT.toString(), caminho);
+            Path input = Paths.get(CaminhoHelper.DIR_REDE_VIDEOS.toString(), caminho);
+            Path target = Paths.get(CaminhoHelper.DIR_VIDEOS.toString(), caminho);
             RecursosHandler.delete(target.toFile());
             RecursosHandler.walkAndCopy(input, target, StandardCopyOption.REPLACE_EXISTING);
             informaQueTrechoFoiBaixado(idTrecho, target);

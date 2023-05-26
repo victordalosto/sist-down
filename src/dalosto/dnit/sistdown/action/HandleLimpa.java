@@ -38,13 +38,13 @@ public class HandleLimpa implements Acao {
 
 
     private void limpaPastaDownloads() {
-        File temp = CaminhoHelper.FILE_TARGET_VIDEOS_TEMP;
-        boolean isRenamed = CaminhoHelper.DIR_TARGET_VIDEOS_ROOT.renameTo(temp);
+        File temp = CaminhoHelper.DIR_VIDEOS_TEMP;
+        boolean isRenamed = CaminhoHelper.DIR_VIDEOS.renameTo(temp);
         if (isRenamed)
             new Thread(() -> RecursosHandler.delete(temp)).start();
         else
-            RecursosHandler.delete(CaminhoHelper.DIR_TARGET_VIDEOS_ROOT);
-        CaminhoHelper.DIR_TARGET_VIDEOS_ROOT.mkdirs();
+            RecursosHandler.delete(CaminhoHelper.DIR_VIDEOS);
+        CaminhoHelper.DIR_VIDEOS.mkdirs();
         loggerConsoleService.printaMensagem("... Pasta Limpa");
     }
 

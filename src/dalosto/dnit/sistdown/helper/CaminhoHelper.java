@@ -13,17 +13,14 @@ public class CaminhoHelper {
 
     public static final File DIR_SISTDOWN_ROOT    = Paths.get("D:", "sist-down").toFile();
     
-    public static final File DIR_REDE_VIDEOS_ROOT = Paths.get("\\\\10.100.10.219", "Videos").toFile();
-    public static final File DIR_TARGET_VIDEOS_ROOT = Paths.get("D:", "sist-down", "Videos").toFile();
+    public static final File DIR_REDE_VIDEOS = Paths.get("\\\\10.100.10.219", "Videos").toFile();
+    public static final File DIR_VIDEOS = Paths.get(DIR_SISTDOWN_ROOT.toString(), "Videos").toFile();
+    public static final File DIR_VIDEOS_TEMP = Paths.get(DIR_SISTDOWN_ROOT.toString(), "Videos-temp").toFile();
 
-    public static final File FILE_TARGET_VIDEOS_TEMP = Paths.get("D:", "sist-down", "Videos-temp").toFile();
+    public static final File DIR_CONFIG = Paths.get(DIR_SISTDOWN_ROOT.toString(), "config").toFile();
+    public static final File FILE_LOGS_DOWNLOADS = Paths.get(DIR_CONFIG.toString(), "logs-downloads").toFile();
 
-    public static final File DIR_TARGET_CONFIG = Paths.get("D:", "sist-down", "config").toFile();
-    public static final File FILE_TARGET_INFO_DOWNLOADS = Paths.get("D:", "sist-down", "config", 
-                                                                "logs-downloads").toFile();
-
-    public static final File FILE_TARGET_BANCO_CSV = Paths.get(DIR_REDE_VIDEOS_ROOT.toString(), "Recebidos", 
-                                                          "sistdown-config", "caminhos.csv").toFile();
+    public static final File FILE_BANCO_CSV = Paths.get(DIR_REDE_VIDEOS.toString(), "Recebidos", "sistdown-config", "caminhos.csv").toFile();
     
 
     /**
@@ -41,16 +38,16 @@ public class CaminhoHelper {
             DIR_SISTDOWN_ROOT.mkdirs();
         }
         
-        if (!DIR_TARGET_VIDEOS_ROOT.isDirectory()) {
-            DIR_TARGET_VIDEOS_ROOT.mkdirs(); 
+        if (!DIR_VIDEOS.isDirectory()) {
+            DIR_VIDEOS.mkdirs(); 
         }
         
-        if (!DIR_TARGET_CONFIG.isDirectory()) {
-            DIR_TARGET_CONFIG.mkdirs();
+        if (!DIR_CONFIG.isDirectory()) {
+            DIR_CONFIG.mkdirs();
         }
 
-        if (!FILE_TARGET_INFO_DOWNLOADS.exists()) {
-            FILE_TARGET_INFO_DOWNLOADS.createNewFile();
+        if (!FILE_LOGS_DOWNLOADS.exists()) {
+            FILE_LOGS_DOWNLOADS.createNewFile();
         }
     }
 

@@ -3,7 +3,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
 import dalosto.dnit.sistdown.framework.annotations.Autowired;
@@ -19,19 +18,19 @@ public class LoggerArquivoService {
 
 
     public void appendMensagemToLog(String msg) throws IOException {
-        Files.write(CaminhoHelper.FILE_TARGET_INFO_DOWNLOADS.toPath(), 
+        Files.write(CaminhoHelper.FILE_LOGS_DOWNLOADS.toPath(), 
                     (msg+"\n").getBytes(), 
                     StandardOpenOption.APPEND);
     }
 
 
     public List<String> readAllLog() throws IOException {
-        return Files.readAllLines(Paths.get(CaminhoHelper.FILE_TARGET_INFO_DOWNLOADS.toString()));
+        return Files.readAllLines(CaminhoHelper.FILE_LOGS_DOWNLOADS.toPath());
     }
 
 
     public void clearLog() throws IOException {
-        FileWriter f = new FileWriter(CaminhoHelper.FILE_TARGET_INFO_DOWNLOADS, false);
+        FileWriter f = new FileWriter(CaminhoHelper.FILE_LOGS_DOWNLOADS, false);
         f.close();
     }
 
@@ -71,7 +70,7 @@ public class LoggerArquivoService {
     public void recriaLogApartirDeString(List<String> list) throws IOException {
         clearLog();
         for (String item : list) {
-            Files.write(CaminhoHelper.FILE_TARGET_INFO_DOWNLOADS.toPath(), (item+"\n").getBytes(), StandardOpenOption.APPEND);
+            Files.write(CaminhoHelper.FILE_LOGS_DOWNLOADS.toPath(), (item+"\n").getBytes(), StandardOpenOption.APPEND);
         }
     }
 
