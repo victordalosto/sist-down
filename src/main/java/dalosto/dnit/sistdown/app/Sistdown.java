@@ -24,19 +24,14 @@ public class Sistdown {
      * Inicia um loop com a chamada dos metodos que fazem o sistema funcionar.     <p>
      */
     public void inicia() {
-        try {
-            runLoop();
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.printaMensagem("Problema com o Sistdown. Favor, avisar o vitão.\n\n");
-        }
-    }
-
-
-    private void runLoop() throws Exception {
         while (true) {
-            for (Acao acao : acoes) {
-                acao.run();
+            try {
+                for (Acao acao : acoes) {
+                    acao.run();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                logger.printaMensagem("Problema com o Sistdown. Favor, avisar o vitão.\n\n");
             }
         }
     }
