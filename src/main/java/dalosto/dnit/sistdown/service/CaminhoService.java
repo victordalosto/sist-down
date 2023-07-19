@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CaminhoService {
 
-    public static final File DIR_SISTDOWN_ROOT    = Paths.get("D:", "sist-down2").toFile();
+    public static final File DIR_SISTDOWN_ROOT    = Paths.get("D:", "sist-down").toFile();
     
     public static final File DIR_REDE_VIDEOS = Paths.get("\\\\10.100.10.219", "Videos").toFile();
     public static final File DIR_SISTDOWN_VIDEOS = Paths.get(DIR_SISTDOWN_ROOT.toString(), "Videos").toFile();
