@@ -35,19 +35,21 @@ public class RecursosHandler {
             public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
                 String fileIsValid = file.toString().toLowerCase();
                 if (validFiles(fileIsValid)) {
-                        Files.copy(file, target.resolve(source.relativize(file)), options);
-                    }
+                    Files.copy(file, target.resolve(source.relativize(file)), options);
+                }
                 return FileVisitResult.CONTINUE;
             }
 
 
             private boolean validDirectory(String pasta) {
+                pasta = pasta.toLowerCase();
                 return !pasta.endsWith("geo") && !pasta.endsWith("irap") && !pasta.endsWith("rinex") &&
-                       !pasta.endsWith("arquivos") && !pasta.endsWith("DadosBrutos");
+                       !pasta.endsWith("arquivos") && !pasta.endsWith("dadosbrutos");
             }
 
 
             private boolean validFiles(String arquivo) {
+                arquivo = arquivo.toLowerCase();
                 return arquivo.endsWith(".mp4")  || arquivo.endsWith(".avi") || arquivo.endsWith(".flv") || 
                        arquivo.endsWith(".jpeg") || arquivo.endsWith(".jpg") || arquivo.endsWith(".png") || 
                        arquivo.endsWith("logstrecho.xml");

