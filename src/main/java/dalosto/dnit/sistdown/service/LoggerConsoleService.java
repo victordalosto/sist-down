@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-public class LoggerConsoleService {
+public final class LoggerConsoleService {
 
     @Autowired
     private ArquivoService arquivoService;
@@ -34,7 +34,7 @@ public class LoggerConsoleService {
 
     private void printaCabecalho() {
         if (Util.ehAPrimeiraVezRodandoOPrograma()) {
-            System.out.println("\n SISTDOWN");
+            System.out.println("\n SISTDOWN -  v2.5.0");
         } else {
             System.out.println("\n\n Downloads finalizados..");
         }

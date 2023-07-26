@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-public class HTTPService {
+public final class HTTPService {
 
     public String obtemTokenValidacao() throws IOException, InterruptedException {
         HttpClient client = HttpClient.newBuilder().build();
@@ -18,6 +18,7 @@ public class HTTPService {
                                          .GET()
                                          .build();
         HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
+        System.out.println(response.body());
         return response.body();
     }
 

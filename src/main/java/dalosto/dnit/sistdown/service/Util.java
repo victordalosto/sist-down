@@ -4,7 +4,7 @@ package dalosto.dnit.sistdown.service;
  *  Classe Util contendo métodos estáticos utilitários. <p>
  *  Funções gerais utilizadas fora dos contextos das classes construídas.  
  */
-public class Util {
+public final class Util {
 
     private static boolean primeiraInicializacao = true;
 

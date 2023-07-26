@@ -2,7 +2,7 @@ package dalosto.dnit.sistdown.domain;
 import static dalosto.dnit.sistdown.service.Util.textoEhValido;
 
 
-public class InputArgsModel {
+public final class InputArgsModel {
 
     private boolean status = false;
     private String args = "";

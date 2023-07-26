@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(of = "id")
-public class Trecho {
+public final class Trecho {
 
     private String id;
     private String uf;
@@ -46,7 +46,7 @@ public class Trecho {
 
 
     public String saveFormat() {
-        return id+";"+uf+";"+br;
+        return id+";"+uf+";"+br+"\n";
     }
 
 }

@@ -22,7 +22,7 @@ import dalosto.dnit.sistdown.service.LoggerConsoleService;
  */
 @Component
 @Order(9)
-public class HandleDownload extends Acao {
+public final class HandleDownload extends Acao {
 
     @Autowired
     private LoggerConsoleService loggerConsoleService;

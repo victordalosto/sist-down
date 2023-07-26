@@ -21,7 +21,7 @@ import dalosto.dnit.sistdown.service.LoggerConsoleService;
  */
 @Component
 @Order(3)
-public class Atualizacao extends Acao {
+public final class Atualizacao extends Acao {
 
     @Autowired
     private LoggerConsoleService loggerConsoleService;

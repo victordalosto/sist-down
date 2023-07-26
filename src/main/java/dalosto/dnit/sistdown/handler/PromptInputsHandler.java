@@ -17,7 +17,7 @@ import dalosto.dnit.sistdown.service.LoggerConsoleService;
  * Classe que guarda os inputs digitados na Action Prompt.
  */
 @Component
-public class PromptInputsHandler {
+public final class PromptInputsHandler {
     
     @Autowired
     private LoggerConsoleService loggerConsoleService;

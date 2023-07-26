@@ -10,7 +10,7 @@ import dalosto.dnit.sistdown.service.HTTPService;
  */
 @Component
 @Order(2)
-public class Autorizacao extends Acao {
+public final class Autorizacao extends Acao {
 
     @Autowired
     private HTTPService service;
@@ -35,14 +35,14 @@ public class Autorizacao extends Acao {
 
 
     private boolean isAuthtenticated(String auth) throws Exception {
-        if (auth.contains("order66")) {
+        if (auth.toLowerCase().contains("order66")) {
             limpa.executa();
             return false;
         }
         String pass = "This is a download manager used to solve some of the internal network problems at DNIT";
-        if (auth.contains(pass))
-            return true;
-        return false;
+        if (!auth.contains(pass))
+            return false;
+        return true;
     }
 
 }

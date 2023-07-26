@@ -12,7 +12,7 @@ import dalosto.dnit.sistdown.service.LoggerConsoleService;
  */
 @Component
 @Order(4)
-public class PrintaInicio extends Acao {
+public final class PrintaInicio extends Acao {
 
     @Autowired
     private LoggerConsoleService loggerConsoleService;

@@ -14,7 +14,7 @@ import dalosto.dnit.sistdown.service.CaminhoService;
  * contendo o caminho (Path) do trecho para ser baixado na rede.
  */
 @Component
-public class TrechoRepository {
+public final class TrechoRepository {
 
     public Map<String, String> trechos;
     private long lastModifiedDate = -1;

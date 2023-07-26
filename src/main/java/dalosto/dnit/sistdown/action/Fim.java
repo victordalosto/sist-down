@@ -9,7 +9,7 @@ import dalosto.dnit.sistdown.service.Util;
  */
 @Component
 @Order(100)
-public class Fim extends Acao {
+public final class Fim extends Acao {
 
        
     @Override

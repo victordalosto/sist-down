@@ -24,7 +24,7 @@ import dalosto.dnit.sistdown.service.LoggerConsoleService;
  */
 @Component
 @Order(6)
-public class HandleApaga extends Acao {
+public final class HandleApaga extends Acao {
 
     @Autowired
     private LoggerConsoleService loggerConsoleService;
@@ -61,7 +61,7 @@ public class HandleApaga extends Acao {
                                        trechoRepository.getPath(trecho.getId())).toFile());
                 loggerConsoleService.printaMensagem(trecho + " deletado.");
             }
-            arquivoService.recriaLogs(trechos);
+            arquivoService.deletaTrechosDoLogs(trechos);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

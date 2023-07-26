@@ -12,7 +12,7 @@ import dalosto.dnit.sistdown.handler.PromptInputsHandler;
  */
 @Component
 @Order(5)
-public class Prompt extends Acao {
+public final class Prompt extends Acao {
 
     @Autowired
     private PromptInputsHandler promptInputsHandler;

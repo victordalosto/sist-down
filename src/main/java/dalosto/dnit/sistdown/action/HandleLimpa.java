@@ -18,7 +18,7 @@ import dalosto.dnit.sistdown.service.LoggerConsoleService;
  */
 @Component
 @Order(8)
-public class HandleLimpa extends Acao {
+public final class HandleLimpa extends Acao {
 
     @Autowired
     private LoggerConsoleService loggerConsoleService;

@@ -13,13 +13,13 @@ import dalosto.dnit.sistdown.service.LoggerConsoleService;
  * Classe contendo Callable Task, permitindo que a aplicação faça o Download em
  * diferentes Threads.
  */
-public class TarefaDownload implements Callable<Void> {
+public final class TarefaDownload implements Callable<Void> {
 
-    String idTrecho;
-    String caminho;
-    LoggerConsoleService loggerConsoleService;
-    ArquivoService arquivoService;
-    RecursosHandler recursosHandler;
+    private String idTrecho;
+    private String caminho;
+    private LoggerConsoleService loggerConsoleService;
+    private ArquivoService arquivoService;
+    private RecursosHandler recursosHandler;
 
 
     public TarefaDownload(String idTrecho, String caminho, LoggerConsoleService loggerConsoleService,

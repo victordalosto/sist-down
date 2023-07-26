@@ -12,7 +12,7 @@ import dalosto.dnit.sistdown.service.CaminhoService;
  */
 @Component
 @Order(1)
-public class Inicializacao extends Acao {
+public final class Inicializacao extends Acao {
 
     @Autowired
     private CaminhoService caminhoService;

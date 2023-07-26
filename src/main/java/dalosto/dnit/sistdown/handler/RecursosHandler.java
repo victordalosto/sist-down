@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-public class RecursosHandler {
+public final class RecursosHandler {
 
     
     /**

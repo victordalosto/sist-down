@@ -10,17 +10,17 @@ import dalosto.dnit.sistdown.domain.Trecho;
 
 
 @Component
-public class ArquivoService {
+public final class ArquivoService {
 
     public synchronized List<Trecho> getTrechosBaixados() throws IOException {
-        List<String> lines = Files.readAllLines(CaminhoService.SISTDOWN_LOGS_DOWNLOADS.toPath());
+        var lines = Files.readAllLines(CaminhoService.SISTDOWN_LOGS_DOWNLOADS.toPath());
         return Trecho.factory(lines);
     }
 
 
     public synchronized void saveTrechoBaixado(Trecho trecho) throws IOException {
         Files.write(CaminhoService.SISTDOWN_LOGS_DOWNLOADS.toPath(), 
-                    (trecho.saveFormat()+"\n").getBytes(), 
+                    (trecho.saveFormat()).getBytes(), 
                     StandardOpenOption.APPEND);
     }
 
@@ -45,12 +45,11 @@ public class ArquivoService {
 
 
     private synchronized boolean ehUnico(Trecho trecho) throws IOException {
-        List<Trecho> trechos = getTrechosBaixados();
-        return !trechos.contains(trecho);
+        return !getTrechosBaixados().contains(trecho);
     }
 
 
-    public synchronized void recriaLogs(List<Trecho> trechosDeletados) throws IOException {
+    public synchronized void deletaTrechosDoLogs(List<Trecho> trechosDeletados) throws IOException {
         var trechosBaixados = getTrechosBaixados();
         trechosBaixados.removeAll(trechosDeletados);
         clearTrechosBaixados();
