@@ -25,6 +25,16 @@ public final class ArquivoService {
     }
 
 
+    public synchronized void deletaTrechosDoLogs(List<Trecho> trechosDeletados) throws IOException {
+        var trechosBaixados = getTrechosBaixados();
+        trechosBaixados.removeAll(trechosDeletados);
+        clearTrechosBaixados();
+        for (Trecho trecho : trechosBaixados) {
+            saveTrechoBaixado(trecho);
+        }
+    }
+
+
     public synchronized void clearTrechosBaixados() throws IOException {
         FileWriter f = new FileWriter(CaminhoService.SISTDOWN_LOGS_DOWNLOADS, false);
         f.close();
@@ -37,6 +47,11 @@ public final class ArquivoService {
         String br = hash.substring(0, 3);
         String append = idTrecho+";"+uf+";"+br;
         Trecho trecho = new Trecho(append);
+        return logaTrechoBaixado(trecho);
+    }
+
+    
+    public synchronized String logaTrechoBaixado(Trecho trecho) throws IOException {
         if (ehUnico(trecho)) {
             saveTrechoBaixado(trecho);
         }
@@ -46,16 +61,6 @@ public final class ArquivoService {
 
     private synchronized boolean ehUnico(Trecho trecho) throws IOException {
         return !getTrechosBaixados().contains(trecho);
-    }
-
-
-    public synchronized void deletaTrechosDoLogs(List<Trecho> trechosDeletados) throws IOException {
-        var trechosBaixados = getTrechosBaixados();
-        trechosBaixados.removeAll(trechosDeletados);
-        clearTrechosBaixados();
-        for (Trecho trecho : trechosBaixados) {
-            saveTrechoBaixado(trecho);
-        }
     }
 
 }
