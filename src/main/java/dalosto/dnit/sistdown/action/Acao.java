@@ -19,9 +19,9 @@ public abstract class Acao {
     }
 
 
-    protected abstract void executa() throws Exception ;
-
     protected abstract boolean isCalled();
+
+    protected abstract void executa() throws Exception ;
 
     
 }

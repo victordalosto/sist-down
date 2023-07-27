@@ -11,7 +11,7 @@ import dalosto.dnit.sistdown.service.LoggerConsoleService;
  * Para iniciar o sistema, basta rodar o método estático: iniciar()
  */
 @Component
-public class Sistdown {
+public final class Sistdown {
 
     @Autowired
     private List<Acao> acoes;

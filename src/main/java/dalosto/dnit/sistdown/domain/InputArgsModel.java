@@ -1,24 +1,17 @@
 package dalosto.dnit.sistdown.domain;
 import static dalosto.dnit.sistdown.service.Util.textoEhValido;
+import lombok.Getter;
+import lombok.Setter;
 
 
 public final class InputArgsModel {
 
+    @Getter @Setter
     private boolean status = false;
+
+    @Getter
     private String args = "";
 
-
-    public boolean foiSolicitado() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-    public String getArgs() {
-        return args;
-    }
     
     public void setArgs(String args) {
         if (textoEhValido(args)) {

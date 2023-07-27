@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -62,10 +61,10 @@ public final class PromptInputsHandler {
     }
 
 
-    public InputArgsModel verificaSeFoiSolicitado(Predicate<String> condicao) {
+    public InputArgsModel verificaSeFoiSolicitado(TagsConfiguracao tag) {
         InputArgsModel inputArgsModel = new InputArgsModel();
         for(var input : inputs) {
-            if (condicao.test(input)) {
+            if (TagsConfiguracao.textEhUmaTag(input, tag)) {
                 inputArgsModel.setStatus(true);
                 inputArgsModel.setArgs(TagsConfiguracao.removeTagFromString(input));
                 break;

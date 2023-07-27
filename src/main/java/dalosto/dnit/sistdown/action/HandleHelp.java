@@ -16,14 +16,13 @@ import dalosto.dnit.sistdown.handler.PromptInputsHandler;
 public final class HandleHelp extends Acao {
 
     @Autowired
-    private PromptInputsHandler promptInputsHandler;
+    private PromptInputsHandler prompt;
 
 
     @Override
     public boolean isCalled() {
-        InputArgsModel input = promptInputsHandler.verificaSeFoiSolicitado(
-                               (txt) -> TagsConfiguracao.textEhUmaTag(txt, TagsConfiguracao.AJUDA));
-        return input.foiSolicitado();
+        InputArgsModel input = prompt.verificaSeFoiSolicitado(TagsConfiguracao.AJUDA);
+        return input.isStatus();
     }
 
 

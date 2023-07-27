@@ -36,24 +36,22 @@ public final class HandleApaga extends Acao {
     private RecursosHandler recursosHandler;
 
     @Autowired
-    private PromptInputsHandler promptInputsHandler;
+    private PromptInputsHandler prompt;
 
     @Autowired
     private TrechoRepository trechoRepository;
 
     @Override
     public boolean isCalled() {
-        InputArgsModel input = promptInputsHandler.verificaSeFoiSolicitado(
-                                            (txt) -> TagsConfiguracao.textEhUmaTag(txt, TagsConfiguracao.APAGA));
-        return input.foiSolicitado();
+        InputArgsModel input = prompt.verificaSeFoiSolicitado(TagsConfiguracao.APAGA);
+        return input.isStatus();
     }
 
 
     @Override
     public void executa() throws Exception {
         try {
-            InputArgsModel input = promptInputsHandler.verificaSeFoiSolicitado(
-                                            (txt) -> TagsConfiguracao.textEhUmaTag(txt, TagsConfiguracao.APAGA));
+            InputArgsModel input = prompt.verificaSeFoiSolicitado(TagsConfiguracao.APAGA);
             int quantidadeDeTrechosParaRemover = getQuantidadeDeTrechosParaRemover(input);
             var trechos = getTrechos(quantidadeDeTrechosParaRemover);
             for (var trecho : trechos) {

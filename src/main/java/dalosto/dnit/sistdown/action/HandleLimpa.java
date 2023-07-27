@@ -30,14 +30,13 @@ public final class HandleLimpa extends Acao {
     private RecursosHandler recursosHandler;
 
     @Autowired
-    private PromptInputsHandler promptInputsHandler;
+    private PromptInputsHandler prompt;
 
 
     @Override
     public boolean isCalled() {
-        InputArgsModel input = promptInputsHandler.verificaSeFoiSolicitado(
-                               (txt) -> TagsConfiguracao.textEhUmaTag(txt, TagsConfiguracao.LIMPA));
-        return input.foiSolicitado();
+        InputArgsModel input = prompt.verificaSeFoiSolicitado(TagsConfiguracao.LIMPA);
+        return input.isStatus();
     }
 
 
