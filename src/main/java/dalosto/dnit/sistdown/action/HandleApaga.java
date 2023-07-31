@@ -41,9 +41,10 @@ public final class HandleApaga extends Acao {
     @Autowired
     private TrechoRepository trechoRepository;
 
+
     @Override
     public boolean isCalled() {
-        InputArgsModel input = prompt.verificaSeFoiSolicitado(TagsConfiguracao.APAGA);
+        var input = prompt.verificaSeFoiSolicitado(TagsConfiguracao.APAGA);
         return input.isStatus();
     }
 
@@ -51,6 +52,7 @@ public final class HandleApaga extends Acao {
     @Override
     public void executa() throws Exception {
         try {
+            Integer.valueOf("3");
             InputArgsModel input = prompt.verificaSeFoiSolicitado(TagsConfiguracao.APAGA);
             int quantidadeDeTrechosParaRemover = getQuantidadeDeTrechosParaRemover(input);
             var trechos = getTrechos(quantidadeDeTrechosParaRemover);
