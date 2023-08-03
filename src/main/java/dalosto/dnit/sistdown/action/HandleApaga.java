@@ -55,7 +55,7 @@ public final class HandleApaga extends Acao {
             int quantidadeDeTrechosParaRemover = getQuantidadeDeTrechosParaRemover(input);
             var trechos = getTrechos(quantidadeDeTrechosParaRemover);
             for (var trecho : trechos) {
-                recursosHandler.delete(Paths.get(CaminhoService.DIR_SISTDOWN_VIDEOS.toString(),       
+                recursosHandler.delete(Paths.get(CaminhoService.DIR_SISTDOWN_VIDEOS.toString(),
                                        trechoRepository.getPath(trecho.getId())).toFile());
                 loggerConsoleService.printaMensagem(trecho + " deletado.");
             }
@@ -63,7 +63,6 @@ public final class HandleApaga extends Acao {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
     }
 
 
