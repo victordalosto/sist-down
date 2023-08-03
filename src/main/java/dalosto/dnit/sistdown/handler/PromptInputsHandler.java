@@ -63,10 +63,10 @@ public final class PromptInputsHandler {
 
     public InputArgsModel verificaSeFoiSolicitado(TagsConfiguracao tag) {
         InputArgsModel inputArgsModel = new InputArgsModel();
-        for(var input : inputs) {
+        for(var input : this.inputs) {
             if (TagsConfiguracao.textEhUmaTag(input, tag)) {
                 inputArgsModel.setStatus(true);
-                inputArgsModel.setArgs(TagsConfiguracao.removeTagFromString(input));
+                inputArgsModel.setArgs(TagsConfiguracao.getTagFromString(input));
                 break;
             }
         }

@@ -13,7 +13,7 @@ public enum TagsConfiguracao {
      */
     public static boolean textEhUmaTag(String text) {
         for (TagsConfiguracao tag : TagsConfiguracao.values()) {
-            if (text.toUpperCase().contains(tag.toString())) {
+            if (textEhUmaTag(text, tag)) {
                 return true;
             }
         }
@@ -32,7 +32,7 @@ public enum TagsConfiguracao {
     }
 
     
-    public static String removeTagFromString(String text) {
+    public static String getTagFromString(String text) {
         for (TagsConfiguracao tag : TagsConfiguracao.values()) {
             text = text.toUpperCase().replaceAll(tag.toString(), "");
         }
