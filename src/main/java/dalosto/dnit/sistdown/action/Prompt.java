@@ -16,8 +16,8 @@ public final class Prompt extends Acao {
 
     @Autowired
     private PromptInputsHandler promptInputsHandler;
-    
-       
+
+
     @Override
     public boolean isCalled() {
         return true;
@@ -25,7 +25,7 @@ public final class Prompt extends Acao {
 
 
     @Override
-    public void executa() throws Exception {
+    public void executaCLI() throws Exception {
         promptInputsHandler.obtemInputs();
     }
 

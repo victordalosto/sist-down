@@ -41,7 +41,7 @@ public final class HandleLimpa extends Acao {
 
 
     @Override
-    public void executa() throws Exception {
+    public void executaCLI() throws Exception {
         arquivoService.clearTrechosBaixados();
         limpaPastaDownloads();
     }

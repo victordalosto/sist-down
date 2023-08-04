@@ -35,7 +35,7 @@ public final class HandleHelp extends Acao {
 
 
     @Override
-    public void executa() throws Exception {
+    public void executaCLI() throws Exception {
         System.out.println("==============================================");
         System.out.println();
         System.out.println(" COMANDOS:");

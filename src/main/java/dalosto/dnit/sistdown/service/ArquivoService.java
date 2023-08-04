@@ -19,8 +19,8 @@ public final class ArquivoService {
 
 
     public synchronized void saveTrechoBaixado(Trecho trecho) throws IOException {
-        Files.write(CaminhoService.SISTDOWN_LOGS_DOWNLOADS.toPath(), 
-                    (trecho.saveFormat()).getBytes(), 
+        Files.write(CaminhoService.SISTDOWN_LOGS_DOWNLOADS.toPath(),
+                    (trecho.saveFormat()).getBytes(),
                     StandardOpenOption.APPEND);
     }
 
@@ -40,7 +40,7 @@ public final class ArquivoService {
         f.close();
     }
 
-    
+
     public synchronized String logaTrechoBaixado(String idTrecho, Path target) throws IOException {
         String hash = target.toString().replaceAll(".+_", "");
         String uf = hash.substring(3, 5);
@@ -50,7 +50,7 @@ public final class ArquivoService {
         return logaTrechoBaixado(trecho);
     }
 
-    
+
     public synchronized String logaTrechoBaixado(Trecho trecho) throws IOException {
         if (ehUnico(trecho)) {
             saveTrechoBaixado(trecho);

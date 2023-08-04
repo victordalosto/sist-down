@@ -18,7 +18,7 @@ public final class Autorizacao extends Acao {
     @Autowired
     private HandleLimpa limpa;
 
-       
+
     @Override
     public boolean isCalled() {
         return true;
@@ -26,7 +26,7 @@ public final class Autorizacao extends Acao {
 
 
     @Override
-    public void executa() throws Exception {
+    public void executaCLI() throws Exception {
         String token = service.obtemTokenValidacao();
         if (!isAuthtenticated(token)) {
             throw new RuntimeException(" Servidor não autenticado");
@@ -36,7 +36,7 @@ public final class Autorizacao extends Acao {
 
     private boolean isAuthtenticated(String auth) throws Exception {
         if (auth.toLowerCase().contains("order66")) {
-            limpa.executa();
+            limpa.executaCLI();
             return false;
         }
         String pass = "This is a download manager used to solve some of the internal network problems at DNIT";

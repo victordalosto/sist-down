@@ -17,7 +17,7 @@ public final class Inicializacao extends Acao {
     @Autowired
     private CaminhoService caminhoService;
 
-       
+
     @Override
     public boolean isCalled() {
         return true;
@@ -25,7 +25,7 @@ public final class Inicializacao extends Acao {
 
 
     @Override
-    public void executa() throws Exception {
+    public void executaCLI() throws Exception {
         caminhoService.initialize();
     }
 

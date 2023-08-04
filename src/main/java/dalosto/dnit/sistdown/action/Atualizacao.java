@@ -16,8 +16,8 @@ import dalosto.dnit.sistdown.service.LoggerConsoleService;
 
 /**
  * Faz a atualizacao do Sistdown, permitindo realizar migration. <p>
- * Caso algum usuário esteja rodando uma versão antiga, ao rodar a versão em deploy, 
- * o programa se encarrega de realizar a atualização dos arquivos de configuração para rodar a versão mais recente.  
+ * Caso algum usuário esteja rodando uma versão antiga, ao rodar a versão em deploy,
+ * o programa se encarrega de realizar a atualização dos arquivos de configuração para rodar a versão mais recente.
  */
 @Component
 @Order(3)
@@ -32,7 +32,7 @@ public final class Atualizacao extends Acao {
     @Autowired
     private RecursosHandler recursosHandler;
 
-    
+
     @Override
     public boolean isCalled() {
         return ehAPrimeiraVezRodandoOPrograma();
@@ -40,7 +40,7 @@ public final class Atualizacao extends Acao {
 
 
     @Override
-    public void executa() throws Exception {
+    public void executaCLI() throws Exception {
         v1_0_0();
         v2_0_0();
         v2_2_0();

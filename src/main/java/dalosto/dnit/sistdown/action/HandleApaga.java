@@ -50,21 +50,30 @@ public final class HandleApaga extends Acao {
 
 
     @Override
-    public void executa() throws Exception {
+    public void executaCLI() throws Exception {
         try {
-            Integer.valueOf("3");
             InputArgsModel input = prompt.verificaSeFoiSolicitado(TagsConfiguracao.APAGA);
             int quantidadeDeTrechosParaRemover = getQuantidadeDeTrechosParaRemover(input);
-            var trechos = getTrechos(quantidadeDeTrechosParaRemover);
-            for (var trecho : trechos) {
-                recursosHandler.delete(Paths.get(CaminhoService.DIR_SISTDOWN_VIDEOS.toString(),
-                                       trechoRepository.getPath(trecho.getId())).toFile());
-                loggerConsoleService.printaMensagem(trecho + " deletado.");
-            }
-            arquivoService.deletaTrechosDoLogs(trechos);
+            executa(quantidadeDeTrechosParaRemover);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public void executa(int quantidadeDeTrechosParaRemover) throws IOException, FileNotFoundException {
+        var trechos = getTrechos(quantidadeDeTrechosParaRemover);
+        for (var trecho : trechos) {
+            try {
+                recursosHandler.delete(Paths.get(CaminhoService.DIR_SISTDOWN_VIDEOS.toString(),
+                                       trechoRepository.getPath(trecho.getId())).toFile());
+                loggerConsoleService.printaMensagem(trecho + " deletado.");
+            } catch (NullPointerException e) {
+                loggerConsoleService.printaMensagem("\n\nNão foi possível deletar o trecho " + trecho);
+                loggerConsoleService.printaMensagem("Por favor, execute o comando limpa");
+            }
+        }
+        arquivoService.deletaTrechosDoLogs(trechos);
     }
 
 

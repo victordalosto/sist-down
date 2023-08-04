@@ -17,7 +17,7 @@ import dalosto.dnit.sistdown.service.LoggerConsoleService;
 /**
  * Funcionalidade - Download <p>
  * Classe que faz o download dos vídeos da rede para a maquina local. <p>
- * Caso o usuário faça a alteração de contexto, o sistema é capaz de 
+ * Caso o usuário faça a alteração de contexto, o sistema é capaz de
  * migrar o target da aplicação para trabalhar com a rede e continuar baixando os vídeos.
  */
 @Component
@@ -29,7 +29,7 @@ public final class HandleDownload extends Acao {
 
     @Autowired
     private ArquivoService arquivoService;
-    
+
     @Autowired
     private RecursosHandler recursosHandler;
 
@@ -40,7 +40,7 @@ public final class HandleDownload extends Acao {
     private TrechoRepository trechoRepository;
 
     private ExecutorService executorService = Executors.newFixedThreadPool(1);
- 
+
 
     @Override
     public boolean isCalled() {
@@ -52,7 +52,7 @@ public final class HandleDownload extends Acao {
      * Faz o download dos trechos na maquina local.
      */
     @Override
-    public void executa() throws Exception {
+    public void executaCLI() throws Exception {
         Set<String> idsParaBaixar = promptInputsHandler.obtemIdsDigitados();
         loggerConsoleService.printaMensagem("... Iniciando o download dos trechos");
         Set<TarefaDownload> listaParaBaixar = new HashSet<>();
@@ -64,7 +64,7 @@ public final class HandleDownload extends Acao {
             } else if(!trechosBaixadosNesseLoop.contains(caminho)) {
                 trechosBaixadosNesseLoop.add(caminho);
                 listaParaBaixar.add(new TarefaDownload(id, caminho, loggerConsoleService, arquivoService, recursosHandler));
-            } 
+            }
         }
         executorService.invokeAll(listaParaBaixar);
     }

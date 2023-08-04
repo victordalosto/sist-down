@@ -17,7 +17,7 @@ public final class PrintaInicio extends Acao {
     @Autowired
     private LoggerConsoleService loggerConsoleService;
 
-       
+
     @Override
     public boolean isCalled() {
         return true;
@@ -25,7 +25,7 @@ public final class PrintaInicio extends Acao {
 
 
     @Override
-    public void executa() throws Exception {
+    public void executaCLI() throws Exception {
         loggerConsoleService.printaMensagemInicio();
     }
 

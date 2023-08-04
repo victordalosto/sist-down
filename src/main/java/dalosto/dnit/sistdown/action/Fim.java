@@ -11,7 +11,7 @@ import dalosto.dnit.sistdown.service.Util;
 @Order(100)
 public final class Fim extends Acao {
 
-       
+
     @Override
     public boolean isCalled() {
         return true;
@@ -19,8 +19,8 @@ public final class Fim extends Acao {
 
 
     @Override
-    public void executa() throws Exception {
+    public void executaCLI() throws Exception {
         Util.reiniciaOPrograma();
     }
-    
+
 }

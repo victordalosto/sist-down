@@ -2,8 +2,8 @@ package dalosto.dnit.sistdown.action;
 
 
 /**
- * Interface Acao usada para chamada de metodos usando o 
- * Chain of responsability em conjunto com os Design Pattern 
+ * Interface Acao usada para chamada de metodos usando o
+ * Chain of responsability em conjunto com os Design Pattern
  * de Strategy e Template Method.
  */
 public abstract class Acao {
@@ -14,14 +14,14 @@ public abstract class Acao {
      */
     public final void run() throws Exception {
         if (isCalled()) {
-            executa();
+            executaCLI();
         }
     }
 
 
     protected abstract boolean isCalled();
 
-    protected abstract void executa() throws Exception ;
+    protected abstract void executaCLI() throws Exception ;
 
-    
+
 }
