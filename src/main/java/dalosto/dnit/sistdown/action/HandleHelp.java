@@ -1,6 +1,5 @@
 package dalosto.dnit.sistdown.action;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import dalosto.dnit.sistdown.domain.InputArgsModel;
@@ -26,14 +25,6 @@ public final class HandleHelp extends Acao {
         return input.isStatus();
     }
 
-    @Value("${sistdown.root.path}")
-    private String rootPath;
-
-
-    @Value("${sistdown.rede.path}")
-    private String redePath;
-
-
     @Override
     public void executaCLI() throws Exception {
         System.out.println("==============================================");
@@ -49,7 +40,7 @@ public final class HandleHelp extends Acao {
         System.out.println(" Para colocar o sistlev na rede ou na local, siga os seguinte passo a passo:");
         System.out.println("  (i)   Abre a pasta do sistlev : Botao direito no sist-lev: 'Abrir local do arquivo'");
         System.out.println("  (ii)  Edite o arquivo: SistLevEscritorio.exe.config");
-        System.out.println("  (iii) Altene [\"raizVideos\" value=] entre  " + redePath + "   ou   " + rootPath);
+        System.out.println("  (iii) Altene [\"raizVideos\" value=] entre  " + "D:\\sist-down\\Videos" + "   ou   " + "\\\\10.100.10.219\\Videos");
     }
 
 
