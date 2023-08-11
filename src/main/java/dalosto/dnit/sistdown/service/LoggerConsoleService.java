@@ -15,7 +15,7 @@ public final class LoggerConsoleService {
         System.out.println(" * " + text);
     }
 
-    
+
     public void pulaLinha(int qtd) {
         for (int i = 0; i < qtd; i++) {
             System.out.println();
@@ -34,7 +34,7 @@ public final class LoggerConsoleService {
 
     private void printaCabecalho() {
         if (Util.ehAPrimeiraVezRodandoOPrograma()) {
-            System.out.println("\n SISTDOWN -  v2.5.0");
+            System.out.println("\n SISTDOWN -  v2.6.0");
         } else {
             System.out.println("\n\n Downloads finalizados..");
         }
