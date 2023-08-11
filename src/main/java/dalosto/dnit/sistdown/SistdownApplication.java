@@ -14,7 +14,7 @@ public class SistdownApplication {
 
 
 	@PostConstruct
-	public void initSistdown() {
+	public void initSistdown() throws Exception {
 		sistdown.inicia();
 	}
 

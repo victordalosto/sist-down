@@ -1,8 +1,8 @@
 <h1 align="center">Sist-down</h1>
 
-<b>Sist-down</b> is a <b>Download Manager</b> and <b>Proxy Application</b> that was created to solve issues of intranet network infrastructure. Thiss was a program created in one day to solve some of the internal network problems at DNIT (National Department of Infrastructure and Transport).
+<b>Sist-down</b> is a <b>Download Manager</b> and <b>Proxy Application</b> that was created to solve issues of intranet network infrastructure. This was a program created in one day to solve some of the internal network problems at DNIT (National Department of Infrastructure and Transport).
 
-The engineering team was facing difficulties visualizing and evaluating the products (images and videos) stored on the servers due to a high flow of requests. 
+The engineering team was facing difficulties visualizing and evaluating the products (images and videos) stored on the servers due to a high flow of requests.
 
 Sist-down solved this problem by allowing videos and images to be scheduled for download and stored on each engineer's local machine, following their workflow and schedule, and taking into account each machine's local storage capacity.
 
@@ -10,7 +10,7 @@ Sist-down solved this problem by allowing videos and images to be scheduled for 
 ![how-it-works](https://github.com/victordalosto/sist-down/blob/master/documentation/assets/how-it-works.png?raw=true)
 
 ## Features
-Sist-down has been revamped to include a range of new features, such as automatic system restart, context switching between local and network, and deployment on a shared machine to facilitate maintenance, among others. The code has been refactored, and the functionality presentation in the visual layer has been restructured. A local database has also been created to manage the available endpoints. 
+Sist-down has been revamped to include a range of new features, such as automatic system restart, context switching between local and network, and deployment on a shared machine to facilitate maintenance, among others. The code has been refactored, and the functionality presentation in the visual layer has been restructured. A local database has also been created to manage the available endpoints.
 
 Overall, Sist-down is an efficient and user-friendly download manager that solves the challenges faced by the engineering team at DNIT, making it easier to evaluate and visualize products stored on their servers.
 

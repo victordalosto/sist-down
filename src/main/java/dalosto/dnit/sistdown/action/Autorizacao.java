@@ -39,7 +39,7 @@ public final class Autorizacao extends Acao {
             limpa.executaCLI();
             return false;
         }
-        String pass = "This is a download manager used to solve some of the internal network problems at DNIT";
+        String pass = "This was a program created in one day to solve some of the internal network problems at ";
         if (!auth.contains(pass))
             return false;
         return true;

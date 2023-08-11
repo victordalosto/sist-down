@@ -18,17 +18,25 @@ public final class Sistdown {
 
     @Autowired
     private LoggerConsoleService logger;
-    
+
 
     /**
      * Inicia um loop com a chamada dos metodos que fazem o sistema funcionar.     <p>
+     * @throws InterruptedException
      */
-    public void inicia() {
+    public void inicia() throws Exception {
         while (true) {
             try {
                 for (Acao acao : acoes) {
                     acao.run();
                 }
+            } catch (RuntimeException e) {
+                System.out.println("\n\n");
+                logger.printaMensagem("Sist-down encerrou com erro.");
+                logger.printaMensagem(" Motivo:");
+                logger.printaMensagem(e.getMessage());
+                Thread.sleep(30000l);
+                throw new RuntimeException(e);
             } catch (Exception e) {
                 e.printStackTrace();
                 logger.printaMensagem("Problema com o Sistdown. Favor, avisar o vitão.\n\n");
