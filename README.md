@@ -1,6 +1,6 @@
 <h1 align="center">Sist-down</h1>
 
-<b>Sist-down</b> is a <b>Download Manager</b> and <b>Proxy Application</b> that was created to solve issues of intranet network infrastructure. This program was created in one day to solve some of the internal network problems at DNIT (National Department of Infrastructure and Transport).
+<b>Sist-down</b> is a <b>Download Manager</b> and <b>Proxy Application</b> that was created to solve issues of intranet network infrastructure. This program was created in one day to solve the internal network problems faced at DNIT (National Department of Infrastructure and Transport).
 
 The engineering team was facing difficulties visualizing and evaluating the products (images and videos) stored on the servers due to a high flow of requests.
 
