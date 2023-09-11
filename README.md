@@ -22,4 +22,3 @@ To use Sist-down, the engineering team would open the application, which prompts
 Once the roads are selected, Sist-down schedules the download of the corresponding videos from the database and stores them on the engineer's local machine. From that point on, the application works as a proxy, redirecting the calls from the original content to the locally stored content, which allows for faster and smoother analysis.
 
 The application's easy-to-use interface and streamlined functionality make it a reliable tool for engineering teams looking to improve their workflow and productivity. With Sist-down, the engineering team can efficiently analyze road conditions and make informed decisions without worrying about server overload or download speed issues.
-order66
