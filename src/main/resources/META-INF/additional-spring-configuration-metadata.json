@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "sistdown.root.path",
+    "type": "java.lang.String",
+    "description": "Root path of sistdown"
+  },
+  {
+    "name": "sistdown.rede.path",
+    "type": "java.lang.String",
+    "description": "Root of network"
+  }
+]}
